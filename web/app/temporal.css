@@ -274,3 +274,12 @@
     padding-inline: 0.25rem;
   }
 }
+
+@layer atlas.refinements {
+  .clock-crossing figcaption,
+  .clock-crossing summary {
+    position: relative;
+    z-index: 2;
+    background: var(--paper);
+  }
+}

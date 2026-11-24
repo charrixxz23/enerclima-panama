@@ -166,3 +166,17 @@ Vinculamos la anotación de Tocumen a las 2.403 horas sobre 30,4 °C del registr
 Elegimos 80 px de espacio interior ordinario en escritorio, 48 px en Eventos y 128 px en Metodología. Hacemos Eventos más compacto para leer sus umbrales juntos y damos a Metodología más pausa para sus criterios y limitaciones. En móvil reducimos esos espacios a 48, 32 y 64 px, respectivamente. Diferenciamos también la altura de sus curvas: 128, 80 y 160 px en escritorio. No uniformamos todas las secciones ni usamos alturas elegidas al azar.
 
 Conservamos foco visible, jerarquía de encabezados, tablas y movimiento reducido. Mantenemos el contorno legible sobre ambas superficies y damos al texto térmico del umbral un fondo de papel para conservar el contraste 4,70:1. Usamos content-visibility en las secciones fuera de pantalla; imprimimos su contenido completo. Continuamos exclusivamente con tema claro.
+
+
+### Corrección de la puerta pública de la fase 2
+
+Conservamos la primera medición de cb4f658 en [RENDIMIENTO_FASE2_INICIAL.md](RENDIMIENTO_FASE2_INICIAL.md): 88, 87 y 87, mediana 87 frente a la referencia obligatoria de 92. Medimos TBT de 526 ms, LCP de 1.027 ms, CLS 0 y 62.081 B estimados sin usar. No damos esa medición por aprobada ni reducimos la referencia a 87. También detectamos contraste insuficiente en el pie del reloj cuando la auditoría lo cruza con la máscara de Clima.
+
+Ante ese resultado priorizamos la optimización antes de cerrar la fase. Sustituimos next/image por img nativo dentro del mismo picture estático; conservamos todas sus fuentes, dimensiones y prioridades y retiramos una frontera cliente innecesaria. Generamos las cabeceras inmutables de los perfiles como HTML durante prebuild y las insertamos como bloques opacos para React. Escapamos los valores de la tabla y construimos las cabeceras únicamente con nombres constantes y cifras finitas del JSON conservado; no insertamos HTML de usuarios.
+
+Mantenemos cada iframe dentro de template, sin crear su contexto de navegación al inicio. El componente Motion existente escucha la apertura nativa de details e inserta la tabla una sola vez. Ejecutamos esa mejora incluso con movimiento reducido; esa preferencia solo desactiva la animación. No añadimos otra isla cliente. Conservamos el enlace directo a cada tabla como alternativa si JavaScript está desactivado. Probamos que inicialmente no existan iframes activos ni solicitudes de esas tablas y que sus filas completas aparezcan al abrirlas.
+
+Damos una base de papel al pie y al resumen del reloj para conservar el contraste al cruzar las curvas. Conservamos las primeras corridas, la corrección y las mediciones posteriores con sus prefijos separados en evidencias/rediseno. Volvemos a exigir una mediana pública de al menos 92, con OneDrive activo.
+
+
+En la comprobación local de esta corrección obtenemos TBT de 294 ms, LCP de 960 ms, rendimiento 94 y accesibilidad 100, con cinco scripts iniciales frente a seis. No sustituimos con esta corrida la mediana pública de tres mediciones. Conservamos esa comparación como puerta final.

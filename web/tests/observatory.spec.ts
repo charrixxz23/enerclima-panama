@@ -475,6 +475,7 @@ test("descargamos una sola imagen del campo por visitante", async ({
 test("entrelazamos tres elementos y diferimos las tablas de los perfiles", async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
   const tables: string[] = [];
   page.on("request", (request) => {
     if (/\/data\/profiles\/.*\.html$/.test(request.url()))
@@ -484,6 +485,7 @@ test("entrelazamos tres elementos y diferimos las tablas de los perfiles", async
   await page.goto(home);
   await page.waitForLoadState("networkidle");
   expect(tables).toEqual([]);
+  await expect(page.locator(".profile-details iframe")).toHaveCount(0);
   const ids = [
     "observatorio",
     "clima",
@@ -495,14 +497,16 @@ test("entrelazamos tres elementos y diferimos las tablas de los perfiles", async
     "equipo",
   ];
   for (const id of ids) {
-    await expect(
-      page.locator(`#${id} .profile-details iframe`),
-    ).toHaveAttribute("loading", "lazy");
+    await expect(page.locator(`#${id} .profile-details template`)).toHaveCount(
+      1,
+    );
     await page.locator(`#${id}`).scrollIntoViewIfNeeded();
   }
   await page.locator(".clock-context").scrollIntoViewIfNeeded();
   await expect(page.locator(".clock-context")).toContainText("1.384,9");
-  await expect(page.getByRole("img", { name: "Reloj radial de demanda media por hora" })).toBeVisible();
+  await expect(
+    page.getByRole("img", { name: "Reloj radial de demanda media por hora" }),
+  ).toBeVisible();
   expect(
     await page.locator("main").evaluate((e) => getComputedStyle(e).overflowY),
   ).toBe("visible");
@@ -537,4 +541,13 @@ test("entrelazamos tres elementos y diferimos las tablas de los perfiles", async
       .locator("#metodologia .temporal-content")
       .evaluate((e) => getComputedStyle(e).paddingTop),
   ).toBe("128px");
+  const profile = page.locator("#observatorio .profile-details");
+  await profile.locator("summary").click();
+  await expect(profile.frameLocator("iframe").locator("tbody tr")).toHaveCount(
+    144,
+  );
+  await profile.locator("summary").click();
+  await profile.locator("summary").click();
+  await expect(profile.locator("iframe")).toHaveCount(1);
+  expect(tables).toHaveLength(1);
 });

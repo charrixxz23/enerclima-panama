@@ -1,7 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import manifest from "../public/data/temporal-profiles.json";
 import { asset } from "../lib/dashboard";
-import Cifra from "./cifra";
 export default function TemporalPanel({
   id,
   className = "",
@@ -25,37 +24,16 @@ export default function TemporalPanel({
         } as CSSProperties
       }
     >
-      <figure className="temporal-profile" data-profile-count={profile.n}>
-        <div className="profile-stroke" aria-hidden="true" />
-        <div className="profile-caption">
-          <figcaption>
-            Leemos el perfil temporal de {profile.station} ·{" "}
-            <Cifra tipo="conteo" value={profile.n} /> medias semanales, una cada
-            dos semanas ·{" "}
-            {profile.period === "completo"
-              ? "registro completo"
-              : profile.period === "validacion"
-                ? "validación"
-                : profile.period}
-            . Recorremos <Cifra tipo="temperatura" value={profile.min} /> a{" "}
-            <Cifra tipo="temperatura" value={profile.max} unidad="°C" />.
-          </figcaption>
-          <details className="profile-details">
-            <summary>Consultamos la tabla del perfil</summary>
-            <iframe
-              src={asset(profile.table)}
-              loading="lazy"
-              title={`Tabla del perfil temporal de ${profile.station}, ${id}`}
-            />
-            <p>
-              <a href={asset(profile.table)} target="_blank" rel="noreferrer">
-                Abrimos la tabla completa
-              </a>{" "}
-              · <a href={asset("data/dashboard.json")}>Consultamos el JSON</a>
-            </p>
-          </details>
-        </div>
-      </figure>
+      <figure
+        className="temporal-profile"
+        data-profile-count={profile.n}
+        dangerouslySetInnerHTML={{
+          __html: profile.header.replaceAll(
+            "__BASE_PATH__",
+            process.env.NEXT_PUBLIC_BASE_PATH || "",
+          ),
+        }}
+      />
       <div className="temporal-content">{children}</div>
     </section>
   );

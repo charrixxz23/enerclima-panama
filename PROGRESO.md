@@ -63,3 +63,8 @@ Corregimos el presupuesto a bytes de una imagen seleccionada por visitante, comp
 Implementamos ocho perfiles temporales derivados del JSON preservado, sus máscaras y tablas estáticas diferidas, el reloj entre secciones, el campo a sangre, la cifra marginal de Tocumen y su guía arqueada. Aplicamos una escala de espacio de 48/80/128 px en escritorio para diferenciar Eventos, el ritmo común y Metodología. Conservamos los nueve anclajes y el tema claro.
 
 Comprobamos 21 pruebas unitarias y 13 de navegador durante el desarrollo, incluida la ausencia de scroll horizontal en siete anchuras, el conteo completo de cada tabla y la descarga de una sola imagen del hero. Conservamos la referencia pública inmediatamente anterior de 92 y verificamos la fase publicada antes de cerrar. La meta de 95 sigue sujeta a medición; mantenemos OneDrive activo.
+
+
+### Puerta de rendimiento de la fase 2
+
+La primera publicación cb4f658 obtiene mediana 87 y no aprueba el cierre. Conservamos sus diagnósticos y corregimos el contraste del reloj; priorizamos la reducción del trabajo de hidratación, retiramos el cliente de next/image del hero y mantenemos inertes las tablas de los perfiles hasta abrirlas. Verificamos la corrección contra la referencia 92 antes de dar la fase por cerrada.

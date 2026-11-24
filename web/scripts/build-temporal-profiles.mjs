@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
-import { fmtTemp, fmtFechaLarga } from "../lib/format.ts";
+import { fmtTemp, fmtFechaLarga, fmtConteo } from "../lib/format.ts";
 const base = new URL("../public/", import.meta.url);
 const raw = await readFile(new URL("data/dashboard.json", base));
 const data = JSON.parse(raw);
@@ -121,6 +121,16 @@ for (const [id, station, key, period] of config) {
     stroke: `images/profiles/${id}-stroke.svg`,
     table: `data/profiles/${id}.html`,
   };
+  const exact = (value, formatted) =>
+    `<span class="cifra" data-exact="${value}" title="${value}">${formatted}</span>`;
+  const periodLabel =
+    period === "completo"
+      ? "registro completo"
+      : period === "validacion"
+        ? "validación"
+        : period;
+  profiles[id].header =
+    `<div class="profile-stroke" aria-hidden="true"></div><div class="profile-caption"><figcaption>Leemos el perfil temporal de ${station} · ${exact(rows.length, fmtConteo(rows.length))} medias semanales, una cada dos semanas · ${periodLabel}. Recorremos ${exact(minimum[key], fmtTemp(minimum[key]))} a ${exact(maximum[key], fmtTemp(maximum[key]) + "\u00a0°C")}.</figcaption><details class="profile-details"><summary>Consultamos la tabla del perfil</summary><template><iframe src="__BASE_PATH__/${profiles[id].table}" loading="lazy" title="Tabla del perfil temporal de ${station}, ${id}"></iframe></template><p><a href="__BASE_PATH__/${profiles[id].table}" target="_blank" rel="noreferrer">Abrimos la tabla completa</a> · <a href="__BASE_PATH__/data/dashboard.json">Consultamos el JSON</a></p></details></div>`;
   const body = rows
     .map(
       (row) =>

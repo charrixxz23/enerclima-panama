@@ -20,6 +20,10 @@ test("derivamos cada perfil y su tabla completa del JSON conservado", () => {
         (!profile.until || row.datetime <= profile.until),
     );
     assert.equal(profile.n, rows.length);
+    assert.ok(profile.header.includes(`<template><iframe`));
+    assert.ok(profile.header.includes(`data-exact="${profile.min}"`));
+    assert.ok(profile.header.includes(`data-exact="${profile.max}"`));
+    assert.ok(!profile.header.includes("<script"));
     assert.equal(profile.min, Math.min(...rows.map((row) => row[profile.key])));
     assert.equal(profile.max, Math.max(...rows.map((row) => row[profile.key])));
     const html = file(profile.table).toString();

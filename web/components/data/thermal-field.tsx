@@ -1,4 +1,3 @@
-import Image from "next/image";
 import summary from "../../public/data/thermal-summary.json";
 import art from "../../public/data/thermal-art.json";
 import { asset } from "../../lib/dashboard";
@@ -59,8 +58,7 @@ export default function ThermalField() {
             srcSet={asset("images/thermal-field.avif")}
             type="image/avif"
           />
-          <Image
-            unoptimized
+          <img
             src={asset("images/thermal-field.webp")}
             width={art.width}
             height={art.height}
