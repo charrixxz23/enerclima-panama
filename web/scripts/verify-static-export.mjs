@@ -85,7 +85,7 @@ try {
   const home = await page.goto(`${origin}${basePath}/`);
   if (home?.status() !== 200)
     throw new Error(`home returned ${home?.status()}`);
-  await page.getByRole("heading", { name: /el clima y la energía/i }).waitFor();
+  await page.getByRole("heading", { name: /cuando el clima cambia/i }).waitFor();
 
   const image = await page.request.get(
     `${origin}${basePath}/images/enerclima-logo.svg`,
