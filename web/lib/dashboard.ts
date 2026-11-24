@@ -52,3 +52,8 @@ export const stations = [
   { key: "san", name: "Santiago", temp: "T2M_san", color: "var(--hot)", region: "Veraguas" },
   { key: "dav", name: "David", temp: "T2M_dav", color: "var(--cool)", region: "Chiriquí" },
 ] as const;
+
+export function thermalColor(value:number,values:number[]):string {
+ const fraction=(value-Math.min(...values))/(Math.max(...values)-Math.min(...values)||1);
+ return fraction<.5?`color-mix(in srgb, var(--cool), var(--warm) ${fraction*200}%)`:`color-mix(in srgb, var(--warm), var(--hot) ${(fraction-.5)*200}%)`;
+}
