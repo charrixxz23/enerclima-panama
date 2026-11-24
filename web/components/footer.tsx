@@ -1,3 +1,3 @@
-import { Wind } from "lucide-react";
-import { dashboard as data } from "../lib/data";
-export default function Footer() {return (<footer className="site-footer"><a className="brand" href="#inicio"><span className="brand-mark"><Wind size={18} /></span><span>EnerClima <b>Panamá</b></span></a><p>Inteligencia energética para un futuro sostenible.</p><div><span>Universidad Tecnológica de Panamá</span><span>Proyecto académico · datos históricos</span></div><small>Resultados generados el {new Intl.DateTimeFormat("es-PA", { dateStyle: "long", timeZone: "UTC" }).format(new Date(data.generado))} · análisis v{data.version}</small></footer>);}
+import AtlasMark from "./atlas-mark";
+import {dashboard as data} from "../lib/data";
+export default function Footer(){return <footer className="atlas-footer"><div><AtlasMark/><span>EnerClima Panamá</span></div><p>Leemos la energía desde el territorio.<br /><small>Proyecto académico · datos históricos · versión {data.version}</small></p><a href="#inicio">Volvemos al inicio</a></footer>;}

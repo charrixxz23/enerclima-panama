@@ -1,4 +1,2 @@
-export default function Equipo() {
-
-return (<section className="team-section" id="equipo"><div><p className="eyebrow">08 — EQUIPO</p><h2>Trabajo académico<br /><em>en equipo.</em></h2><p>Universidad Tecnológica de Panamá<br />Facultad de Ingeniería de Sistemas Computacionales<br />Ingeniería Ambiental · Grupo 1SF132 · 2026</p><p>Profesora: Vivian Valenzuela</p></div><div className="team-names"><span>Alejandro Muñoz</span><span>Angie Valdés</span><span>Richard Smith</span><span>Abisai Bellamy</span></div></section>);
-}
+import SectionHeading from "../section-heading";
+export default function Equipo(){return <section id="equipo" className="atlas-section"><SectionHeading index="08" label="Equipo" title="Investigamos en equipo." description="Presentamos nuestro proyecto académico de Ingeniería Ambiental en la Universidad Tecnológica de Panamá."/><div className="team-byline"><p>Facultad de Ingeniería de Sistemas Computacionales<br />Ingeniería Ambiental · Grupo 1SF132<br />Profesora: Vivian Valenzuela</p><ul><li>Alejandro Muñoz</li><li>Angie Valdés</li><li>Richard Smith</li><li>Abisai Bellamy</li></ul></div></section>;}
