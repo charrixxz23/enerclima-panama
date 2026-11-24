@@ -73,7 +73,7 @@ for (const [width, start, end, name] of [
             `${j ? "L" : "M"}${px(x(r))} ${px(base - ((r.demanda_mwh - mn) / (mx - mn)) * 48)}`,
         )
         .join(" ");
-      return `<path d="M${start} ${base}H${end}" stroke="white" opacity=".2"/><path d="${curve}L${px(x(items.at(-1)))} ${base}L${start} ${base}Z" fill="white" opacity=".1"/><path d="${curve}" fill="none" stroke="white" stroke-width="2"/>`;
+      return `<path d="M${start} ${base}H${end}" stroke="white" opacity=".35"/><path d="${curve}L${px(x(items.at(-1)))} ${base}L${start} ${base}Z" fill="white" opacity=".16"/><path d="${curve}" fill="none" stroke="white" stroke-width="3"/>`;
     })
     .join("");
   await writeFile(

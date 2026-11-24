@@ -37,6 +37,20 @@ try {
   await page
     .locator("#eventos")
     .screenshot({ path: path.join(output, "eventos-final.png") });
+  await page.locator("#observatorio .chart-frame").scrollIntoViewIfNeeded();
+  await page
+    .locator("#observatorio .recharts-wrapper")
+    .waitFor({ state: "visible" });
+  await page
+    .locator("#observatorio")
+    .screenshot({ path: path.join(output, "observatorio-final.png") });
+  await page.locator("#clima .chart-frame").scrollIntoViewIfNeeded();
+  await page
+    .locator("#clima .recharts-wrapper")
+    .waitFor({ state: "visible" });
+  await page
+    .locator("#clima .two-plates > div:nth-child(2)")
+    .screenshot({ path: path.join(output, "clima-final.png") });
   console.log("capturas finales guardadas");
 } finally {
   await browser.close();

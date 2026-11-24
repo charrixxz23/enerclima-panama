@@ -86,3 +86,99 @@
     }
   }
 }
+
+@layer atlas.refinements {
+  #observatorio.temporal-panel::before,
+  #clima.temporal-panel::before {
+    background: var(--surface);
+  }
+  #observatorio .data-ledger {
+    gap: var(--s4);
+    margin-bottom: var(--s8);
+    padding: 0;
+    border: 0;
+  }
+  #observatorio .data-ledger > div {
+    padding: var(--s4) var(--s6);
+    border-top: 2px solid var(--cool);
+    background: var(--paper);
+  }
+  #observatorio .data-ledger dt {
+    color: var(--secondary);
+    font-weight: 600;
+    letter-spacing: 0.025em;
+  }
+  #observatorio .data-ledger dd {
+    color: var(--text);
+  }
+  #observatorio .editorial-grid .margin-note {
+    max-width: none;
+    padding: var(--s6);
+    border-left: 3px solid var(--warm);
+    background: var(--paper);
+  }
+  #observatorio .margin-note .caveat {
+    border-left-color: var(--hot);
+    background: var(--surface);
+  }
+  #observatorio .editorial-grid figure.data-piece {
+    padding: clamp(1rem, 2vw, 2rem);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--cool);
+    background: var(--paper);
+  }
+  #observatorio .chart-frame {
+    border: 1px solid var(--rule);
+    background: linear-gradient(180deg, var(--surface), var(--paper));
+  }
+  #clima .two-plates > div:nth-child(2) {
+    padding: clamp(1rem, 2vw, 2rem);
+    border: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  #clima .two-plates > div:nth-child(2) .control-label {
+    color: var(--text);
+    font-weight: 600;
+  }
+  #clima .two-plates > div:nth-child(2) select {
+    min-height: 3.25rem;
+    border-color: var(--cool);
+    background: var(--paper);
+  }
+  #clima .two-plates > div:nth-child(2) figure.data-piece {
+    margin-top: var(--s6);
+    padding: var(--s4);
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  #clima .two-plates > div:nth-child(2) .chart-frame {
+    border: 1px solid var(--rule);
+    background: linear-gradient(180deg, var(--surface), var(--paper));
+  }
+  #clima .two-plates > div:nth-child(2) .association {
+    padding: var(--s4) var(--s6);
+    border-top: 3px solid var(--warm);
+    background: var(--paper);
+  }
+  .monthly-horizon .plate-heading {
+    align-items: end;
+    gap: var(--s2) var(--s6);
+    margin-bottom: var(--s4);
+  }
+  .monthly-horizon .ridge-plate {
+    margin-top: var(--s3);
+    padding: 0.5rem 1rem 0.5rem 3rem;
+    border-left: 3px solid var(--cool);
+    background: linear-gradient(100deg, var(--surface), var(--paper));
+  }
+  .monthly-horizon .data-art {
+    background-color: var(--chart-ridge);
+  }
+  .monthly-horizon .ridge-year {
+    left: 0.65rem;
+    padding: 0.2rem 0.4rem;
+    background: var(--cool);
+    color: var(--paper);
+    font-weight: 600;
+  }
+}

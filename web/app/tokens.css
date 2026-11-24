@@ -1,14 +1,18 @@
 @layer tokens {
   :root {
     color-scheme: light;
-    --paper: #f7f3ea;
-    --surface: #eee8dd;
-    --text: #152421;
-    --secondary: #4e5c58;
-    --rule: #cfc7b9;
-    --cool: #21656b;
-    --warm: #776b5b;
-    --hot: #b43e2e;
+    --paper: #f5f2e9;
+    --surface: #e6eee9;
+    --text: #163a43;
+    --secondary: #50636a;
+    --rule: #c6d3cd;
+    --cool: #126966;
+    --warm: #934b33;
+    --hot: #b3473f;
+    --accent: #d79a35;
+    --chart-demand: #126966;
+    --chart-temperature: #934b33;
+    --chart-ridge: #267b68;
     --s1: 0.25rem;
     --s2: 0.5rem;
     --s3: 0.75rem;

@@ -272,7 +272,7 @@ test("mantenemos un solo tema claro con preferencias oscuras anteriores", async 
     await page
       .locator("body")
       .evaluate((e) => getComputedStyle(e).backgroundColor),
-  ).toBe("rgb(247, 243, 234)");
+  ).toBe("rgb(245, 242, 233)");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   expect(
