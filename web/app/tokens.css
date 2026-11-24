@@ -60,3 +60,9 @@
     }
   }
 }
+
+@layer tokens {
+  :root {
+    --section-estimate: 72rem;
+  }
+}

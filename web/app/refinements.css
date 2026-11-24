@@ -56,3 +56,33 @@
     }
   }
 }
+
+@layer atlas.refinements {
+  .clock-hour,
+  .ridge-year {
+    background: var(--paper);
+    padding-inline: var(--s1);
+  }
+  #clima,
+  #eventos,
+  #modelos,
+  #sensibilidad,
+  #investigacion,
+  #metodologia,
+  #equipo {
+    content-visibility: auto;
+    contain-intrinsic-size: auto var(--section-estimate);
+  }
+  @media print {
+    #clima,
+    #eventos,
+    #modelos,
+    #sensibilidad,
+    #investigacion,
+    #metodologia,
+    #equipo {
+      content-visibility: visible;
+      contain-intrinsic-size: none;
+    }
+  }
+}

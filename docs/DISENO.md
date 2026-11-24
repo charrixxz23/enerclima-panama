@@ -96,3 +96,9 @@ Para reducir el trabajo inicial retiramos las filas de las tablas cerradas del H
 
 
 Externalizamos también las series estáticas de demanda diaria, perfil horario y relieves mensuales en SVG propios generados por `npm run prebuild` desde el JSON. Aplicamos la paleta mediante máscaras CSS, con etiquetas HTML legibles en ambos temas y revelado progresivo compatible con movimiento reducido. Limitamos a centésimas la precisión de las coordenadas gráficas; no redondeamos los valores científicos ni los datos de las tablas. Reducimos el HTML inicial a 110,840 bytes y conservamos las nueve pruebas aprobadas después de esta corrección.
+
+
+Aplicamos `content-visibility: auto` con tamaño intrínseco reservado a las secciones fuera de pantalla para reducir la composición inicial. Conservamos los elementos en el documento y verificamos la navegación por anclas y las seis anchuras tras recorrer todas las secciones. Seguimos la [documentación de CSS Containment](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/content-visibility). Damos un fondo explícito a las etiquetas del reloj y de los relieves para mantener su contraste sobre las máscaras en ambos temas.
+
+
+Aislamos la cache local de Next.js y las evidencias temporales de auditoria en AppData mediante enlaces de directorio. Conservamos el codigo y los recursos publicos dentro de EnerClima-Panama; no incluimos rutas personales en el repositorio. En Linux y en GitHub Actions usamos los directorios normales del proyecto.

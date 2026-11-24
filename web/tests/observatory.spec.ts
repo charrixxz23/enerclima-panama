@@ -51,6 +51,7 @@ test("contrastamos los doce escenarios con los resultados originales", async ({
   page,
 }) => {
   await page.goto(home);
+  await page.locator("#sensibilidad").scrollIntoViewIfNeeded();
   for (const r of data.sensibilidad) {
     await page.locator("#sensitivity-station").selectOption(r.estacion);
     await page
@@ -68,6 +69,7 @@ test("contrastamos coeficientes e intervalos en las tres estaciones", async ({
   page,
 }) => {
   await page.goto(home);
+  await page.locator("#clima").scrollIntoViewIfNeeded();
   for (const r of data.asociaciones) {
     await page.locator("#station-select").selectOption(r.estacion);
     await expect(page.locator(".association")).toContainText(
@@ -113,9 +115,13 @@ test("verificamos las seis anchuras y conservamos capturas", async ({
       ),
       `overflow a ${width}`,
     ).toBe(false);
+    for (const id of ids) await page.locator(`#${id}`).scrollIntoViewIfNeeded();
+    await page.locator("#inicio").scrollIntoViewIfNeeded();
     await page.screenshot({
       path: path.join(evidence, `atlas-${width}.png`),
       fullPage: true,
+      style:
+        ".atlas-section { content-visibility: visible !important; contain-intrinsic-size: none !important; }",
     });
   }
 });
@@ -166,6 +172,8 @@ test("respetamos el tema del sistema y persistimos la preferencia", async ({
   await page.screenshot({
     path: path.join(evidence, "atlas-oscuro.png"),
     fullPage: true,
+    style:
+      ".atlas-section { content-visibility: visible !important; contain-intrinsic-size: none !important; }",
   });
   expect(
     await page

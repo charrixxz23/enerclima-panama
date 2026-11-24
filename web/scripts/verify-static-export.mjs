@@ -2,7 +2,7 @@ import { createServer } from "node:http";
 import { readFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "@playwright/test";
+import { chromium, expect } from "@playwright/test";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const outDir = path.resolve(here, "../out");
@@ -90,8 +90,19 @@ try {
       throw new Error(`missing static metadata asset: ${resource}`);
   }
   await page.locator("#station-select").selectOption("Santiago");
+  await page.locator("#sensibilidad").scrollIntoViewIfNeeded();
   await page.locator(".sim-controls select").nth(1).selectOption("3");
-  const simulatorValue = await page.locator(".sim-result > strong").innerText();
+  await page.locator("#sensibilidad").scrollIntoViewIfNeeded();
+  const sourceData = await data.json();
+  const expectedScenario = sourceData.sensibilidad.find(
+    (row) => row.estacion === "Tocumen" && row.incremento_c === 3,
+  );
+  const result = page.locator(".sim-result > strong");
+  await result.scrollIntoViewIfNeeded();
+  await expect(result).toHaveText(
+    `+${expectedScenario.cambio_estimado_mwh} MWh`,
+  );
+  const simulatorValue = await result.innerText();
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole("button", { name: "Índice: abrir navegación" }).click();
