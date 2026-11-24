@@ -32,4 +32,4 @@ Conservamos `dashboard.json` sin cambios y mantenemos fuera del repositorio los 
 
 ### Verificación pública actual
 
-Aprobamos las nueve pruebas contra GitHub Pages y confirmamos que los datos publicados son idénticos al JSON local. Medimos tres corridas públicas con rendimiento 84, 86 y 91 (mediana 86), accesibilidad 100, buenas prácticas 100 y SEO 100. Conservamos el objetivo móvil de rendimiento ≥95 como pendiente; documentamos la carga de fondo observada y solicitamos aprobación aparte antes de pausar la sincronización global de OneDrive para una medición controlada.
+Aprobamos las nueve pruebas contra GitHub Pages y confirmamos que los datos publicados son idénticos al JSON local. Medimos tres corridas públicas con rendimiento 84, 86 y 91 (mediana 86), accesibilidad 100, buenas prácticas 100 y SEO 100. Conservamos el objetivo móvil de rendimiento ≥95 como no alcanzado en este entorno. Por indicación del grupo mantenemos activa la sincronización de OneDrive y conservamos las mediciones reales, sin atribuirle de forma concluyente el resultado.

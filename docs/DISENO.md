@@ -115,6 +115,6 @@ Publicamos la corrección de contraste y composición y aprobamos las nueve prue
 | Buenas prácticas | 96 | 100 |
 | SEO | 100 | 100 |
 
-Obtuvimos rendimiento 84, 86 y 91 en las tres corridas actuales. No alcanzamos el objetivo móvil de 95 en este entorno. Detectamos actividad alta de OneDrive durante las mediciones, pero no demostramos que explique por sí sola el resultado. Mantenemos el objetivo de rendimiento pendiente de una comprobación con menor carga de fondo; no sustituimos el resultado público por el 100 observado anteriormente en local.
+Obtuvimos rendimiento 84, 86 y 91 en las tres corridas actuales. No alcanzamos el objetivo móvil de 95 en este entorno. Detectamos actividad alta de OneDrive durante las mediciones, pero no demostramos que explique por sí sola el resultado. Por indicación del grupo mantenemos activa la sincronización de OneDrive. Conservamos la meta de rendimiento de 95 como no alcanzada en este entorno; no sustituimos el resultado público por el 100 observado anteriormente en local.
 
 Guardamos la salida real y las capturas en `evidencias/rediseno/`, que apunta a un directorio temporal local para evitar escrituras pesadas en OneDrive. Conservamos los informes anteriores, incluidos los resultados que motivaron las correcciones. No añadimos dependencias de npm; incorporamos únicamente el paso de generación de SVG al build.
