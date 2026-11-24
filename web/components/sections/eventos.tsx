@@ -1,0 +1,10 @@
+import { dashboard as data } from "../../lib/data";
+import { number } from "../../lib/dashboard";
+export default function Eventos() {
+const station = "Tocumen"; const event = data.eventos.find(row => row.estacion === station);
+return (<section className="section heat-section" id="eventos">
+        <div className="section-heading light-heading"><div><p className="eyebrow">03 — EVENTOS DE TEMPERATURA ELEVADA</p><h2>Horas que superan<br /><em>el percentil 95.</em></h2></div><p className="section-deck">Usamos el percentil 95 de cada estación en el periodo completo para el análisis descriptivo. Identificamos episodios estadísticos, no olas de calor oficiales.</p></div>
+        <div className="heat-content"><div className="heat-figure"><span className="heat-label">{station.toUpperCase()} · UMBRAL DESCRIPTIVO</span><strong>{event ? `${number(event.percentil_95_c, 1)} °C` : "—"}</strong><div className="heat-rule"><span></span></div><p>Horas sobre el umbral: <b>{event ? number(event.horas_sobre_umbral) : "—"}</b></p><p>Días con horas elevadas: <b>{event ? number(event.dias_con_horas_elevadas) : "—"}</b></p></div><div className="heat-copy"><p>En {station}, la demanda nacional promedio durante las horas sobre el umbral fue de <b>{event ? `${number(event.demanda_media_eventos_mwh, 1)} MWh` : "—"}</b>. En el resto de las horas fue de <b>{event ? `${number(event.demanda_media_resto_mwh, 1)} MWh` : "—"}</b>.</p><div className="heat-difference"><span>DIFERENCIA DESCRIPTIVA</span><strong>{event ? `+${number(event.diferencia_media_mwh, 1)} MWh` : "—"}</strong><small>sin ajuste por hora, calendario ni estacionalidad</small></div><p className="caution">Esta comparación por sí sola no atribuye el cambio a la temperatura. La hora, la actividad y la estación del año también modifican la demanda.</p></div></div>
+        <div className="threshold-table">{data.eventos.map((row) => <div key={row.estacion}><span>{row.estacion}</span><strong>{number(row.percentil_95_c, 1)} °C</strong><small>{number(row.horas_sobre_umbral)} horas</small></div>)}</div>
+      </section>);
+}

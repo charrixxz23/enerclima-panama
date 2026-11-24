@@ -1,0 +1,5 @@
+import { dashboard as data } from "../../lib/data";
+export default function Metodologia() {
+
+return (<section className="method-section" id="metodologia"><div className="method-inner"><div><p className="eyebrow light">07 — METODOLOGÍA</p><h2>Datos claros.<br /><em>Lectura responsable.</em></h2><p>Trabajamos con un registro horario integrado de demanda nacional y clima de tres puntos de referencia. La ficha del paquete contiene errores de etiquetas meteorológicas que identificamos y documentamos.</p></div><div className="method-steps"><div><span>01</span><p><b>Revisamos la calidad</b>Comprobamos fechas, nulos, duplicados, rangos y códigos de calendario.</p></div><div><span>02</span><p><b>Separamos por tiempo</b>Entrenamos con las primeras 70% de observaciones; usamos 15% para validar y dejamos 15% al final como prueba.</p></div><div><span>03</span><p><b>Comparamos y explicamos</b>Medimos errores, asociación con HAC y escenarios con valores dentro del rango del periodo.</p></div></div></div><div className="method-caveat"><p><b>Limitaciones que mantenemos visibles</b></p><ul>{data.limitaciones.map((item) => <li key={item}>{item}</li>)}</ul></div></section>);
+}

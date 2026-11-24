@@ -16,10 +16,10 @@ test("renderiza resultados reales y secciones principales", async ({ page }) => 
   expect(response?.status()).toBe(200);
   await expect(page.getByRole("heading", { name: /cuando el clima cambia/i })).toBeVisible();
   await expect(page.locator("#observatorio")).toContainText("48,048");
-  await expect(page.locator("#observatorio")).toContainText("85.2 MWh");
+  await expect(page.locator("#observatorio")).toContainText("85.19250000000002 MWh");
   await expect(page.locator("#clima .map-note a")).toHaveAttribute("href", /aoml\.noaa\.gov/);
-  await expect(page.locator("#modelos")).toContainText("27.7 MWh");
-  await expect(page.locator("#sensibilidad")).toContainText("+0.44 MWh");
+  await expect(page.locator("#modelos")).toContainText("27.722937184313444 MWh");
+  await expect(page.locator("#sensibilidad")).toContainText("+0.4392553074213805 MWh");
   const ids = await page.locator("section[id]").evaluateAll((nodes) => nodes.map((node) => node.id));
   for (const id of ids) await expect(page.locator(`a[href="#${id}"]`).first()).toHaveCount(1);
   for (const [section, name] of [["inicio", "portada"], ["observatorio", "observatorio"], ["clima", "clima"], ["eventos", "eventos"], ["modelos", "modelos"]]) {

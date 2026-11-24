@@ -1,3 +1,6 @@
 @import "./tokens.css";
 @import "./legacy.css";
 @layer tokens, legacy, base, atlas, motion;
+@layer base { main * { min-width: 0; } strong, td, small, b { overflow-wrap: anywhere; } .model-table-wrap { overflow-x: auto; } .heat-difference { grid-template-columns: minmax(0,1fr) minmax(0,1fr); } }
+@layer base { .sim-controls { flex-wrap: wrap; } .sim-controls select { min-width: 0; } .sim-controls label { flex: 1 1 8rem; } }
+@layer base { .intro-band a, .finding-band a { white-space: normal; } .intro-band a svg, .finding-band a svg { flex-shrink: 0; } }
