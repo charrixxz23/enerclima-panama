@@ -28,6 +28,20 @@ export default function ThermalField() {
         </div>
         <picture>
           <source
+            media="(min-width: 1600px)"
+            srcSet={asset("images/thermal-field-wide.avif")}
+            type="image/avif"
+            width={art.wide.width}
+            height={art.wide.height}
+          />
+          <source
+            media="(min-width: 1600px)"
+            srcSet={asset("images/thermal-field-wide.webp")}
+            type="image/webp"
+            width={art.wide.width}
+            height={art.wide.height}
+          />
+          <source
             media="(max-width: 767px)"
             srcSet={asset("images/thermal-field-mobile.avif")}
             type="image/avif"
@@ -100,7 +114,8 @@ export default function ThermalField() {
       <figcaption>
         Comparamos medias por bloques de cuatro días y hora registrada.
         Oscurecemos la demanda y superponemos perfiles temporales de
-        temperatura; destacamos P95 con un trazo más grueso. Exigimos al menos{" "}
+        temperatura; destacamos P95 con un trazo más grueso. Cada celda promedia
+        entre tres y cuatro observaciones por variable. Exigimos al menos{" "}
         <Cifra tipo="conteo" value={summary.agregacion.minimo_observaciones} />{" "}
         observaciones por variable y marcamos{" "}
         <Cifra tipo="conteo" value={summary.agregacion.celdas_vacias} /> celdas

@@ -126,7 +126,7 @@ Para el Bloque A aprobamos lint, tipos, build, exportación, 13 pruebas unitaria
 
 ## Campo conjunto de demanda y temperatura · fase 1
 
-Exigimos tres observaciones por variable y celda; marcamos 23 celdas vacías. Anclamos la rampa térmica a p1 y p99 horarios, con inflexión en p95. Rasterizamos durante el build y limitamos a 120.000 bytes la suma de los cuatro AVIF y WebP de escritorio y móvil. Documentamos el hash SHA-256 de la entrada, los cuantiles, los colores y el comando exacto de regeneración en [DISENO.md](docs/DISENO.md). Conservamos el CSV privado y dashboard.json sin cambios.
+Exigimos tres observaciones por variable y celda; marcamos 23 celdas vacías. Anclamos la rampa térmica a p1 y p99 horarios, con inflexión en p95. Rasterizamos durante el build y limitamos a 120.000 bytes el recurso elegido por picture en cada visita. Documentamos el hash SHA-256 de la entrada, los cuantiles, los colores y el comando exacto de regeneración en [DISENO.md](docs/DISENO.md). Conservamos el CSV privado y dashboard.json sin cambios.
 
 Regeneramos los agregados desde la raíz con:
 

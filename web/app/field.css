@@ -113,7 +113,7 @@
   }
   .demand-key {
     height: 0.5rem;
-    background: linear-gradient(90deg, #eee8dd, #a8a295);
+    background: linear-gradient(90deg, #eee8dd, #817b70);
     margin-bottom: var(--s2);
   }
   .temperature-key {

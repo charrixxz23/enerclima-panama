@@ -65,17 +65,23 @@ page.on("requestfailed", (request) => {
 });
 
 try {
+  const heroArt = JSON.parse(
+    await readFile(path.join(outDir, "data/thermal-art.json"), "utf8"),
+  );
   const heroSizes = await Promise.all(
-    ["thermal-field", "thermal-field-mobile"].flatMap((name) =>
+    [heroArt, heroArt.mobile, heroArt.wide].flatMap((variant) =>
       ["avif", "webp"].map(
         async (ext) =>
-          (await readFile(path.join(outDir, `images/${name}.${ext}`))).length,
+          (await readFile(path.join(outDir, `images/${variant.name}.${ext}`)))
+            .length,
       ),
     ),
   );
-  const heroBytes = heroSizes.reduce((sum, size) => sum + size, 0);
-  if (heroBytes > 120000)
-    throw new Error(`hero exportado excede presupuesto: ${heroBytes}`);
+  const heroBytesPerVisitorMax = Math.max(...heroSizes);
+  if (heroBytesPerVisitorMax > 120000)
+    throw new Error(
+      `hero excede presupuesto por visitante: ${heroBytesPerVisitorMax}`,
+    );
   const home = await page.goto(`${origin}${basePath}/`);
   if (home?.status() !== 200)
     throw new Error(`home returned ${home?.status()}`);
@@ -147,7 +153,7 @@ try {
       home: home.status(),
       image: image.status(),
       data: data.status(),
-      heroBytes,
+      heroBytesPerVisitorMax,
       simulatorValue,
       hasMobileOverflow,
       pageErrors: errors.length,

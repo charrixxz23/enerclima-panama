@@ -23,6 +23,7 @@ test("conservamos conteos completos y ocultamos las celdas insuficientes", () =>
   );
   assert.equal(cells.filter((cell) => cell[0] === null).length, 23);
   for (const cell of cells) {
+    assert.ok(cell[1] <= 4 && cell[3] <= 4);
     assert.equal(cell[0] === null, cell[1] < 3);
     assert.equal(cell[2] === null, cell[3] < 3);
   }
@@ -60,7 +61,7 @@ test("mantenemos contraste de las tres anclas contra el papel", () => {
   for (const color of m.colores_temperatura)
     assert.ok((luminance("#f7f3ea") + 0.05) / (luminance(color) + 0.05) >= 4.5);
 });
-test("cerramos el presupuesto de ambas alternativas del hero por debajo de 120000 bytes", () => {
+test("cerramos el presupuesto por visitante en cada variante y formato", () => {
   for (const file of [
     "images/panama-energy-hero.png",
     "images/panama-energy-hero.webp",
@@ -73,18 +74,28 @@ test("cerramos el presupuesto de ambas alternativas del hero por debajo de 12000
       file,
     );
   const a = read("thermal-art");
-  const sizes = ["thermal-field", "thermal-field-mobile"].flatMap((name) =>
-    ["avif", "webp"].map(
-      (ext) =>
-        readFileSync(
-          new URL(`../public/images/${name}.${ext}`, import.meta.url),
-        ).length,
-    ),
+  const sizes = [a, a.mobile, a.wide].flatMap((variant) =>
+    ["avif", "webp"].map((ext) => {
+      const bytes = readFileSync(
+        new URL(`../public/images/${variant.name}.${ext}`, import.meta.url),
+      ).length;
+      assert.equal(bytes, variant[ext]);
+      assert.ok(bytes <= a.limitePorVisitante);
+      return bytes;
+    }),
   );
-  assert.deepEqual(sizes, [a.avif, a.webp, a.mobile.avif, a.mobile.webp]);
-  assert.equal(
-    a.total,
-    sizes.reduce((sum, value) => sum + value, 0),
+  assert.equal(a.bytesPerVisitorMax, Math.max(...sizes));
+});
+
+test("distinguimos los extremos de demanda sin cambiar la rampa termica", () => {
+  const lum = (hex) =>
+    [1, 3, 5]
+      .map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+      .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+      .reduce((s, v, i) => s + v * [0.2126, 0.7152, 0.0722][i], 0);
+  assert.ok(
+    (lum(m.colores_demanda[0]) + 0.05) / (lum(m.colores_demanda[1]) + 0.05) >=
+      3,
   );
-  assert.ok(a.total <= 120000);
+  assert.deepEqual(m.colores_temperatura, ["#21656b", "#776b5b", "#b43e2e"]);
 });

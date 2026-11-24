@@ -78,7 +78,7 @@ def aggregate(source):
         "cuantiles": quantiles,
         "metodo_cuantiles": "interpolacion lineal, indice (n - 1) * p; tipo 7",
         "colores_temperatura": ["#21656b", "#776b5b", "#b43e2e"],
-        "colores_demanda": ["#eee8dd", "#a8a295"],
+        "colores_demanda": ["#eee8dd", "#817b70"],
     }
     return {"metadata": metadata, "celdas": grid}
 

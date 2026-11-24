@@ -12,7 +12,7 @@ Conservamos el [registro histórico del Atlas anterior](DISENO_ATLAS_ANTERIOR.md
 
 Usamos papel `#F7F3EA`, tinta `#152421` y texto secundario `#4E5C58`. Calculamos contrastes de 14,52:1 y 6,33:1 contra el papel. Superponemos ruido SVG `feTurbulence` en una tesela de 160 × 160 con opacidad 0,025; conservamos el papel si el filtro no está disponible.
 
-Reservamos la rampa teal–ascua para temperatura. No coloreamos la demanda con ella. Usamos una superficie neutra de `#EEE8DD` a `#A8A295` para la demanda; vinculamos sus extremos a p1 = 851,2 y p99 = 1.586,4 MWh de la serie horaria. Recortamos únicamente el color fuera del dominio; conservamos las medias completas.
+Reservamos la rampa teal–ascua para temperatura. No coloreamos la demanda con ella. Usamos una superficie neutra de `#EEE8DD` a `#817B70` para la demanda; vinculamos sus extremos a p1 = 851,2 y p99 = 1.586,4 MWh de la serie horaria. Recortamos únicamente el color fuera del dominio; conservamos las medias completas.
 
 | Ancla térmica | Color | Contraste contra el papel |
 |---|---|---:|
@@ -36,7 +36,7 @@ Anclamos los colores de los umbrales del mapa y de Eventos a los cuantiles de su
 
 ## Campo conjunto y celdas vacías
 
-Calculamos en una misma lectura del CSV la demanda media `nat_demand`, la temperatura media `T2M_toc` y sus dos conteos independientes por bloque de cuatro días y hora registrada. Anclamos los bloques en `2015-01-03T00:00:00`, conservamos 501 columnas y las 24 horas y exigimos **N = 3** observaciones finitas por variable.
+Calculamos en una misma lectura del CSV la demanda media `nat_demand`, la temperatura media `T2M_toc` y sus dos conteos independientes por bloque de cuatro días y hora registrada. Anclamos los bloques en `2015-01-03T00:00:00`, conservamos 501 columnas y las 24 horas y exigimos **N = 3** observaciones finitas por variable. Cada celda válida promedia entre **3 y 4 observaciones por variable**: agrupamos cuatro días y una observación por hora, con N = 3 de un máximo de 4. No promediamos cientos de horas en cada celda.
 
 Guardamos cada celda como `[demanda_media, n_demanda, temperatura_media, n_temperatura]`, en orden bloque–hora. Guardamos `null` para la media que no alcanza N. Marcamos las 23 celdas insuficientes con rayado y no rellenamos sus valores. Conservamos los conteos de las 48.048 observaciones, incluidas las celdas enmascaradas.
 
@@ -78,15 +78,21 @@ npm run build
 
 Declaramos **sharp 0.35.5 como única dependencia npm directa nueva**, solo de desarrollo. Ya figuraba como dependencia transitiva de Next; la declaramos para garantizar que el generador pueda producir AVIF y WebP en una instalación limpia. No añadimos una biblioteca de visualización ni de animación.
 
-## Presupuesto del hero y archivos anteriores
+## Presupuesto del hero por visitante
 
-Generamos dos rasters: 1.503 × 432 píxeles para escritorio y 501 × 336 píxeles para móvil y lo mostramos completo, con dimensiones declaradas, sin una retícula de elementos HTML o SVG por celda. Servimos AVIF con fallback WebP, con dimensiones propias de cada fuente en picture. Conservamos la proporción intrínseca para evitar estirar el campo. Añadimos una prueba de selección de fuente y proporción en las seis anchuras después de detectar esa deformación en Lighthouse local. Permitimos como máximo **120.000 bytes sumando los cuatro archivos responsivos**, un criterio más estricto que limitar solo la alternativa descargada por el navegador.
+Corregimos la contabilidad: picture selecciona una sola imagen compatible con el ancho y el formato del navegador. No sumamos variantes para describir el coste de una visita. Comprobamos el tamaño individual de cada alternativa y usamos el mayor como puerta conservadora de 120.000 bytes por visitante; no incluimos aquí fuentes, HTML ni otros recursos de la página, que diagnosticamos por separado.
 
-Registramos 30.179 bytes en AVIF y 42.072 en WebP para escritorio, más 12.090 y 18.016 para móvil: **102.357 bytes combinados**. Hacemos fallar `prebuild` si superamos el límite y volvemos a comprobar el peso de los archivos reales de `web/out` en `test:export`. Conservamos el informe en `web/public/data/thermal-art.json`.
+Servimos tres tamaños: móvil de 501 × 336 px, escritorio de 1.503 × 432 px y ancho de 3.006 × 864 px desde 1.600 px. Elegimos AVIF cuando es compatible y WebP como alternativa. Declaramos las dimensiones de cada fuente y conservamos su proporción.
 
-No incluimos las 12.024 celdas en el HTML ni en los datos de hidratación. Consultamos el JSON agregado únicamente al abrir la tabla; mostramos 24 horas por bloque y ofrecemos todos los bloques y el JSON completo. Comprimimos solo la imagen; preservamos las cifras completas en el agregado y en los atributos accesibles.
+En Windows registramos 12.914 B AVIF / 19.500 B WebP para móvil; 32.979 / 46.224 B para escritorio; y 71.974 / 112.090 B para pantallas anchas. No interpretamos su suma como transferencia por visitante. Volvemos a calcular los tamaños reales en Linux durante el build; hacemos fallar prebuild y test:export si alguna alternativa supera 120.000 B. Comprobamos en navegador que la visita solicite una sola imagen del campo.
 
-Confirmamos que `images/panama-energy-hero.png` y `previews/portada.png` ya estaban retirados del árbol público. Eliminamos también las versiones AVIF y WebP de la ilustración antigua que quedaban sin uso. Conservamos las capturas de portada y simulador en AVIF y WebP, cada una menor de 250 KB, y añadimos una prueba contra la reintroducción de aquellos archivos.
+Comparamos el raster original de 1.503 px con el de 3.006 px en el mismo render a 2.560 px, con un campo de 2.488 px de ancho. Conservamos capturas completas y recortes del mismo punto en evidencias/rediseno/revision-campo. En el original vemos perfiles y halos suavizados por el escalado de 1,66×; en la variante ancha conservamos bordes y separación del halo más definidos. Por esa diferencia visible mantenemos la variante ancha. Podemos repetir la comparación con `node web/scripts/compare-thermal-field.mjs` y `node web/scripts/capture-field-comparison.mjs`; el segundo comando requiere el sitio de referencia publicado.
+
+No confundimos las líneas térmicas con la estructura de demanda. Comparamos también la superficie sin perfiles. Distinguimos el ciclo día/noche en la paleta anterior, pero vemos débiles sus variaciones temporales. Oscurecemos solo el extremo alto de demanda de #A8A295 a #817B70, pasando de 2,08:1 a 3,44:1 entre extremos. Conservamos el extremo claro #EEE8DD y toda la rampa térmica. No reforzamos el contraste con normalizaciones por año ni inventamos etiquetas de estación seca o lluviosa.
+
+No incluimos las 12.024 celdas en el HTML ni en los datos de hidratación. Consultamos el agregado solo al abrir la tabla, mostramos 24 horas por bloque y ofrecemos todos los bloques y el JSON completo. Comprimimos la imagen y preservamos las cifras completas.
+
+Confirmamos que los PNG antiguos ya estaban fuera del árbol público. Retiramos también la ilustración antigua restante. Conservamos las vistas previas en AVIF y WebP, por debajo de 250 KB.
 
 ## Tipografía
 
@@ -114,3 +120,7 @@ Conservamos para las fases siguientes la escala irregular aprobada de espaciado,
 Conservamos los registros completos de lint, tipos, build, exportación y navegador en `evidencias/rediseno/bloque-b-fase-1-*.txt`. Conservamos también las mediciones Lighthouse, las capturas y las mediciones iniciales que motivaron la corrección de proporciones. Comparamos la mediana móvil pública con la referencia inmediatamente anterior de **90**, manteniendo OneDrive activo. Cerramos esta fase únicamente después de comprobar que no disminuya.
 
 En la comprobación local final obtuvimos rendimiento 91, 91 y 94 (mediana 91) y 100 en accesibilidad, buenas prácticas y SEO. Conservamos las corridas iniciales de rendimiento 100 y buenas prácticas 96, junto con la corrección de proporciones. No sustituimos con estas mediciones locales la comparación pública con la referencia 90.
+
+## Diagnóstico antes de abrir la fase 2
+
+Entregamos el [diagnóstico público por métrica y script](RENDIMIENTO_ANTES_FASE2.md), con su JSON de cifras. Medimos TBT, LCP y su elemento, CLS, cobertura estimada sin usar y tiempos del hilo principal por URL. Verificamos que Recharts y Leaflet no se descarguen al inicio y que entren al consultar sus secciones. Optamos por perfiles de servidor y máscaras precalculadas, sin nuevas islas cliente, para conservar esa separación.

@@ -134,12 +134,12 @@ test("navegamos a todas las anclas desde el índice móvil", async ({ page }) =>
     ).toBeVisible();
   }
 });
-test("verificamos las seis anchuras y conservamos capturas", async ({
+test("verificamos las siete anchuras y conservamos capturas", async ({
   page,
 }) => {
   test.setTimeout(120000);
   await page.emulateMedia({ reducedMotion: "reduce", colorScheme: "light" });
-  for (const width of [360, 390, 768, 1024, 1440, 1920]) {
+  for (const width of [360, 390, 768, 1024, 1440, 1920, 2560]) {
     await page.setViewportSize({ width, height: width < 500 ? 844 : 1000 });
     await page.goto(home);
     await expect(page.locator("h1")).toBeVisible();
@@ -157,6 +157,7 @@ test("verificamos las seis anchuras y conservamos capturas", async ({
       });
     expect(Math.abs(ratio.displayed / ratio.intrinsic - 1)).toBeLessThan(0.01);
     expect(ratio.source.includes("thermal-field-mobile")).toBe(width < 768);
+    expect(ratio.source.includes("thermal-field-wide")).toBe(width >= 1600);
 
     expect(
       await page.evaluate(
@@ -267,6 +268,11 @@ test("cargamos graficos y mapa al entrar sin recursos externos", async ({
   page,
 }) => {
   const remote: string[] = [];
+  const scriptBodies: Promise<string>[] = [];
+  page.on("response", (response) => {
+    if (response.request().resourceType() === "script")
+      scriptBodies.push(response.text().catch(() => ""));
+  });
   page.on("request", (r) => {
     if (
       ["image", "font", "script", "stylesheet", "fetch", "xhr"].includes(
@@ -280,10 +286,17 @@ test("cargamos graficos y mapa al entrar sin recursos externos", async ({
   });
   await page.goto(home);
   await expect(page.locator(".leaflet-container")).toHaveCount(0);
+  await page.waitForLoadState("networkidle");
+  const initial = (await Promise.all(scriptBodies)).join("\n");
+  expect(initial.includes("recharts-wrapper")).toBe(false);
+  expect(initial.includes("leaflet-pane")).toBe(false);
   await page.locator("#clima").scrollIntoViewIfNeeded();
   await expect(page.locator(".leaflet-container")).toBeVisible();
   await page.locator("#station-select").scrollIntoViewIfNeeded();
   await expect(page.locator("#clima .recharts-surface")).toBeVisible();
+  const entered = (await Promise.all(scriptBodies)).join("\n");
+  expect(entered.includes("recharts-wrapper")).toBe(true);
+  expect(entered.includes("leaflet-pane")).toBe(true);
   expect(remote).toEqual([]);
 });
 
@@ -413,4 +426,35 @@ test("cargamos el agregado solo al abrir la tabla y marcamos los huecos", async 
     requests.filter((url) => url.endsWith("/thermal-field.json")),
   ).toHaveLength(1);
   expect(await page.locator("#inicio rect").count()).toBeLessThan(10);
+});
+
+test("descargamos una sola imagen del campo por visitante", async ({
+  page,
+}) => {
+  for (const width of [390, 1440, 2560]) {
+    const selected: string[] = [];
+    const listener = (response: import("@playwright/test").Response) => {
+      if (
+        response.request().resourceType() === "image" &&
+        /\/thermal-field(?:-mobile|-wide)?\.(avif|webp)$/.test(response.url())
+      )
+        selected.push(response.url());
+    };
+    await page.goto("about:blank");
+    await page.setViewportSize({ width, height: 1000 });
+    page.on("response", listener);
+    await page.goto(home);
+    const source = await page
+      .locator(".field-plot img")
+      .evaluate(async (element) => {
+        const image = element as HTMLImageElement;
+        await image.decode();
+        return image.currentSrc;
+      });
+    await page.waitForLoadState("networkidle");
+    expect(selected).toEqual([source]);
+    const resource = await page.request.get(source);
+    expect((await resource.body()).length).toBeLessThanOrEqual(120000);
+    page.off("response", listener);
+  }
 });

@@ -52,3 +52,7 @@ Mantenemos únicamente el tema claro. Conservamos Source Sans 3 para párrafos, 
 Aprobamos 19 pruebas unitarias y 11 de navegador durante la verificación, incluidos overflow y recorte de la portada a 360, 390 y 768 px y las demás anchuras. Conservamos salidas, capturas y mediciones en evidencias/rediseno. Mantenemos OneDrive activo y tomamos como referencia de rendimiento la mediana pública inmediatamente anterior de 90. Cerramos la fase después de comprobar que no disminuya.
 
 Conservamos los contornos de secciones, los tres desbordes deliberados y las anotaciones marginales como trabajo de las fases siguientes. No damos el Bloque B completo por terminado.
+
+## Revisión previa a la fase 2
+
+Corregimos el presupuesto a bytes de una imagen seleccionada por visitante, comparamos nitidez a 2.560 px y conservamos la variante de 3.006 px por su mejora visible. Reforzamos únicamente la superficie neutra de demanda hasta 3,44:1 entre extremos. Dejamos la rampa térmica intacta y aclaramos que cada celda válida contiene 3–4 observaciones por variable. Entregamos el diagnóstico público de TBT, LCP, CLS, JavaScript sin usar y CPU por URL en docs/RENDIMIENTO_ANTES_FASE2.md. Comprobamos que Recharts y Leaflet aportan cero descarga y ejecución a la carga inicial, aunque se utilizan después al entrar en las secciones.
