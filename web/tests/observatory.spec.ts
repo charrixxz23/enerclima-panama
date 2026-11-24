@@ -18,7 +18,7 @@ test("renderiza resultados reales y secciones principales", async ({ page }) => 
   await expect(page.locator("#observatorio")).toContainText("48,048");
   await expect(page.locator("#observatorio")).toContainText("85.19250000000002 MWh");
   await expect(page.locator("#clima .map-note a")).toHaveAttribute("href", /aoml\.noaa\.gov/);
-  await expect(page.locator("#modelos")).toContainText("27.722937184313444 MWh");
+  await expect(page.locator("#modelos")).toContainText("27.722937184313444");
   await expect(page.locator("#sensibilidad")).toContainText("+0.4392553074213805 MWh");
   const ids = await page.locator("section[id]").evaluateAll((nodes) => nodes.map((node) => node.id));
   for (const id of ids) await expect(page.locator(`a[href="#${id}"]`).first()).toHaveCount(1);

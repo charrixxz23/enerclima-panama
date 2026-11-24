@@ -1,28 +1,5 @@
 "use client";
-
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import {MapContainer,ImageOverlay,Marker,Popup,ZoomControl} from "react-leaflet";
 import L from "leaflet";
-import data from "../public/data/dashboard.json";
-
-const markerIcon = L.divIcon({
-  className: "station-marker",
-  html: "<span></span>",
-  iconSize: [18, 18],
-  iconAnchor: [9, 9],
-});
-
-export default function MapView() {
-  return (
-    <MapContainer center={[8.65, -81.2]} zoom={6} scrollWheelZoom={false} className="map-view" aria-label="Mapa de las ciudades de Tocumen, Santiago y David">
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {data.estaciones.map((station) => (
-        <Marker key={station.nombre} position={[station.latitud, station.longitud]} icon={markerIcon}>
-          <Popup>{station.nombre}. Referencia aeroportuaria, no coordenada de la celda meteorológica.</Popup>
-        </Marker>
-      ))}
-    </MapContainer>
-  );
-}
+import {asset,number,type Station,type ThermalEvent} from "../lib/dashboard";
+export default function MapView({stations,events}:{stations:Station[];events:ThermalEvent[]}) {return <MapContainer bounds={[[7,-83.2],[10,-77.1]]} scrollWheelZoom={false} zoomControl={false} attributionControl={false} className="map-view"><ZoomControl zoomInTitle="Acercamos el mapa" zoomOutTitle="Alejamos el mapa"/><ImageOverlay url={asset("images/panama-atlas.svg")} bounds={[[7,-83.2],[10,-77.1]]}/>{stations.map(s=>{const t=events.find(e=>e.estacion===s.nombre);const temps=events.map(e=>e.percentil_95_c);const fraction=t?(t.percentil_95_c-Math.min(...temps))/(Math.max(...temps)-Math.min(...temps)):0;const color=fraction<.5?"var(--cool)":fraction<.8?"var(--warm)":"var(--hot)";return <Marker key={s.nombre} position={[s.latitud,s.longitud]} alt={s.nombre} icon={L.divIcon({className:"station-marker",html:`<span style="background:${color}"></span>`,iconSize:[20,20],iconAnchor:[10,10]})}><Popup>{s.nombre}. {s.nota}. Umbral P95: {t?number(t.percentil_95_c):"—"} °C.</Popup></Marker>;})}</MapContainer>;}
