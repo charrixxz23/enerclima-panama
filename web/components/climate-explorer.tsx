@@ -1,18 +1,11 @@
 "use client";
 import { useState } from "react";
-import {
-  number,
-  stations,
-  type RegionalPoint,
-  type Association,
-} from "../lib/dashboard";
+import { number, stations, type Association } from "../lib/dashboard";
 import DataTable from "./data-table";
 import LazyChart from "./lazy-chart";
 export default function ClimateExplorer({
-  rows,
   associations,
 }: {
-  rows: RegionalPoint[];
   associations: Association[];
 }) {
   const [station, setStation] = useState("Tocumen");
@@ -33,17 +26,18 @@ export default function ClimateExplorer({
         ))}
       </select>
       <figure className="data-piece">
-        <LazyChart rows={rows} dataKey={key} thermal />
+        <LazyChart source="temperaturaRegional" dataKey={key} thermal />
         <figcaption>
           Seguimos la temperatura a dos metros en {station}; comparamos
           observaciones históricas, sin atribuir el consumo nacional a esta
           ciudad.
         </figcaption>
         <DataTable
+          source="temperaturaRegional"
           summary="Consultamos las temperaturas"
           caption="Temperatura a dos metros"
           headers={["Fecha", "°C"]}
-          rows={rows.map((r) => [r.datetime.split("T")[0], number(r[key])])}
+          valueKey={key}
         />
       </figure>
       {a ? (

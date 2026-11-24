@@ -1,4 +1,5 @@
-import { number, signed } from "../../lib/dashboard";
+import DataTable from "../data-table";
+import { signed } from "../../lib/dashboard";
 import type { CSSProperties } from "react";
 export default function Correlations({
   rows,
@@ -45,26 +46,12 @@ export default function Correlations({
         representa su magnitud absoluta. No presentamos una matriz de todas las
         parejas de variables.
       </figcaption>
-      <details>
-        <summary>Consultamos la tabla de correlaciones</summary>
-        <table>
-          <caption>Spearman frente a demanda nacional</caption>
-          <thead>
-            <tr>
-              <th scope="col">Variable</th>
-              <th scope="col">Coeficiente</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(rows).map(([key, value]) => (
-              <tr key={key}>
-                <th scope="row">{key}</th>
-                <td>{number(value)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </details>
+      <DataTable
+        source="correlaciones"
+        summary="Consultamos la tabla de correlaciones"
+        caption="Spearman frente a demanda nacional"
+        headers={["Variable", "Coeficiente"]}
+      />
     </figure>
   );
 }

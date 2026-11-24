@@ -2,6 +2,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import type { DemandPoint, RegionalPoint } from "../lib/dashboard";
+import { readDashboard } from "../lib/client-data";
 const Chart = dynamic(() => import("./charts/series-chart"), {
   ssr: false,
   loading: () => (
@@ -11,36 +12,48 @@ const Chart = dynamic(() => import("./charts/series-chart"), {
   ),
 });
 export default function LazyChart({
-  rows,
+  source,
   dataKey,
   thermal = false,
 }: {
-  rows: DemandPoint[] | RegionalPoint[];
+  source: "demandaSemanal" | "temperaturaRegional";
   dataKey: string;
   thermal?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [rows, setRows] = useState<DemandPoint[] | RegionalPoint[] | null>(
+    null,
+  );
+  const [failed, setFailed] = useState(false);
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "0px" },
-    );
+    let active = true;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        observer.disconnect();
+        readDashboard()
+          .then((d) => {
+            if (active) setRows(d[source]);
+          })
+          .catch(() => {
+            if (active) setFailed(true);
+          });
+      }
+    });
     if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      active = false;
+      observer.disconnect();
+    };
+  }, [source]);
   return (
     <div ref={ref} className="chart-frame">
-      {visible ? (
+      {rows ? (
         <Chart rows={rows} dataKey={dataKey} thermal={thermal} />
       ) : (
         <p className="chart-placeholder">
-          Consultamos la serie y su tabla de datos.
+          {failed
+            ? "Podemos consultar el archivo de datos desde la tabla."
+            : "Consultamos la serie y su tabla de datos."}
         </p>
       )}
     </div>

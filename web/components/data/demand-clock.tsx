@@ -1,4 +1,5 @@
-import { number, type HourPoint } from "../../lib/dashboard";
+import DataTable from "../data-table";
+import { type HourPoint } from "../../lib/dashboard";
 export default function DemandClock({ rows }: { rows: HourPoint[] }) {
   const max = Math.max(...rows.map((r) => r.demanda_mwh));
   const point = (hour: number, value: number) => {
@@ -60,28 +61,12 @@ export default function DemandClock({ rows }: { rows: HourPoint[] }) {
         Recorremos la media de cada hora del día en sentido horario. El radio es
         proporcional a la demanda; el centro representa el origen de la escala.
       </figcaption>
-      <details>
-        <summary>Consultamos el perfil horario</summary>
-        <div className="table-scroll">
-          <table>
-            <caption>Demanda media por hora</caption>
-            <thead>
-              <tr>
-                <th scope="col">Hora</th>
-                <th scope="col">MWh</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r) => (
-                <tr key={r.hora}>
-                  <th scope="row">{r.hora} h</th>
-                  <td>{number(r.demanda_mwh)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </details>
+      <DataTable
+        source="perfilHorario"
+        summary="Consultamos el perfil horario"
+        caption="Demanda media por hora"
+        headers={["Hora", "MWh"]}
+      />
     </figure>
   );
 }

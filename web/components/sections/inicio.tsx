@@ -75,13 +75,10 @@ export default function Inicio() {
             silueta es diagramática; el trazo procede de la serie histórica.
           </figcaption>
           <DataTable
+            source="demandaDiaria"
             summary="Consultamos los datos diarios"
             caption="Demanda media diaria, MWh por intervalo horario"
             headers={["Fecha", "MWh"]}
-            rows={rows.map((r) => [
-              r.datetime.split("T")[0],
-              number(r.demanda_mwh),
-            ])}
           />
         </figure>
       </div>

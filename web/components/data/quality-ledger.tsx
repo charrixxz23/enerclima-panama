@@ -1,3 +1,4 @@
+import DataTable from "../data-table";
 import { number, type Quality } from "../../lib/dashboard";
 export default function QualityLedger({
   quality: q,
@@ -35,34 +36,12 @@ export default function QualityLedger({
       <p className="caveat">
         <b>Discrepancia QV2M.</b> {limitations[2]}
       </p>
-      <details>
-        <summary>Consultamos la auditoría completa</summary>
-        <div className="table-scroll">
-          <table>
-            <caption>Campos originales de calidad, sin redondeos</caption>
-            <thead>
-              <tr>
-                <th scope="col">Campo</th>
-                <th scope="col">Valor</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(q).map(([key, value]) => (
-                <tr key={key}>
-                  <th scope="row">{key}</th>
-                  <td>
-                    {typeof value === "number"
-                      ? number(value)
-                      : typeof value === "string"
-                        ? value
-                        : JSON.stringify(value)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </details>
+      <DataTable
+        source="calidad"
+        summary="Consultamos la auditoría completa"
+        caption="Campos originales de calidad, sin redondeos"
+        headers={["Campo", "Valor"]}
+      />
     </div>
   );
 }

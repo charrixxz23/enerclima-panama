@@ -1,5 +1,6 @@
+import DataTable from "../data-table";
 import { dashboard as data } from "../../lib/data";
-import { number } from "../../lib/dashboard";
+
 import SectionHeading from "../section-heading";
 import LazyMap from "../lazy-map";
 import ClimateExplorer from "../climate-explorer";
@@ -26,28 +27,12 @@ export default function Clima() {
             </a>
             . Esquema propio sin servicios cartográficos externos.
           </p>
-          <details>
-            <summary>Consultamos las coordenadas</summary>
-            <table>
-              <caption>Referencias aeroportuarias</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Lugar</th>
-                  <th scope="col">Latitud</th>
-                  <th scope="col">Longitud</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.estaciones.map((s) => (
-                  <tr key={s.nombre}>
-                    <th scope="row">{s.nombre}</th>
-                    <td>{number(s.latitud)}</td>
-                    <td>{number(s.longitud)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </details>
+          <DataTable
+            source="estaciones"
+            summary="Consultamos las coordenadas"
+            caption="Referencias aeroportuarias"
+            headers={["Lugar", "Latitud", "Longitud"]}
+          />
           <div className="thermal-key">
             <span>Menor temperatura</span>
             <i />
@@ -58,10 +43,7 @@ export default function Clima() {
             dentro de su rango; no indica una alerta.
           </p>
         </figure>
-        <ClimateExplorer
-          rows={data.temperaturaRegional}
-          associations={data.asociaciones}
-        />
+        <ClimateExplorer associations={data.asociaciones} />
       </div>
     </section>
   );

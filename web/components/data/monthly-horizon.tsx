@@ -1,4 +1,5 @@
-import { number, type MonthlyPoint } from "../../lib/dashboard";
+import DataTable from "../data-table";
+import { type MonthlyPoint } from "../../lib/dashboard";
 export default function MonthlyHorizon({ rows }: { rows: MonthlyPoint[] }) {
   const years = Array.from(new Set(rows.map((r) => r.mes.slice(0, 4))));
   const low = Math.min(...rows.map((r) => r.demanda_mwh));
@@ -88,28 +89,12 @@ export default function MonthlyHorizon({ rows }: { rows: MonthlyPoint[] }) {
         El relieve parte del mínimo mensual observado; los años incompletos
         conservan sus meses disponibles.
       </figcaption>
-      <details>
-        <summary>Consultamos los datos mensuales</summary>
-        <div className="table-scroll">
-          <table>
-            <caption>Demanda media mensual, MWh por intervalo</caption>
-            <thead>
-              <tr>
-                <th scope="col">Mes</th>
-                <th scope="col">MWh</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r) => (
-                <tr key={r.mes}>
-                  <th scope="row">{r.mes}</th>
-                  <td>{number(r.demanda_mwh)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </details>
+      <DataTable
+        source="demandaMensual"
+        summary="Consultamos los datos mensuales"
+        caption="Demanda media mensual, MWh por intervalo"
+        headers={["Mes", "MWh"]}
+      />
     </figure>
   );
 }

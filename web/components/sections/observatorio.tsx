@@ -55,19 +55,16 @@ export default function Observatorio() {
           </p>
         </div>
         <figure className="data-piece">
-          <LazyChart rows={data.demandaSemanal} dataKey="demanda_mwh" />
+          <LazyChart source="demandaSemanal" dataKey="demanda_mwh" />
           <figcaption>
             La media semanal muestra variaciones en la demanda nacional durante
             el periodo histórico. La unidad es MWh por intervalo horario.
           </figcaption>
           <DataTable
+            source="demandaSemanal"
             summary="Consultamos los datos semanales"
             caption="Demanda media semanal"
             headers={["Fecha", "MWh"]}
-            rows={data.demandaSemanal.map((r) => [
-              r.datetime.split("T")[0],
-              number(r.demanda_mwh),
-            ])}
           />
         </figure>
       </div>

@@ -86,3 +86,10 @@ En la medición final local obtuvimos LCP de 1.1 s, TBT de 60 ms y CLS de 0.001.
 
 Registramos códigos de salida reales, después de corregir los fallos encontrados. Verificamos en la exportación final los recursos de metadatos, las tablas al abrirse y las seis anchuras. Confirmamos que el objeto Git de `dashboard.json` sigue siendo `172ac7c88204fe758352b2bebd29dc87ed40e487`, igual al de la versión inicial. No modificamos los documentos académicos originales ni añadimos dependencias al manifiesto o al lockfile de npm.
 
+
+
+### Corrección posterior a la primera publicación
+
+Medimos tres veces la primera versión publicada y obtuvimos rendimiento 93, 89 y 90, con mediana 90; las otras tres categorías se mantuvieron en 100. Conservamos esos informes y no usamos la medición local como sustituto de la pública.
+
+Para reducir el trabajo inicial retiramos las filas de las tablas cerradas del HTML y de los datos serializados. Consultamos `dashboard.json` desde el propio sitio al abrir una tabla o al entrar un gráfico en pantalla y compartimos una sola lectura en memoria. Conservamos las tablas completas, los valores exactos, los textos estáticos y la altura de los gráficos. Volvimos a ejecutar lint, tipos, build, exportación y las nueve pruebas antes de publicar la corrección.
