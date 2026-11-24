@@ -1,4 +1,5 @@
-import AtlasMark from "./atlas-mark";
+import { panamaPath } from "./atlas-mark";
+import { escapeHtml } from "../lib/html";
 export default function SectionHeading({
   index,
   label,
@@ -10,17 +11,11 @@ export default function SectionHeading({
   title: string;
   description: string;
 }) {
+  const markup = `<div class="section-index"><span>${escapeHtml(index)}</span><svg viewBox="0 0 510 230" fill="none" aria-hidden="true"><path d="${panamaPath}" fill="currentColor"/></svg></div><div><p class="kicker">${escapeHtml(label)}</p><h2>${escapeHtml(title)}</h2></div><p class="section-description">${escapeHtml(description)}</p>`;
   return (
-    <header className="atlas-section-heading">
-      <div className="section-index">
-        <span>{index}</span>
-        <AtlasMark />
-      </div>
-      <div>
-        <p className="kicker">{label}</p>
-        <h2>{title}</h2>
-      </div>
-      <p className="section-description">{description}</p>
-    </header>
+    <header
+      className="atlas-section-heading"
+      dangerouslySetInnerHTML={{ __html: markup }}
+    />
   );
 }

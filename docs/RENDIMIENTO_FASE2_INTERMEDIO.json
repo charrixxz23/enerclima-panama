@@ -1,0 +1,199 @@
+{
+  "lcp_elementos": [
+    {
+      "type": "node",
+      "lhId": "page-0-H1",
+      "path": "1,HTML,1,BODY,4,MAIN,0,SECTION,2,DIV,0,DIV,1,H1",
+      "selector": "section#inicio > div.atlas-hero-grid > div > h1",
+      "boundingRect": {
+        "top": 267,
+        "bottom": 423,
+        "left": 16,
+        "right": 396,
+        "width": 380,
+        "height": 155
+      },
+      "snippet": "<h1>",
+      "nodeLabel": "El clima y la energía,\nen el mismo mapa."
+    },
+    {
+      "type": "node",
+      "lhId": "page-0-H1",
+      "path": "1,HTML,1,BODY,4,MAIN,0,SECTION,2,DIV,0,DIV,1,H1",
+      "selector": "section#inicio > div.atlas-hero-grid > div > h1",
+      "boundingRect": {
+        "top": 267,
+        "bottom": 423,
+        "left": 16,
+        "right": 396,
+        "width": 380,
+        "height": 155
+      },
+      "snippet": "<h1>",
+      "nodeLabel": "El clima y la energía,\nen el mismo mapa."
+    },
+    {
+      "type": "node",
+      "lhId": "page-0-H1",
+      "path": "1,HTML,1,BODY,4,MAIN,0,SECTION,2,DIV,0,DIV,1,H1",
+      "selector": "section#inicio > div.atlas-hero-grid > div > h1",
+      "boundingRect": {
+        "top": 267,
+        "bottom": 423,
+        "left": 16,
+        "right": 396,
+        "width": 380,
+        "height": 155
+      },
+      "snippet": "<h1>",
+      "nodeLabel": "El clima y la energía,\nen el mismo mapa."
+    }
+  ],
+  "commit": "9cd5d8a",
+  "referencia_rendimiento": 92,
+  "categorias": {
+    "performance": [
+      90,
+      91,
+      91
+    ],
+    "accessibility": [
+      100,
+      100,
+      100
+    ],
+    "best-practices": [
+      100,
+      100,
+      100
+    ],
+    "seo": [
+      100,
+      100,
+      100
+    ]
+  },
+  "url": "https://charrixxz23.github.io/enerclima-panama/",
+  "fechas": [
+    "2026-11-24T20:47:34.294Z",
+    "2026-11-24T20:47:51.591Z",
+    "2026-11-24T20:48:08.292Z"
+  ],
+  "lighthouse": "13.6.0",
+  "metodo": "simulate",
+  "metricas": {
+    "total-blocking-time": {
+      "corridas": [
+        400.0000000000002,
+        368,
+        369
+      ],
+      "mediana": 369
+    },
+    "largest-contentful-paint": {
+      "corridas": [
+        1089.595,
+        1129.118,
+        1094.964
+      ],
+      "mediana": 1094.964
+    },
+    "cumulative-layout-shift": {
+      "corridas": [
+        0,
+        0,
+        0
+      ],
+      "mediana": 0
+    },
+    "mainthread-work-breakdown": {
+      "corridas": [
+        1625.707999999998,
+        1772.559999999997,
+        1582.1439999999998
+      ],
+      "mediana": 1625.707999999998
+    }
+  },
+  "javascript_no_usado_estimado_bytes": {
+    "corridas": [
+      62141,
+      64217,
+      62184
+    ],
+    "mediana": 62184
+  },
+  "cpu_por_url": [
+    {
+      "url": "Unattributable",
+      "familia": "sin atribucion",
+      "total": 474.5560000000021,
+      "scripting": 6.856,
+      "scriptParseCompile": 0
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/",
+      "familia": "documento",
+      "total": 609.1400000000001,
+      "scripting": 13.476,
+      "scriptParseCompile": 21.520000000000003
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/4bd1b696-c7408084347438ae.js",
+      "familia": "React DOM",
+      "total": 331.71600000000007,
+      "scripting": 295.89200000000005,
+      "scriptParseCompile": 13.464
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/794-961df89b69f69717.js",
+      "familia": "Next App Router y cliente RSC",
+      "total": 263.87600000000026,
+      "scripting": 201.91200000000026,
+      "scriptParseCompile": 26.988
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/app/page-a40bb19c382b883c.js",
+      "familia": "aplicacion o arranque",
+      "total": 53.56,
+      "scripting": 47.616,
+      "scriptParseCompile": 3.756
+    }
+  ],
+  "scripts_iniciales": [
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/webpack-fcf6bf20ecb84eab.js",
+      "bytes_transferidos": 2164,
+      "familia": "aplicacion o arranque",
+      "sha256": "73951def2a758bc6a3a8af3591fae225bb4823c0d61d7192f47e5f70182693b0"
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/4bd1b696-c7408084347438ae.js",
+      "bytes_transferidos": 64921,
+      "familia": "React DOM",
+      "sha256": "7d5ccf185a6f85ab38ce400a7f10aa0a3496eb4e9aee1e500a85e01c4222fcec"
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/794-961df89b69f69717.js",
+      "bytes_transferidos": 68357,
+      "familia": "Next App Router y cliente RSC",
+      "sha256": "91644cc378a99e5ed089aaf1561689ca949808541987e60bc052cffdef814600"
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/main-app-6dcbf784d92d1137.js",
+      "bytes_transferidos": 363,
+      "familia": "aplicacion o arranque",
+      "sha256": "026973f2b825346afd4e35dc7ac8a3ac2b904a2b3be3595fe0d8656602e0ab4c"
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/app/page-a40bb19c382b883c.js",
+      "bytes_transferidos": 8430,
+      "familia": "aplicacion o arranque",
+      "sha256": "bdde949afdb8e338c06b9b6800f72a0c9a7eb24a31149b74ad6ab206a72a5ea4"
+    }
+  ],
+  "bibliotecas_descargadas_al_inicio": {
+    "Recharts": false,
+    "Leaflet": false
+  }
+}

@@ -68,3 +68,6 @@ Comprobamos 21 pruebas unitarias y 13 de navegador durante el desarrollo, inclui
 ### Puerta de rendimiento de la fase 2
 
 La primera publicación cb4f658 obtiene mediana 87 y no aprueba el cierre. Conservamos sus diagnósticos y corregimos el contraste del reloj; priorizamos la reducción del trabajo de hidratación, retiramos el cliente de next/image del hero y mantenemos inertes las tablas de los perfiles hasta abrirlas. Verificamos la corrección contra la referencia 92 antes de dar la fase por cerrada.
+
+
+La primera corrección alcanza mediana pública 91 y accesibilidad 100, pero conservamos el cierre pendiente frente a 92. Reducimos después la hidratación de la navegación y los ocho encabezados estáticos. Aprobamos 22 pruebas unitarias y las 13 de navegador, además de lint, tipos, build y exportación, antes de medir de nuevo la versión pública.

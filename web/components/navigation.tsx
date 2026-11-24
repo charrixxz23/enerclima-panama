@@ -1,7 +1,5 @@
-"use client";
-
-import { useState } from "react";
-import AtlasMark from "./atlas-mark";
+import { panamaPath } from "./atlas-mark";
+import { escapeHtml } from "../lib/html";
 const links = [
   ["Inicio", "inicio"],
   ["Observatorio", "observatorio"],
@@ -13,52 +11,12 @@ const links = [
   ["Metodología", "metodologia"],
   ["Equipo", "equipo"],
 ];
+const markup = `<div class="masthead"><a class="atlas-brand" href="#inicio" aria-label="EnerClima Panamá, inicio"><svg viewBox="0 0 510 230" fill="none" aria-hidden="true"><path d="${panamaPath}" fill="currentColor"/></svg><span>EnerClima <b>Panamá</b></span></a><span class="edition">Universidad Tecnológica de Panamá<br/>Observatorio energético y ambiental</span><button class="nav-toggle" aria-label="Índice: abrir navegación" aria-expanded="false" aria-controls="atlas-nav">Índice</button></div><nav id="atlas-nav" class="atlas-nav" aria-label="Navegación principal">${links.map(([label, id], i) => `<a href="#${id}"><span aria-hidden="true">${i === 0 ? "—" : String(i).padStart(2, "0")}</span>${escapeHtml(label)}</a>`).join("")}</nav>`;
 export default function Navigation() {
-  const [open, setOpen] = useState(false);
   return (
-    <header className="atlas-header">
-      <div className="masthead">
-        <a
-          className="atlas-brand"
-          href="#inicio"
-          aria-label="EnerClima Panamá, inicio"
-        >
-          <AtlasMark />
-          <span>
-            EnerClima <b>Panamá</b>
-          </span>
-        </a>
-        <span className="edition">
-          Universidad Tecnológica de Panamá
-          <br />
-          Observatorio energético y ambiental
-        </span>
-        <button
-          className="nav-toggle"
-          aria-label={
-            open ? "Cerrar índice de navegación" : "Índice: abrir navegación"
-          }
-          aria-expanded={open}
-          aria-controls="atlas-nav"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? "Cerrar" : "Índice"}
-        </button>
-      </div>
-      <nav
-        id="atlas-nav"
-        className={open ? "atlas-nav open" : "atlas-nav"}
-        aria-label="Navegación principal"
-      >
-        {links.map(([label, id], i) => (
-          <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>
-            <span aria-hidden="true">
-              {i === 0 ? "—" : String(i).padStart(2, "0")}
-            </span>
-            {label}
-          </a>
-        ))}
-      </nav>
-    </header>
+    <header
+      className="atlas-header"
+      dangerouslySetInnerHTML={{ __html: markup }}
+    />
   );
 }

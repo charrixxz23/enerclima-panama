@@ -180,3 +180,6 @@ Damos una base de papel al pie y al resumen del reloj para conservar el contrast
 
 
 En la comprobación local de esta corrección obtenemos TBT de 294 ms, LCP de 960 ms, rendimiento 94 y accesibilidad 100, con cinco scripts iniciales frente a seis. No sustituimos con esta corrida la mediana pública de tres mediciones. Conservamos esa comparación como puerta final.
+
+
+La corrección 9cd5d8a eleva la mediana pública a 91, con TBT de 369 ms y accesibilidad 100, pero aún no aprueba la referencia 92. Conservamos [el diagnóstico intermedio](RENDIMIENTO_FASE2_INTERMEDIO.md). Reducimos además la navegación y los encabezados inmutables a bloques HTML opacos, escapando todo su texto. Retiramos el estado React del índice móvil y conservamos su apertura, cierre, foco y atributos ARIA mediante el controlador existente. No diferimos todo el arranque para ocultar trabajo a Lighthouse ni sustituimos la puerta pública por la corrida local.
