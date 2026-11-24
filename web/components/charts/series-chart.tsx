@@ -1,4 +1,72 @@
 "use client";
-import { CartesianGrid,Line,LineChart,ResponsiveContainer,Tooltip,XAxis,YAxis } from "recharts";
-import { dateLabel, number, type DemandPoint, type RegionalPoint } from "../../lib/dashboard";
-export default function SeriesChart({rows,dataKey,thermal}:{rows:DemandPoint[]|RegionalPoint[];dataKey:string;thermal:boolean}) {const chartRows: Array<DemandPoint | RegionalPoint> = rows; return <ResponsiveContainer width="100%" height="100%"><LineChart data={chartRows} margin={{top:20,right:20,left:0,bottom:10}} accessibilityLayer><CartesianGrid stroke="var(--rule)" vertical={false}/><XAxis dataKey="datetime" tickFormatter={dateLabel} minTickGap={80} tick={{fill:"var(--secondary)",fontSize:14}} tickLine={false} axisLine={false}/><YAxis domain={["dataMin","dataMax"]} tick={false} axisLine={false} tickLine={false} width={12}/><Tooltip labelFormatter={v=>String(v).split("T")[0]} formatter={v=>[`${number(Number(v))} ${thermal?"°C":"MWh"}`,thermal?"Temperatura":"Demanda"]} contentStyle={{background:"var(--paper)",color:"var(--text)",border:"1px solid var(--secondary)"}}/><Line dataKey={dataKey} stroke={thermal?"var(--warm)":"var(--text)"} strokeWidth={2} dot={false} isAnimationActive={false}/></LineChart></ResponsiveContainer>;}
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import {
+  dateLabel,
+  number,
+  type DemandPoint,
+  type RegionalPoint,
+} from "../../lib/dashboard";
+export default function SeriesChart({
+  rows,
+  dataKey,
+  thermal,
+}: {
+  rows: DemandPoint[] | RegionalPoint[];
+  dataKey: string;
+  thermal: boolean;
+}) {
+  const chartRows: Array<DemandPoint | RegionalPoint> = rows;
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart
+        data={chartRows}
+        margin={{ top: 20, right: 20, left: 0, bottom: 10 }}
+        accessibilityLayer
+      >
+        <CartesianGrid stroke="var(--rule)" vertical={false} />
+        <XAxis
+          dataKey="datetime"
+          tickFormatter={dateLabel}
+          minTickGap={80}
+          tick={{ fill: "var(--secondary)", fontSize: 14 }}
+          tickLine={false}
+          axisLine={false}
+        />
+        <YAxis
+          domain={["dataMin", "dataMax"]}
+          tick={false}
+          axisLine={false}
+          tickLine={false}
+          width={12}
+        />
+        <Tooltip
+          labelFormatter={(v) => String(v).split("T")[0]}
+          formatter={(v) => [
+            `${number(Number(v))} ${thermal ? "°C" : "MWh"}`,
+            thermal ? "Temperatura" : "Demanda",
+          ]}
+          contentStyle={{
+            background: "var(--paper)",
+            color: "var(--text)",
+            border: "1px solid var(--secondary)",
+          }}
+        />
+        <Line
+          dataKey={dataKey}
+          stroke={thermal ? "var(--warm)" : "var(--text)"}
+          strokeWidth={2}
+          dot={false}
+          isAnimationActive={false}
+        />
+      </LineChart>
+    </ResponsiveContainer>
+  );
+}

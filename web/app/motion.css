@@ -1,0 +1,44 @@
+@layer motion {
+  .data-piece.is-seen {
+    animation: atlas-reveal var(--duration) ease both;
+  }
+  .is-seen .draw-line {
+    stroke-dasharray: 1;
+    animation: atlas-draw var(--draw-duration) ease both;
+  }
+  @keyframes atlas-reveal {
+    from {
+      transform: translateY(12px);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes atlas-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+    .draw-line {
+      stroke-dasharray: none !important;
+      stroke-dashoffset: 0 !important;
+    }
+    .data-piece {
+      transform: none !important;
+    }
+  }
+}

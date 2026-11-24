@@ -20,14 +20,17 @@ const mime = {
 };
 
 const server = createServer(async (request, response) => {
-  const pathname = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
+  const pathname = decodeURIComponent(
+    new URL(request.url, "http://localhost").pathname,
+  );
   if (pathname !== basePath && !pathname.startsWith(`${basePath}/`)) {
     response.writeHead(404).end("not found");
     return;
   }
 
   let relative = pathname.slice(basePath.length).replace(/^\/+/, "");
-  if (!relative || pathname.endsWith("/")) relative = path.join(relative, "index.html");
+  if (!relative || pathname.endsWith("/"))
+    relative = path.join(relative, "index.html");
   const filePath = path.resolve(outDir, relative);
   if (filePath !== outDir && !filePath.startsWith(`${outDir}${path.sep}`)) {
     response.writeHead(403).end("forbidden");
@@ -36,7 +39,10 @@ const server = createServer(async (request, response) => {
 
   try {
     const body = await readFile(filePath);
-    response.writeHead(200, { "content-type": mime[path.extname(filePath)] ?? "application/octet-stream" });
+    response.writeHead(200, {
+      "content-type":
+        mime[path.extname(filePath)] ?? "application/octet-stream",
+    });
     response.end(body);
   } catch {
     response.writeHead(404).end("not found");
@@ -57,30 +63,70 @@ page.on("requestfailed", (request) => {
 
 try {
   const home = await page.goto(`${origin}${basePath}/`);
-  if (home?.status() !== 200) throw new Error(`home returned ${home?.status()}`);
+  if (home?.status() !== 200)
+    throw new Error(`home returned ${home?.status()}`);
   await page.getByRole("heading", { name: /el clima y la energía/i }).waitFor();
 
-  const image = await page.request.get(`${origin}${basePath}/images/enerclima-logo.svg`);
-  const data = await page.request.get(`${origin}${basePath}/data/dashboard.json`);
-  if (image.status() !== 200 || data.status() !== 200) throw new Error("a static public asset did not load");
+  const image = await page.request.get(
+    `${origin}${basePath}/images/enerclima-logo.svg`,
+  );
+  const data = await page.request.get(
+    `${origin}${basePath}/data/dashboard.json`,
+  );
+  if (image.status() !== 200 || data.status() !== 200)
+    throw new Error("a static public asset did not load");
 
+  for (const resource of [
+    "robots.txt",
+    "sitemap.xml",
+    "manifest.webmanifest",
+    "favicon.svg",
+    "favicon.ico",
+    "apple-touch-icon.png",
+    "images/og-atlas.png",
+  ]) {
+    const response = await page.request.get(`${origin}${basePath}/${resource}`);
+    if (response.status() !== 200)
+      throw new Error(`missing static metadata asset: ${resource}`);
+  }
   await page.locator("#station-select").selectOption("Santiago");
   await page.locator(".sim-controls select").nth(1).selectOption("3");
   const simulatorValue = await page.locator(".sim-result > strong").innerText();
 
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.getByRole("button", { name: "Abrir navegación" }).click();
+  await page.getByRole("button", { name: "Índice: abrir navegación" }).click();
   await page.getByRole("link", { name: "Sensibilidad" }).click();
-  const hasMobileOverflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+  const hasMobileOverflow = await page.evaluate(
+    () =>
+      document.documentElement.scrollWidth >
+      document.documentElement.clientWidth,
+  );
 
   await mkdir(path.resolve(here, "../test-results"), { recursive: true });
-  await page.screenshot({ path: path.resolve(here, "../test-results/export-movil.png"), fullPage: true });
+  await page.screenshot({
+    path: path.resolve(here, "../test-results/export-movil.png"),
+    fullPage: true,
+  });
   if (hasMobileOverflow || errors.length || failedLocalRequests.length) {
-    throw new Error(JSON.stringify({ hasMobileOverflow, errors, failedLocalRequests }));
+    throw new Error(
+      JSON.stringify({ hasMobileOverflow, errors, failedLocalRequests }),
+    );
   }
 
-  console.log(JSON.stringify({ home: home.status(), image: image.status(), data: data.status(), simulatorValue, hasMobileOverflow, pageErrors: errors.length, failedLocalRequests: failedLocalRequests.length }));
+  console.log(
+    JSON.stringify({
+      home: home.status(),
+      image: image.status(),
+      data: data.status(),
+      simulatorValue,
+      hasMobileOverflow,
+      pageErrors: errors.length,
+      failedLocalRequests: failedLocalRequests.length,
+    }),
+  );
 } finally {
   await browser.close();
-  await new Promise((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));
+  await new Promise((resolve, reject) =>
+    server.close((error) => (error ? reject(error) : resolve())),
+  );
 }

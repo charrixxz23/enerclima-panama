@@ -1,6 +1,68 @@
-import {dashboard as data} from "../../lib/data";
-import {number} from "../../lib/dashboard";
+import { dashboard as data } from "../../lib/data";
+import { number } from "../../lib/dashboard";
 import SectionHeading from "../section-heading";
 import LazyMap from "../lazy-map";
 import ClimateExplorer from "../climate-explorer";
-export default function Clima(){return <section id="clima" className="atlas-section"><SectionHeading index="02" label="Clima regional" title="Tres lugares. Un sistema nacional." description="Comparamos Tocumen, Santiago y David con la demanda eléctrica de todo Panamá."/><div className="two-plates"><figure><LazyMap stations={data.estaciones} events={data.eventos}/><figcaption>Ubicamos referencias aeroportuarias sobre una silueta diagramática. No representan las celdas meteorológicas ni una cartografía oficial.</figcaption><p className="map-note source-note">Coordenadas de referencia: <a href="https://www.aoml.noaa.gov/hrd/HFP2010/HFP2010_part2.pdf">NOAA/AOML</a>. Esquema propio sin servicios cartográficos externos.</p><details><summary>Consultamos las coordenadas</summary><table><caption>Referencias aeroportuarias</caption><thead><tr><th scope="col">Lugar</th><th scope="col">Latitud</th><th scope="col">Longitud</th></tr></thead><tbody>{data.estaciones.map(s=><tr key={s.nombre}><th scope="row">{s.nombre}</th><td>{number(s.latitud)}</td><td>{number(s.longitud)}</td></tr>)}</tbody></table></details><div className="thermal-key"><span>Menor temperatura</span><i/><span>Mayor temperatura</span></div><p className="source-note">El color de los puntos compara los umbrales P95 de las estaciones dentro de su rango; no indica una alerta.</p></figure><ClimateExplorer rows={data.temperaturaRegional} associations={data.asociaciones}/></div></section>;}
+export default function Clima() {
+  return (
+    <section id="clima" className="atlas-section">
+      <SectionHeading
+        index="02"
+        label="Clima regional"
+        title="Tres lugares. Un sistema nacional."
+        description="Comparamos Tocumen, Santiago y David con la demanda eléctrica de todo Panamá."
+      />
+      <div className="two-plates">
+        <figure>
+          <LazyMap stations={data.estaciones} events={data.eventos} />
+          <figcaption>
+            Ubicamos referencias aeroportuarias sobre una silueta diagramática.
+            No representan las celdas meteorológicas ni una cartografía oficial.
+          </figcaption>
+          <p className="map-note source-note">
+            Coordenadas de referencia:{" "}
+            <a href="https://www.aoml.noaa.gov/hrd/HFP2010/HFP2010_part2.pdf">
+              NOAA/AOML
+            </a>
+            . Esquema propio sin servicios cartográficos externos.
+          </p>
+          <details>
+            <summary>Consultamos las coordenadas</summary>
+            <table>
+              <caption>Referencias aeroportuarias</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Lugar</th>
+                  <th scope="col">Latitud</th>
+                  <th scope="col">Longitud</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.estaciones.map((s) => (
+                  <tr key={s.nombre}>
+                    <th scope="row">{s.nombre}</th>
+                    <td>{number(s.latitud)}</td>
+                    <td>{number(s.longitud)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </details>
+          <div className="thermal-key">
+            <span>Menor temperatura</span>
+            <i />
+            <span>Mayor temperatura</span>
+          </div>
+          <p className="source-note">
+            El color de los puntos compara los umbrales P95 de las estaciones
+            dentro de su rango; no indica una alerta.
+          </p>
+        </figure>
+        <ClimateExplorer
+          rows={data.temperaturaRegional}
+          associations={data.asociaciones}
+        />
+      </div>
+    </section>
+  );
+}

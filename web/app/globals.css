@@ -1,3 +1,11 @@
 @layer tokens, base, atlas, motion;
+@layer atlas.cover, atlas.results, atlas.research, atlas.data, atlas.controls, atlas.refinements;
 @import "./tokens.css";
-@import "./atlas.css";
+@import "./base.css";
+@import "./cover.css";
+@import "./results.css";
+@import "./research.css";
+@import "./data.css";
+@import "./controls.css";
+@import "./motion.css";
+@import "./refinements.css";

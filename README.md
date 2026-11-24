@@ -6,9 +6,9 @@
 
 <p align="center"><img src="web/public/images/enerclima-logo.svg" alt="Logotipo de EnerClima Panamá" width="420"></p>
 
-> **Cuando el clima cambia, la demanda también.** Exploramos señales climáticas y energéticas para entender mejor el sistema eléctrico panameño.
+> **El clima y la energía, en el mismo mapa.** Exploramos asociaciones históricas entre clima regional y demanda nacional, con sus límites visibles.
 
-![Página principal del observatorio EnerClima Panamá](web/public/previews/portada.png)
+<picture><source srcset="web/public/previews/portada.avif" type="image/avif"><img src="web/public/previews/portada.webp" alt="Portada del atlas EnerClima Panamá" width="1200" height="833"></picture>
 
 ## El problema que estudiamos
 
@@ -18,9 +18,9 @@ Trabajamos con una serie horaria entre enero de 2015 y junio de 2020. El conjunt
 
 ## Hallazgos principales
 
-- Nuestro modelo Random Forest obtuvo un MAE de **19.61 MWh**, un RMSE de **27.72 MWh** y un MAPE de **1.66%** en la prueba temporal.
-- En las horas sobre el percentil 95 de temperatura, la demanda media fue cerca de **200 MWh mayor** que en las demás horas. Esta diferencia es descriptiva y no atribuye causalidad.
-- Evaluamos por separado la referencia semanal de predespacho en 14 ventanas oficiales: MAE **59.20 MWh** y RMSE **74.03 MWh**.
+- Nuestro modelo Random Forest obtuvo un MAE de **19.612740720030747 MWh**, un RMSE de **27.722937184313444 MWh** y un MAPE de **1.6629660080017143%** en la prueba temporal.
+- En las horas sobre el percentil 95 de temperatura, en Tocumen observamos una diferencia media de **199.81381235300273 MWh** respecto a las demás horas. Esta diferencia es descriptiva y no atribuye causalidad.
+- Evaluamos por separado la referencia semanal de predespacho en 14 ventanas oficiales: MAE **59.19737325680272 MWh** y RMSE **74.02858973510108 MWh**.
 - El modelo de una hora usa clima observado en la misma hora objetivo; por ello sus resultados son retrospectivos y no representan un pronóstico operativo.
 
 ## Qué podemos explorar
@@ -32,7 +32,7 @@ Trabajamos con una serie horaria entre enero de 2015 y junio de 2020. El conjunt
 - Ajustamos escenarios de temperatura en un simulador basado en el modelo.
 - Leemos metodología, referencias y limitaciones junto a los resultados.
 
-![Simulador de sensibilidad de EnerClima Panamá](web/public/previews/simulador.png)
+<picture><source srcset="web/public/previews/simulador.avif" type="image/avif"><img src="web/public/previews/simulador.webp" alt="Explorador de sensibilidad del modelo" width="1200" height="1119"></picture>
 
 ## Tecnologías y arquitectura
 
@@ -106,3 +106,14 @@ La bibliografía completa y las definiciones de variables están en [referencias
 ## Privacidad y límites
 
 No publicamos cédulas, informes identificados, datos fuente ni archivos cuya redistribución no esté confirmada. El repositorio contiene código, figuras y métricas agregadas. Conservamos seis observaciones bajas de demanda para revisión y no las corregimos ni eliminamos. Las asociaciones son observacionales; los escenarios de temperatura describen la respuesta del modelo y no son efectos causales ni proyecciones climáticas oficiales.
+
+
+## Diseño del atlas
+
+Organizamos la lectura en nueve anclajes estables. Construimos la portada con la demanda diaria y una silueta diagramática propia. Añadimos un reloj horario, relieves mensuales, correlaciones frente a la demanda y un registro de calidad. Mostramos valores exactos del JSON y alternativas textuales y tabulares para cada figura.
+
+Alojamos las fuentes Fraunces y Source Sans 3 en el repositorio, con sus licencias OFL. Cargamos mapas y Recharts al entrar en pantalla; el mapa usa nuestro SVG local. Recordamos el tema claro u oscuro y respetamos la preferencia de movimiento reducido. No añadimos dependencias al proyecto.
+
+Documentamos los tokens, el uso de color, las pruebas y las mediciones en [docs/DISENO.md](docs/DISENO.md). Conservamos las evidencias completas en la carpeta local ignorada `evidencias/rediseno/`.
+
+Verificamos las nueve pruebas de navegador y la exportación con su subruta. En Lighthouse móvil medimos 100 en rendimiento, accesibilidad, buenas prácticas y SEO sobre la exportación final local; documentamos la referencia anterior y las condiciones de medición en el sistema de diseño.

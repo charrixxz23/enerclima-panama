@@ -1,0 +1,42 @@
+@layer atlas.controls {
+  .theme-toggle {
+    font-size: var(--text-xs);
+    padding: var(--s2);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .sensitivity-plot {
+    margin-top: var(--s8);
+  }
+  .sensitivity-plot svg {
+    width: 100%;
+    margin-top: var(--s4);
+  }
+  .sensitivity-plot text {
+    fill: var(--secondary);
+    font-family: var(--font-body, Arial), sans-serif;
+    font-size: 14px;
+  }
+  .scenario-path {
+    stroke: var(--text);
+    stroke-width: 2;
+    fill: none;
+    transition: d var(--duration) ease;
+  }
+  .scenario-marker {
+    fill: var(--paper);
+    stroke: var(--text);
+    stroke-width: 2;
+    transition:
+      cx var(--duration) ease,
+      cy var(--duration) ease;
+  }
+  @media (max-width: 389px) {
+    .atlas-brand svg {
+      width: var(--s8);
+    }
+    .atlas-brand {
+      font-size: var(--text-md);
+    }
+  }
+}

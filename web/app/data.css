@@ -1,0 +1,113 @@
+@layer atlas.data {
+  .signature-grid {
+    display: grid;
+    gap: var(--s12);
+    margin-top: var(--s16);
+    border-top: var(--line-width) solid var(--rule);
+    padding-top: var(--s12);
+  }
+  .signature-grid svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: var(--s6);
+  }
+  .signature-grid text {
+    fill: var(--secondary);
+    font-family: var(--font-body, Arial), sans-serif;
+    font-size: 16px;
+  }
+  .clock-grid {
+    stroke: var(--rule);
+    fill: none;
+  }
+  .clock-area,
+  .ridge-area {
+    fill: var(--text);
+    fill-opacity: 0.1;
+  }
+  .clock-figure svg {
+    max-width: 28rem;
+    margin-inline: auto;
+  }
+  .monthly-horizon .plate-heading {
+    flex-wrap: wrap;
+  }
+  .monthly-horizon svg {
+    min-height: 20rem;
+  }
+  .correlation-panel {
+    margin-top: var(--s16);
+  }
+  .correlation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s4);
+    margin-top: var(--s8);
+  }
+  .correlation-cell {
+    position: relative;
+    padding: var(--s4) 0 var(--s6);
+    border-top: var(--line-width) solid var(--secondary);
+    font-size: var(--text-sm);
+  }
+  .correlation-cell > span:first-child {
+    display: block;
+    font-weight: 600;
+  }
+  .correlation-cell strong {
+    font-size: var(--text-sm);
+    font-weight: 400;
+  }
+  .correlation-bar {
+    display: block;
+    width: var(--strength);
+    height: var(--s1);
+    background: var(--text);
+    margin-top: var(--s4);
+  }
+  .correlation-explain {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 15rem;
+    max-width: 22rem;
+    background: var(--text);
+    color: var(--paper);
+    padding: var(--s4);
+    z-index: 5;
+    font-size: var(--text-sm);
+  }
+  .correlation-cell:focus .correlation-explain,
+  .correlation-cell:hover .correlation-explain {
+    display: block;
+  }
+  .correlation-cell:nth-child(2n) .correlation-explain {
+    left: auto;
+    right: 0;
+  }
+  .quality-ledger .data-ledger {
+    margin-top: var(--s8);
+  }
+  .quality-ledger p {
+    margin-top: var(--s6);
+  }
+  .quality-ledger td {
+    overflow-wrap: anywhere;
+  }
+  .quality-ledger th {
+    min-width: 10rem;
+  }
+  @media (min-width: 768px) {
+    .signature-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    }
+    .correlation-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .quality-ledger .data-ledger {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+}

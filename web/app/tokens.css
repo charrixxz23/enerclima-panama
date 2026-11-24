@@ -8,16 +8,16 @@
     --cool: #28776a;
     --warm: #8a5b0a;
     --hot: #ad432c;
-    --s1: .25rem;
-    --s2: .5rem;
-    --s3: .75rem;
+    --s1: 0.25rem;
+    --s2: 0.5rem;
+    --s3: 0.75rem;
     --s4: 1rem;
     --s6: 1.5rem;
     --s8: 2rem;
     --s12: 3rem;
     --s16: 4rem;
     --s24: 6rem;
-    --text-xs: .875rem;
+    --text-xs: 0.875rem;
     --text-sm: 1rem;
     --text-md: 1.125rem;
     --text-lg: 1.5rem;
@@ -35,6 +35,28 @@
 }
 
 @layer tokens {
- :root[data-theme="dark"] {color-scheme:dark;--paper:#102a2b;--surface:#193638;--text:#f4f0e8;--secondary:#c4cec8;--rule:#48615e;--cool:#64bda5;--warm:#f2bd62;--hot:#f48b72;}
- @media(prefers-color-scheme:dark){:root:not([data-theme]){color-scheme:dark;--paper:#102a2b;--surface:#193638;--text:#f4f0e8;--secondary:#c4cec8;--rule:#48615e;--cool:#64bda5;--warm:#f2bd62;--hot:#f48b72;}}
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #102a2b;
+    --surface: #193638;
+    --text: #f4f0e8;
+    --secondary: #c4cec8;
+    --rule: #48615e;
+    --cool: #64bda5;
+    --warm: #f2bd62;
+    --hot: #f48b72;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      color-scheme: dark;
+      --paper: #102a2b;
+      --surface: #193638;
+      --text: #f4f0e8;
+      --secondary: #c4cec8;
+      --rule: #48615e;
+      --cool: #64bda5;
+      --warm: #f2bd62;
+      --hot: #f48b72;
+    }
+  }
 }

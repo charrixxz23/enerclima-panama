@@ -1,0 +1,58 @@
+@layer atlas.refinements {
+  .correlation-explain {
+    position: static;
+    min-width: 0;
+    max-width: none;
+    margin-top: var(--s4);
+  }
+}
+@layer atlas.refinements {
+  .data-ledger .ledger-note {
+    font-size: var(--text-xs);
+  }
+  .ledger-note {
+    margin: 0;
+  }
+}
+@layer atlas.refinements {
+  .monthly-horizon .ridge-wide {
+    display: none;
+  }
+  .monthly-horizon .ridge-compact {
+    display: block;
+  }
+  .scenario-legend {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--s2);
+    font-size: var(--text-xs);
+    line-height: 1.4;
+  }
+  .sensitivity-plot svg text {
+    display: none;
+  }
+  .monthly-horizon .ridge-compact text {
+    font-size: 16px;
+  }
+  @media (min-width: 1440px) {
+    .monthly-horizon .ridge-wide {
+      display: block;
+    }
+    .monthly-horizon .ridge-compact {
+      display: none;
+    }
+    .monthly-horizon .ridge-wide text {
+      font-size: 20px;
+    }
+    .sensitivity-plot svg text {
+      display: block;
+      font-size: 16px;
+    }
+    .scenario-legend {
+      display: none;
+    }
+  }
+}

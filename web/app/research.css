@@ -1,0 +1,166 @@
+@layer atlas.research {
+  .sensitivity-grid,
+  .team-byline {
+    display: grid;
+    gap: var(--s8);
+  }
+  .sim-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s4);
+  }
+  .sim-controls label {
+    font-size: var(--text-sm);
+  }
+  .sim-controls select {
+    margin-top: var(--s2);
+  }
+  .sim-result {
+    display: block;
+    border-top: var(--line-width) solid var(--text);
+    padding-block: var(--s6);
+  }
+  .sim-result > span {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .sim-result > strong {
+    display: block;
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    margin-block: var(--s4);
+  }
+  .sim-result p,
+  .sim-result dl {
+    font-size: var(--text-sm);
+  }
+  .sim-result dl > div {
+    padding-block: var(--s3);
+    border-bottom: var(--line-width) solid var(--rule);
+  }
+  .sim-result dt {
+    color: var(--secondary);
+  }
+  .sim-result dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+  }
+  .research-question {
+    max-width: 65ch;
+    margin-left: auto;
+    font-size: var(--text-md);
+  }
+  .research-question h3 {
+    font-size: clamp(1.75rem, 3vw, 3rem);
+  }
+  .research-question p {
+    margin-top: var(--s6);
+  }
+  .citations {
+    margin-top: var(--s12);
+    border-top: var(--line-width) solid var(--rule);
+    padding-top: var(--s8);
+    font-size: var(--text-sm);
+  }
+  .citations p {
+    margin-top: var(--s4);
+    overflow-wrap: anywhere;
+  }
+  .reference-list {
+    display: grid;
+    gap: var(--s4);
+    margin-top: var(--s12);
+    font-size: var(--text-sm);
+  }
+  .reference-list h3 {
+    margin-bottom: var(--s4);
+  }
+  .partition {
+    margin-top: var(--s12);
+  }
+  .partition dl {
+    display: grid;
+    gap: var(--s6);
+  }
+  .partition dl > div {
+    border-top: var(--line-width) solid var(--rule);
+    padding-top: var(--s4);
+  }
+  .partition dt {
+    font-weight: 600;
+  }
+  .partition dd {
+    margin: var(--s2) 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .limitations {
+    padding: var(--s8);
+    margin-top: var(--s12);
+    background: var(--surface);
+    border-block: var(--line-width) solid var(--text);
+  }
+  .limitations h3 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    max-width: 30ch;
+  }
+  .limitations ol {
+    margin: var(--s8) 0 0;
+    padding-left: var(--s6);
+  }
+  .limitations li {
+    padding-left: var(--s3);
+    margin-bottom: var(--s6);
+    font-size: var(--text-md);
+  }
+  .limitations li:last-child {
+    margin-bottom: 0;
+  }
+  .team-byline ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: var(--text-lg);
+    font-family: var(--font-display, Georgia), serif;
+  }
+  .team-byline li {
+    padding-block: var(--s3);
+    border-bottom: var(--line-width) solid var(--rule);
+  }
+  .atlas-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s8);
+    border-top: var(--line-width) solid var(--text);
+    padding-block: var(--s8);
+    font-size: var(--text-sm);
+  }
+  .atlas-footer > div {
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    font-weight: 600;
+  }
+  .atlas-footer svg {
+    width: var(--s16);
+  }
+  @media (min-width: 768px) {
+    .sensitivity-grid,
+    .team-byline {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--s12);
+    }
+    .partition dl {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .reference-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .reference-list h3 {
+      grid-column: 1/-1;
+    }
+  }
+}

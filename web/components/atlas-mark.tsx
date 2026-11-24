@@ -1,2 +1,14 @@
-export const panamaPath = "M28 78 L65 55 91 62 113 48 145 62 168 92 201 95 226 73 253 60 280 68 300 91 328 100 354 89 379 99 402 126 421 124 449 159 472 162 482 187 461 200 442 177 414 167 395 144 366 136 345 119 322 132 297 119 272 100 253 96 233 111 213 131 188 136 165 126 145 102 114 98 91 83 70 87 51 81 Z";
-export default function AtlasMark({className = ""}: {className?: string}) { return <svg className={className} viewBox="0 0 510 230" fill="none" aria-hidden="true"><path d={panamaPath} fill="currentColor" /></svg>; }
+export const panamaPath =
+  "M20 65 L60 45 95 35 120 60 145 80 170 95 196 90 220 72 255 70 285 48 315 42 345 52 362 78 389 89 416 117 445 137 470 168 480 190 462 207 442 182 416 167 392 139 363 119 341 100 318 97 295 104 275 112 255 104 235 119 239 151 224 178 205 190 185 181 169 153 141 142 111 147 85 146 65 156 43 136 25 115 Z";
+export default function AtlasMark({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 510 230"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path d={panamaPath} fill="currentColor" />
+    </svg>
+  );
+}

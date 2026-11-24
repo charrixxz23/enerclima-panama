@@ -10,4 +10,26 @@ import Sensibilidad from "./sections/sensibilidad";
 import Investigacion from "./sections/investigacion";
 import Metodologia from "./sections/metodologia";
 import Equipo from "./sections/equipo";
-export default function Observatory() { return (<><a className="skip-link" href="#contenido">Saltamos al contenido</a><Navigation /><main id="contenido"><Inicio /><Observatorio /><Clima /><Eventos /><Modelos /><Sensibilidad /><Investigacion /><Metodologia /><Equipo /></main><Footer /><Motion/></>); }
+export default function Observatory() {
+  return (
+    <>
+      <a className="skip-link" href="#contenido">
+        Saltamos al contenido
+      </a>
+      <Navigation />
+      <main id="contenido">
+        <Inicio />
+        <Observatorio />
+        <Clima />
+        <Eventos />
+        <Modelos />
+        <Sensibilidad />
+        <Investigacion />
+        <Metodologia />
+        <Equipo />
+      </main>
+      <Footer />
+      <Motion />
+    </>
+  );
+}
