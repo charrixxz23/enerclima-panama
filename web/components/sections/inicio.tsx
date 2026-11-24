@@ -1,22 +1,8 @@
-import { ArrowRight, ArrowDownRight } from "lucide-react";
-export default function Inicio() { const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""; return (<><section className="hero" id="inicio" style={{ backgroundImage: `linear-gradient(90deg, rgba(10,35,43,.9) 0%, rgba(10,35,43,.68) 48%, rgba(10,35,43,.12) 100%), url('${basePath}/images/panama-energy-hero.png')` }}>
-        <div className="hero-content">
-          <p className="eyebrow light"><span></span> OBSERVATORIO ENERGÉTICO Y AMBIENTAL</p>
-          <h1>Cuando el clima cambia, <em>la demanda también.</em></h1>
-          <p className="hero-copy">Exploramos cómo las condiciones microclimáticas de tres regiones de Panamá se relacionan con la demanda eléctrica nacional.</p>
-          <div className="hero-actions">
-            <a className="button button-amber" href="#observatorio">Explorar resultados <ArrowRight size={17} /></a>
-            <a className="hero-link" href="#metodologia">Conocer el estudio <ArrowDownRight size={17} /></a>
-          </div>
-          <p className="hero-period">DATOS HISTÓRICOS · ENERO 2015 A JUNIO 2020</p>
-        </div>
-        <div className="hero-note"><span>01 / 03</span><b>Demanda nacional</b><small>Clima observado en Tocumen, Santiago y David</small></div>
-        <span className="image-disclaimer">Imagen ilustrativa generada con IA; no es un registro documental</span>
-      </section>
-
-      <section className="intro-band">
-        <p>Estudiamos un sistema eléctrico nacional y tres contextos climáticos regionales. Cada señal aporta una perspectiva distinta sobre la demanda.</p>
-        <a href="#investigacion">Sobre nuestra investigación <ArrowRight size={16} /></a>
-      </section>
-
-      </>); }
+import { dashboard as data } from "../../lib/data";
+import { dateLabel, number } from "../../lib/dashboard";
+import AtlasMark from "../atlas-mark";
+export default function Inicio() {
+ const rows=data.demandaDiaria, low=Math.min(...rows.map(r=>r.demanda_mwh)), high=Math.max(...rows.map(r=>r.demanda_mwh));
+ const points=rows.map((r,i)=>`${i/(rows.length-1)*700},${250-(r.demanda_mwh-low)/(high-low)*200}`).join(" ");
+ return <section id="inicio" className="atlas-hero"><div className="hero-meta"><span>Atlas de demanda y clima</span><span>{dateLabel(data.periodo[0])} — {dateLabel(data.periodo[1])}</span></div><div className="atlas-hero-grid"><div><p className="kicker">Panamá · Lecturas de un sistema</p><h1>El clima y la energía,<br /><em>en el mismo mapa.</em></h1><p className="hero-description">Exploramos la relación entre el clima de tres regiones y la demanda eléctrica nacional. Leemos sus patrones históricos, sus diferencias y sus límites.</p><a className="text-link" href="#observatorio">Abrimos el atlas</a><p className="hero-footnote">Trabajamos con {number(data.resumen.filas)} registros horarios.<br />Estudiamos asociaciones; no demostramos causalidad.</p></div><figure className="hero-plate data-piece"><div className="plate-heading"><span>Territorio y demanda</span><span>Registro histórico</span></div><AtlasMark className="hero-map" /><div className="hero-station-list">{data.estaciones.map(s=><span key={s.nombre}>{s.nombre}</span>)}</div><svg className="hero-series" viewBox="0 0 700 280" role="img" aria-label="Serie de demanda diaria nacional"><path d="M0 50H700 M0 150H700 M0 250H700" className="grid-line" /><polyline points={points} className="series-line draw-line" pathLength="1" /></svg><div className="plate-heading"><span>{dateLabel(rows[0].datetime)}</span><span>{dateLabel(rows[rows.length-1].datetime)}</span></div><figcaption>Leemos la media diaria nacional sobre un esquema de Panamá. La silueta es diagramática; el trazo procede de la serie histórica.</figcaption><details><summary>Consultamos los datos diarios</summary><div className="table-scroll"><table><caption>Demanda media diaria, MWh por intervalo horario</caption><thead><tr><th scope="col">Fecha</th><th scope="col">MWh</th></tr></thead><tbody>{rows.map(r=><tr key={r.datetime}><th scope="row">{r.datetime.split("T")[0]}</th><td>{number(r.demanda_mwh)}</td></tr>)}</tbody></table></div></details></figure></div><div className="hero-bottom"><span>Demanda nacional · Clima regional</span><a href="#metodologia">Leemos las limitaciones del estudio</a></div></section>;
+}

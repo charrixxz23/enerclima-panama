@@ -58,12 +58,9 @@ page.on("requestfailed", (request) => {
 try {
   const home = await page.goto(`${origin}${basePath}/`);
   if (home?.status() !== 200) throw new Error(`home returned ${home?.status()}`);
-  await page.getByRole("heading", { name: /cuando el clima cambia/i }).waitFor();
+  await page.getByRole("heading", { name: /el clima y la energía/i }).waitFor();
 
-  const background = await page.locator("#inicio").evaluate((element) => getComputedStyle(element).backgroundImage);
-  if (!background.includes(`${basePath}/images/panama-energy-hero.png`)) throw new Error("hero image is missing the repository base path");
-
-  const image = await page.request.get(`${origin}${basePath}/images/panama-energy-hero.png`);
+  const image = await page.request.get(`${origin}${basePath}/images/enerclima-logo.svg`);
   const data = await page.request.get(`${origin}${basePath}/data/dashboard.json`);
   if (image.status() !== 200 || data.status() !== 200) throw new Error("a static public asset did not load");
 

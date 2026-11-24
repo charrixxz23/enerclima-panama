@@ -14,7 +14,7 @@ test("renderiza resultados reales y secciones principales", async ({ page }) => 
   page.on("pageerror", (error) => errors.push(error.message));
   const response = await page.goto(homePath);
   expect(response?.status()).toBe(200);
-  await expect(page.getByRole("heading", { name: /cuando el clima cambia/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /el clima y la energía/i })).toBeVisible();
   await expect(page.locator("#observatorio")).toContainText("48,048");
   await expect(page.locator("#observatorio")).toContainText("85.19250000000002 MWh");
   await expect(page.locator("#clima .map-note a")).toHaveAttribute("href", /aoml\.noaa\.gov/);
