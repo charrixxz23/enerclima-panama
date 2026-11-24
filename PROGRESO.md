@@ -9,12 +9,13 @@
 | Investigación de fuentes | Completado | `docs/references/referencias_verificadas.md` |
 | Modelado y análisis | Completado | Canalización Python, métricas, tablas y figuras |
 | Cuaderno ejecutable | Completado | Cuaderno público ejecutado y copia privada identificada |
-| Aplicación web | Completado localmente | Lint, tipos, build, 4 pruebas e2e y audit de producción aprobados |
+| Aplicación web y GitHub Pages | Publicado y verificado | `https://charrixxz23.github.io/enerclima-panama/`; pruebas locales, estáticas y remotas aprobadas |
 | Informe Word y PDF | Completado | 12 páginas, renderizadas e inspeccionadas |
 | Presentación PPTX y PDF | Completado | 12 diapositivas/páginas, con notas y gráficos |
 | Guiones y checklist | Preparado | Carpeta académica privada de entregables |
 | ZIP académico | Completado | Archivo en `entregables/` con documentos privados |
 | Grabación del video | Pendiente del grupo | Debemos grabar con rostros y nombres y subirlo al curso |
-| Repositorio y despliegue remotos | Pendiente de selección | Dos perfiles conectados para GitHub y Vercel; no publicamos sin definir las cuentas |
+| Repositorio público y flujo automático | Completado | `https://github.com/charrixxz23/enerclima-panama`, rama `main`; GitHub Actions pasó |
+| Verificación del sitio en producción | Completado | HTTP 200 sin autenticación; 4 pruebas de navegador y capturas de escritorio y móvil |
 
-Conservamos los archivos originales y dejamos fuera de Git los datos fuente, cédulas y documentos académicos privados.
+Conservamos los archivos originales y dejamos fuera de Git los datos fuente, cédulas y documentos académicos privados. Queda a cargo del grupo grabar el video y confirmar la fecha de entrega con el curso.

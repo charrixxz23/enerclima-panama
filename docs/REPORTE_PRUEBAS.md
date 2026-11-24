@@ -6,10 +6,12 @@
 - `npx tsc --noEmit`: aprobado.
 - `npm run build`: compilación de producción aprobada con Next.js 16.4.6 y webpack.
 - `npm run test:e2e`: 4 de 4 pruebas aprobadas en Chromium.
+- Repetimos las 4 pruebas de navegador contra la URL pública de GitHub Pages; todas aprobaron en escritorio y móvil.
+- `npm run test:export`: aprobó al servir la exportación estática bajo `/enerclima-panama/`; portada, imagen principal, JSON de métricas y simulador respondieron correctamente, sin errores de página ni desbordamiento móvil.
 - Comprobamos datos agregados, interacciones del simulador, navegación móvil, enlaces de sección y ausencia de desbordamiento horizontal a 1440, 1024, 768 y 390 píxeles.
 - Guardamos e inspeccionamos capturas de escritorio, móvil, inicio y simulador en `evidencias/web/`. Incluimos dos capturas sin datos privados en `web/public/previews/` y en el README.
 - `npm audit --omit=dev`: 0 vulnerabilidades en dependencias de producción.
-- La compilación produce una ruta estática principal. El despliegue remoto queda pendiente de seleccionar cuentas de GitHub y Vercel.
+- La compilación produce una ruta estática principal bajo `/enerclima-panama/`. GitHub Actions publicó esa exportación en GitHub Pages.
 
 ## Datos y análisis
 
@@ -30,4 +32,6 @@
 
 - Comprobamos Python 3.12.10, Node.js 24.22.1, npm 11.19.1, Git 2.55.0 y Jupyter.
 - Vercel CLI no estaba instalado; las integraciones de GitHub y Vercel están disponibles y muestran más de una cuenta conectada en cada servicio.
-- No encontramos un repositorio ni proyecto remoto EnerClima. La aplicación local está validada, pero todavía no hay despliegue público porque falta escoger cuenta y perfil.
+- Confirmamos la sesión como `charrixxz23`, creamos el repositorio público solicitado y publicamos en la rama `main`.
+- El primer flujo encontró Pages sin habilitar. Creamos la configuración Pages con `build_type=workflow` y repetimos el flujo; la compilación y el despliegue terminaron correctamente.
+- Verificamos el campo Website, los diez temas del repositorio, la rama principal, respuesta pública HTTP 200 y pruebas de navegador en el sitio publicado.

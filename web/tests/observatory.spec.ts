@@ -3,6 +3,7 @@ import { mkdir } from "node:fs/promises";
 import path from "node:path";
 
 const evidencePath = path.resolve(process.cwd(), "../evidencias/web");
+const homePath = process.env.PLAYWRIGHT_BASE_URL ? new URL(process.env.PLAYWRIGHT_BASE_URL).pathname : "/";
 
 test.beforeAll(async () => {
   await mkdir(evidencePath, { recursive: true });
@@ -11,7 +12,7 @@ test.beforeAll(async () => {
 test("renderiza resultados reales y secciones principales", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  const response = await page.goto("/");
+  const response = await page.goto(homePath);
   expect(response?.status()).toBe(200);
   await expect(page.getByRole("heading", { name: /cuando el clima cambia/i })).toBeVisible();
   await expect(page.locator("#observatorio")).toContainText("48,048");
@@ -29,7 +30,7 @@ test("renderiza resultados reales y secciones principales", async ({ page }) => 
 });
 
 test("los filtros cambian los datos destacados y el escenario", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(homePath);
   await page.locator("#station-select").selectOption("Santiago");
   await expect(page.locator("#clima")).toContainText("Santiago");
   await page.locator("#station-select").selectOption("Tocumen");
@@ -42,7 +43,7 @@ test("los filtros cambian los datos destacados y el escenario", async ({ page })
 
 test("la navegación móvil se abre y lleva a la sección seleccionada", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
+  await page.goto(homePath);
   await page.getByRole("button", { name: "Abrir navegación" }).click();
   await page.getByRole("link", { name: "Sensibilidad" }).click();
   await expect(page).toHaveURL(/#sensibilidad$/);
@@ -53,7 +54,7 @@ test("la navegación móvil se abre y lleva a la sección seleccionada", async (
 test("captura las vistas responsivas requeridas", async ({ page }) => {
   for (const width of [1440, 1024, 768, 390]) {
     await page.setViewportSize({ width, height: width < 500 ? 844 : 900 });
-    await page.goto("/");
+    await page.goto(homePath);
     await expect(page.locator("h1")).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(overflow, `overflow horizontal a ${width}px`).toBe(false);

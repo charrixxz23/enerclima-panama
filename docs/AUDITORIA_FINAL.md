@@ -27,8 +27,11 @@ La partición cronológica asigna 70% al entrenamiento, 15% a validación y 15% 
 - La carpeta identificada `entregables/Proyecto_Final_Munoz_Smith_Valdes_Bellamy_1SF132/` y su ZIP son privados y se excluyen de Git.
 - La carpeta de entregables reúne el informe, cuaderno ejecutado, presentación de 12 diapositivas, guiones de exposición y grabación, y enlaces locales.
 - El repositorio público solo contiene código, resultados agregados, referencias, documentación y capturas generales de la web. No contiene cédulas ni archivos de datos fuente.
-- No publicamos un repositorio remoto ni un despliegue Vercel. Las integraciones muestran más de una cuenta conectada para cada servicio, y no seleccionamos una cuenta en nombre del grupo. La ficha del conjunto tampoco permite confirmar derechos para redistribuir los archivos fuente.
+- Verificamos que GitHub CLI está autenticado como `charrixxz23`, comprobamos que el repositorio esperado no existía y publicamos `charrixxz23/enerclima-panama` como público, con rama `main`.
+- Configuramos GitHub Pages con GitHub Actions y confirmamos la URL pública `https://charrixxz23.github.io/enerclima-panama/`, el campo Website del repositorio y sus diez temas.
+- El flujo `publicar en github pages` completó con éxito las pruebas, exportación, compilación y despliegue. La portada, el JSON de métricas y la imagen principal respondieron con HTTP 200 sin iniciar sesión.
+- La ficha de la fuente no permitió confirmar derechos para redistribuir los archivos originales; por ello no publicamos el ZIP ni los CSV fuente. El sitio consume métricas agregadas precalculadas.
 
 ## Acciones pendientes del grupo
 
-Debemos confirmar con el curso la fecha exacta; grabar el video con los cuatro rostros y nombres; verificar el contenido final de la carpeta de entrega; y seleccionar las cuentas de GitHub y Vercel antes de publicar. No simulamos ni inventamos una grabación o URL pública.
+Debemos confirmar con el curso la fecha exacta y grabar el video con los cuatro rostros y nombres. No simulamos ni inventamos una grabación.
