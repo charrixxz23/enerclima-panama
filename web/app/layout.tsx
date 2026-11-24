@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
-      <body>{children}</body>
+    <html lang="es-PA" suppressHydrationWarning>
+      <body><script dangerouslySetInnerHTML={{__html:`try{const t=localStorage.getItem('enerclima-theme-v1');document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{}`}} />{children}</body>
     </html>
   );
 }

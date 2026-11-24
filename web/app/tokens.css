@@ -33,3 +33,8 @@
     --header-height: 5rem;
   }
 }
+
+@layer tokens {
+ :root[data-theme="dark"] {color-scheme:dark;--paper:#102a2b;--surface:#193638;--text:#f4f0e8;--secondary:#c4cec8;--rule:#48615e;--cool:#64bda5;--warm:#f2bd62;--hot:#f48b72;}
+ @media(prefers-color-scheme:dark){:root:not([data-theme]){color-scheme:dark;--paper:#102a2b;--surface:#193638;--text:#f4f0e8;--secondary:#c4cec8;--rule:#48615e;--cool:#64bda5;--warm:#f2bd62;--hot:#f48b72;}}
+}

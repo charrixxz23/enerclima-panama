@@ -86,3 +86,14 @@
  .quality-ledger .data-ledger{margin-top:var(--s8);}.quality-ledger p{margin-top:var(--s6);}.quality-ledger td {overflow-wrap:anywhere;}.quality-ledger th{min-width:10rem;}
  @media(min-width:768px){.signature-grid {grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);}.correlation-grid{grid-template-columns:repeat(4,minmax(0,1fr));}.quality-ledger .data-ledger{grid-template-columns:repeat(4,minmax(0,1fr));}}
 }
+
+@layer atlas {
+ .theme-toggle{font-size:var(--text-xs);padding:var(--s2);margin-left:auto;white-space:nowrap;}.sensitivity-plot{margin-top:var(--s8);}.sensitivity-plot svg{width:100%;margin-top:var(--s4);}.sensitivity-plot text{fill:var(--secondary);font-family:var(--font-body,Arial),sans-serif;font-size:14px;}.scenario-path{stroke:var(--text);stroke-width:2;fill:none;transition:d var(--duration) ease;}.scenario-marker{fill:var(--paper);stroke:var(--text);stroke-width:2;transition:cx var(--duration) ease,cy var(--duration) ease;}
+ @media(max-width:389px){.atlas-brand svg{width:var(--s8);}.atlas-brand{font-size:var(--text-md);}}
+}
+@layer motion {
+ .data-piece.is-seen {animation:atlas-reveal var(--duration) ease both;}.is-seen .draw-line{stroke-dasharray:1;animation:atlas-draw var(--draw-duration) ease both;}
+ @keyframes atlas-reveal{from{transform:translateY(12px);}to{transform:translateY(0);}}
+ @keyframes atlas-draw{from{stroke-dashoffset:1;}to{stroke-dashoffset:0;}}
+ @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*,*::before,*::after{animation:none !important;transition:none !important;scroll-behavior:auto !important;}.draw-line{stroke-dasharray:none !important;stroke-dashoffset:0 !important;}.data-piece{transform:none !important;}}
+}

@@ -36,3 +36,10 @@ test("cada figura ofrece una lectura y una tabla accesible",async({page})=>{
  await expect(page.locator(".correlation-cell")).toHaveCount(Object.keys(data.correlaciones).length);await page.locator(".correlation-cell").last().focus();await expect(page.locator(".correlation-cell").last().locator(".correlation-explain")).toBeVisible();
  await expect(page.locator(".quality-ledger")).toContainText(String(data.calidad.forecast_cobertura_pct));
 });
+
+test("respetamos el tema del sistema y persistimos la preferencia",async({page})=>{
+ await page.emulateMedia({colorScheme:"dark",reducedMotion:"reduce"});await page.goto(home);await expect(page.locator("html")).toHaveAttribute("data-theme","dark");const toggle=page.getByRole("button",{name:"Alternamos el tema oscuro"});await expect(toggle).toHaveAttribute("aria-pressed","true");await toggle.click();await expect(page.locator("html")).toHaveAttribute("data-theme","light");await page.reload();await expect(page.locator("html")).toHaveAttribute("data-theme","light");await toggle.click();await expect(page.locator("html")).toHaveAttribute("data-theme","dark");await page.screenshot({path:path.join(evidence,"atlas-oscuro.png"),fullPage:true});expect(await page.locator(".draw-line").first().evaluate(e=>getComputedStyle(e).animationName)).toBe("none");
+});
+test("cargamos graficos y mapa al entrar sin recursos externos",async({page})=>{
+ const remote:string[]=[];page.on("request",r=>{if(["image","font","script","stylesheet","fetch","xhr"].includes(r.resourceType())&&new URL(r.url()).origin!==new URL(process.env.PLAYWRIGHT_BASE_URL||"http://127.0.0.1:3000").origin)remote.push(r.url());});await page.goto(home);await expect(page.locator(".leaflet-container")).toHaveCount(0);await page.locator("#clima").scrollIntoViewIfNeeded();await expect(page.locator(".leaflet-container")).toBeVisible();await page.locator("#station-select").scrollIntoViewIfNeeded();await expect(page.locator("#clima .recharts-surface")).toBeVisible();expect(remote).toEqual([]);
+});
