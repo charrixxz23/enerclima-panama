@@ -1,0 +1,35 @@
+@layer tokens {
+  :root {
+    --paper: #faf7f1;
+    --surface: #f0f0e7;
+    --text: #183a3a;
+    --secondary: #53635f;
+    --rule: #d5ddd5;
+    --cool: #28776a;
+    --warm: #8a5b0a;
+    --hot: #ad432c;
+    --s1: .25rem;
+    --s2: .5rem;
+    --s3: .75rem;
+    --s4: 1rem;
+    --s6: 1.5rem;
+    --s8: 2rem;
+    --s12: 3rem;
+    --s16: 4rem;
+    --s24: 6rem;
+    --text-xs: .875rem;
+    --text-sm: 1rem;
+    --text-md: 1.125rem;
+    --text-lg: 1.5rem;
+    --text-xl: clamp(2rem, 4vw, 4rem);
+    --text-hero: clamp(3rem, 6.8vw, 7rem);
+    --radius: 0;
+    --duration: 240ms;
+    --draw-duration: 1100ms;
+    --measure: 82rem;
+    --line-width: 1px;
+    --focus-width: 3px;
+    --chart-height: 20rem;
+    --header-height: 5rem;
+  }
+}
