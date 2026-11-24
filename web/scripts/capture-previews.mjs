@@ -23,14 +23,17 @@ try {
     content:
       "section[id] { content-visibility: visible !important; contain-intrinsic-size: none !important; }",
   });
+  const bottom = await page
+    .locator("#inicio")
+    .evaluate((element) =>
+      Math.ceil(element.getBoundingClientRect().bottom + window.scrollY),
+    );
+  await page.setViewportSize({ width: 1440, height: bottom });
   await page.screenshot({ path: path.join(output, "portada-final.png") });
+  await page.setViewportSize({ width: 1440, height: 1000 });
   await page
     .locator("#sensibilidad")
     .screenshot({ path: path.join(output, "simulador-final.png") });
-  await page.locator(".theme-toggle").click();
-  await page
-    .locator("#inicio")
-    .screenshot({ path: path.join(output, "portada-oscura-final.png") });
   console.log("capturas finales guardadas");
 } finally {
   await browser.close();

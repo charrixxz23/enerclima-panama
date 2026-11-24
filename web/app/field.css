@@ -1,0 +1,202 @@
+@layer atlas.refinements {
+  .cifra,
+  time[data-exact],
+  .kicker,
+  .plate-heading,
+  .field-heading > span,
+  .field-dates,
+  .field-hours,
+  .atlas-nav,
+  .section-index,
+  .recharts-cartesian-axis-tick,
+  .clock-hour,
+  .ridge-year {
+    font-family: var(--font-numbers, Arial), sans-serif;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings:
+      "tnum" 1,
+      "lnum" 1;
+  }
+  .masthead {
+    position: relative;
+  }
+  .edition {
+    margin-left: auto;
+  }
+  .atlas-hero-grid {
+    display: block;
+    padding-block: var(--s6);
+  }
+  .atlas-hero-grid > div {
+    display: grid;
+    gap: var(--s6);
+  }
+  .atlas-hero h1 {
+    max-width: 15ch;
+  }
+  .atlas-hero h1 em {
+    font-style: normal;
+  }
+  .atlas-hero .hero-description,
+  .atlas-hero .hero-footnote,
+  .atlas-hero .text-link {
+    margin: 0;
+  }
+  .atlas-hero .text-link {
+    justify-self: start;
+  }
+  .thermal-field {
+    position: relative;
+    margin-top: var(--s4);
+    min-width: 0;
+  }
+  .field-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s4);
+    justify-content: space-between;
+    margin-bottom: var(--s4);
+  }
+  .field-heading h2 {
+    font-size: var(--text-lg);
+    letter-spacing: -0.015em;
+  }
+  .field-heading > span {
+    font-size: var(--text-xs);
+    color: var(--secondary);
+  }
+  .field-plot {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: var(--s2);
+  }
+  .field-plot picture {
+    display: block;
+    min-width: 0;
+  }
+  .field-plot img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .field-hours {
+    position: relative;
+    font-size: var(--text-xs);
+    color: var(--secondary);
+  }
+  .field-hours > span {
+    position: absolute;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  .field-dates {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-xs);
+    margin: var(--s2) 0 var(--s6) 2.5rem;
+    color: var(--secondary);
+  }
+  .field-legends {
+    display: grid;
+    gap: var(--s6);
+  }
+  .field-legends .kicker {
+    margin-bottom: var(--s2);
+  }
+  .field-legends p,
+  .field-legends small {
+    font-size: var(--text-xs);
+  }
+  .field-legends small {
+    color: var(--secondary);
+  }
+  .demand-key {
+    height: 0.5rem;
+    background: linear-gradient(90deg, #eee8dd, #a8a295);
+    margin-bottom: var(--s2);
+  }
+  .temperature-key {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: var(--s3) var(--s4);
+    margin: 0;
+    padding: 0;
+    font-size: var(--text-xs);
+  }
+  .temperature-key li {
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
+  }
+  .temperature-key i {
+    display: block;
+    width: 1rem;
+    height: 0.2rem;
+    flex-shrink: 0;
+  }
+  .thermal-field figcaption {
+    margin-block: var(--s6);
+    max-width: 100ch;
+  }
+  .field-block {
+    display: grid;
+    gap: var(--s2);
+    max-width: 28rem;
+    margin-block: var(--s4);
+  }
+  .thermal-table > a {
+    font-size: var(--text-xs);
+    display: inline-block;
+    margin-block: var(--s4);
+  }
+  .hero-bottom {
+    margin-top: var(--s6);
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' filter='url(%23n)' d='M0 0h160v160H0z'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+    opacity: 0.025;
+  }
+  @media (min-width: 768px) {
+    .atlas-hero-grid {
+      padding-block: var(--s12);
+    }
+    .atlas-hero-grid > div {
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      align-items: end;
+      gap: var(--s4) var(--s12);
+    }
+    .atlas-hero h1 {
+      grid-row: 2;
+    }
+    .atlas-hero .kicker {
+      grid-column: 1 / -1;
+    }
+    .hero-description,
+    .hero-footnote,
+    .atlas-hero .text-link {
+      grid-column: 2;
+    }
+    .field-plot picture {
+      aspect-ratio: auto;
+    }
+    .field-legends {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: var(--s12);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .thermal-field,
+    .thermal-field * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}

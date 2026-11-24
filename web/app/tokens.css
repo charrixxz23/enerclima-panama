@@ -1,13 +1,14 @@
 @layer tokens {
   :root {
-    --paper: #faf7f1;
-    --surface: #f0f0e7;
-    --text: #183a3a;
-    --secondary: #53635f;
-    --rule: #d5ddd5;
-    --cool: #28776a;
-    --warm: #8a5b0a;
-    --hot: #ad432c;
+    color-scheme: light;
+    --paper: #f7f3ea;
+    --surface: #eee8dd;
+    --text: #152421;
+    --secondary: #4e5c58;
+    --rule: #cfc7b9;
+    --cool: #21656b;
+    --warm: #776b5b;
+    --hot: #b43e2e;
     --s1: 0.25rem;
     --s2: 0.5rem;
     --s3: 0.75rem;
@@ -31,33 +32,6 @@
     --focus-width: 3px;
     --chart-height: 20rem;
     --header-height: 5rem;
-  }
-}
-
-@layer tokens {
-  :root[data-theme="dark"] {
-    color-scheme: dark;
-    --paper: #102a2b;
-    --surface: #193638;
-    --text: #f4f0e8;
-    --secondary: #c4cec8;
-    --rule: #48615e;
-    --cool: #64bda5;
-    --warm: #f2bd62;
-    --hot: #f48b72;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme]) {
-      color-scheme: dark;
-      --paper: #102a2b;
-      --surface: #193638;
-      --text: #f4f0e8;
-      --secondary: #c4cec8;
-      --rule: #48615e;
-      --cool: #64bda5;
-      --warm: #f2bd62;
-      --hot: #f48b72;
-    }
   }
 }
 

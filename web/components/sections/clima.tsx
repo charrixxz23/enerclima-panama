@@ -33,14 +33,10 @@ export default function Clima() {
             caption="Referencias aeroportuarias"
             headers={["Lugar", "Latitud", "Longitud"]}
           />
-          <div className="thermal-key">
-            <span>Menor temperatura</span>
-            <i />
-            <span>Mayor temperatura</span>
-          </div>
           <p className="source-note">
-            El color de los puntos compara los umbrales P95 de las estaciones
-            dentro de su rango; no indica una alerta.
+            Marcamos el P95 de cada estación con el color de inflexión. Anclamos
+            cada escala a sus cuantiles horarios p1 y p99; no indicamos una
+            alerta.
           </p>
         </figure>
         <ClimateExplorer associations={data.asociaciones} />

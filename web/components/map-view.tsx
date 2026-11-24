@@ -7,7 +7,6 @@ import {
   Popup,
   ZoomControl,
 } from "react-leaflet";
-import { useTheme } from "./theme-toggle";
 import L from "leaflet";
 import {
   asset,
@@ -22,7 +21,6 @@ export default function MapView({
   stations: Station[];
   events: ThermalEvent[];
 }) {
-  const theme = useTheme();
   return (
     <MapContainer
       bounds={[
@@ -39,7 +37,7 @@ export default function MapView({
         zoomOutTitle="Alejamos el mapa"
       />
       <ImageOverlay
-        url={asset(`images/panama-atlas${theme === "dark" ? "-dark" : ""}.svg`)}
+        url={asset("images/panama-atlas.svg")}
         bounds={[
           [7, -83.2],
           [10, -77.1],
@@ -47,8 +45,9 @@ export default function MapView({
       />
       {stations.map((s) => {
         const t = events.find((e) => e.estacion === s.nombre);
-        const temps = events.map((e) => e.percentil_95_c);
-        const color = t ? thermalColor(t.percentil_95_c, temps) : "var(--text)";
+        const color = t
+          ? thermalColor(t.percentil_95_c, s.nombre)
+          : "var(--text)";
         return (
           <Marker
             key={s.nombre}

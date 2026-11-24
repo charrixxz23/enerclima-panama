@@ -30,7 +30,7 @@ Separamos los valores y las unidades físicas con espacio duro U+00A0. Evitamos 
 
 Conservamos el valor completo de cada cifra abreviada en `data-exact` y en `title`. En las tablas de calidad con objetos o rangos guardamos su representación JSON completa en esos atributos. En las fechas conservamos la marca temporal original. Mostramos el p-valor completo en una nota, fuera del resultado abreviado.
 
-Aplicamos números tabulares y de altura uniforme mediante `font-variant-numeric` y `font-feature-settings`. Source Sans 3 usa por defecto dígitos de igual anchura; comprobamos sus métricas y añadimos una comprobación en el navegador con los diez dígitos.
+Aplicamos números tabulares y de altura uniforme mediante `font-variant-numeric` y `font-feature-settings`. Desde la fase 1 del Bloque B usamos Barlow Condensed solo en cifras y etiquetas; conservamos Source Sans 3 para párrafos. Verificamos la feature tnum con sustituciones reales en los dos WOFF2 de Barlow y comprobamos en navegador la anchura de los diez dígitos.
 
 Limitamos a cinco las marcas de cada eje. Presentamos las marcas numéricas como enteros con separador de miles y los valores de tooltips con un decimal. Los datos que alimentan los trazos mantienen su precisión original. El reloj horario conserva cuatro referencias horarias y la tabla de todas las horas.
 
@@ -38,4 +38,4 @@ Limitamos a cinco las marcas de cada eje. Presentamos las marcas numéricas como
 
 Probamos las funciones con `node:test` y valores reales del JSON, incluidos porcentajes muy pequeños, números negativos, límites de p, conteos y fechas. Contrastamos en navegador el texto mostrado con los atributos exactos, la unidad con espacio duro, las doce combinaciones de sensibilidad y los intervalos de las tres estaciones. Integramos `npm run test:unit` en GitHub Actions. En la verificación final aprobamos las 13 pruebas unitarias y las 10 pruebas de navegador; lint, tipos, build y exportación terminaron con código cero.
 
-La dirección visual orgánica del Bloque B requiere aprobación aparte; este cambio modifica exclusivamente la presentación de cifras y su trazabilidad.
+Conservamos esta política durante la fase 1 aprobada del Bloque B. Añadimos las medias y conteos del campo en un archivo nuevo; no modificamos dashboard.json ni los valores usados por los modelos.

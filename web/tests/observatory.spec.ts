@@ -2,6 +2,7 @@ import { expect, test } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import data from "../public/data/dashboard.json";
+import field from "../public/data/thermal-field.json";
 import {
   fmtDemanda,
   fmtTemp,
@@ -10,7 +11,6 @@ import {
   fmtPct,
   fmtR2,
   fmtError,
-  fmtFechaLarga,
 } from "../lib/format";
 const evidence = path.resolve(process.cwd(), "../evidencias/rediseno");
 const home = process.env.PLAYWRIGHT_BASE_URL
@@ -143,6 +143,21 @@ test("verificamos las seis anchuras y conservamos capturas", async ({
     await page.setViewportSize({ width, height: width < 500 ? 844 : 1000 });
     await page.goto(home);
     await expect(page.locator("h1")).toBeVisible();
+    const ratio = await page
+      .locator(".field-plot img")
+      .evaluate(async (element) => {
+        const image = element as HTMLImageElement;
+        await image.decode();
+        const box = image.getBoundingClientRect();
+        return {
+          displayed: box.width / box.height,
+          intrinsic: image.naturalWidth / image.naturalHeight,
+          source: image.currentSrc,
+        };
+      });
+    expect(Math.abs(ratio.displayed / ratio.intrinsic - 1)).toBeLessThan(0.01);
+    expect(ratio.source.includes("thermal-field-mobile")).toBe(width < 768);
+
     expect(
       await page.evaluate(
         () =>
@@ -151,7 +166,36 @@ test("verificamos las seis anchuras y conservamos capturas", async ({
       ),
       `overflow a ${width}`,
     ).toBe(false);
-    for (const id of ids) await page.locator(`#${id}`).scrollIntoViewIfNeeded();
+    for (const id of ids) {
+      await page.locator(`#${id}`).scrollIntoViewIfNeeded();
+      expect(
+        await page.evaluate(
+          () =>
+            document.documentElement.scrollWidth >
+            document.documentElement.clientWidth,
+        ),
+        `overflow en ${id} a ${width}`,
+      ).toBe(false);
+    }
+    if (width <= 768) {
+      for (const selector of [
+        "h1",
+        ".hero-description",
+        ".field-plot",
+        ".field-legends",
+        ".thermal-field figcaption",
+      ]) {
+        const box = await page.locator(selector).boundingBox();
+        expect(
+          box!.x,
+          `${selector} izquierdo a ${width}`,
+        ).toBeGreaterThanOrEqual(0);
+        expect(
+          box!.x + box!.width,
+          `${selector} derecho a ${width}`,
+        ).toBeLessThanOrEqual(width);
+      }
+    }
     await page.locator("#inicio").scrollIntoViewIfNeeded();
     await page.screenshot({
       path: path.join(evidence, `atlas-${width}.png`),
@@ -173,12 +217,8 @@ test("cada figura ofrece una lectura y una tabla accesible", async ({
     await expect(f.locator("caption")).not.toBeEmpty();
   }
   await page.locator("#inicio summary").click();
-  await expect(page.locator("#inicio tbody tr")).toHaveCount(
-    data.demandaDiaria.length,
-  );
-  await expect(page.locator("#inicio tbody tr").last()).toContainText(
-    fmtFechaLarga(data.demandaDiaria[data.demandaDiaria.length - 1].datetime),
-  );
+  await expect(page.locator("#inicio tbody tr")).toHaveCount(24);
+  await expect(page.locator("#inicio tbody tr").last()).toContainText("23 h");
   await expect(page.locator(".correlation-cell")).toHaveCount(
     Object.keys(data.correlaciones).length,
   );
@@ -198,26 +238,23 @@ test("cada figura ofrece una lectura y una tabla accesible", async ({
   ).toHaveText("−0,02");
 });
 
-test("respetamos el tema del sistema y persistimos la preferencia", async ({
+test("mantenemos un solo tema claro con preferencias oscuras anteriores", async ({
   page,
 }) => {
   await page.emulateMedia({ colorScheme: "dark", reducedMotion: "reduce" });
+  await page.addInitScript(() =>
+    localStorage.setItem("enerclima-theme-v1", "dark"),
+  );
   await page.goto(home);
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  const toggle = page.locator(".theme-toggle");
-  await expect(toggle).toHaveAttribute("aria-pressed", "true");
-  await toggle.click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await expect(page.locator(".theme-toggle")).toHaveCount(0);
+  expect(
+    await page
+      .locator("body")
+      .evaluate((e) => getComputedStyle(e).backgroundColor),
+  ).toBe("rgb(247, 243, 234)");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await toggle.click();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await page.screenshot({
-    path: path.join(evidence, "atlas-oscuro.png"),
-    fullPage: true,
-    style:
-      ".atlas-section { content-visibility: visible !important; contain-intrinsic-size: none !important; }",
-  });
   expect(
     await page
       .locator(".draw-line")
@@ -225,6 +262,7 @@ test("respetamos el tema del sistema y persistimos la preferencia", async ({
       .evaluate((e) => getComputedStyle(e).animationName),
   ).toBe("none");
 });
+
 test("cargamos graficos y mapa al entrar sin recursos externos", async ({
   page,
 }) => {
@@ -340,9 +378,39 @@ test("conservamos el valor completo y los espacios duros en pantalla", async ({
   );
   await page.locator("#inicio summary").click();
   const row = page.locator("#inicio tbody tr").first();
-  await expect(row.locator("td")).toHaveText("1.069,3");
-  await expect(row.locator("td")).toHaveAttribute(
-    "data-exact",
-    String(data.demandaDiaria[0].demanda_mwh),
+  await expect(row.locator("td").first()).toHaveText(
+    fmtDemanda(field.celdas[0][0]!),
   );
+  await expect(row.locator("td").first().locator(".cifra")).toHaveAttribute(
+    "data-exact",
+    String(field.celdas[0][0]),
+  );
+});
+
+test("cargamos el agregado solo al abrir la tabla y marcamos los huecos", async ({
+  page,
+}) => {
+  const requests: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  await page.goto(home);
+  await expect(page.locator(".field-plot img")).toBeVisible();
+  expect(
+    await page
+      .locator(".field-plot img")
+      .evaluate((element) => (element as HTMLImageElement).naturalWidth),
+  ).toBe(1503);
+  expect(requests.some((url) => url.endsWith("/thermal-field.json"))).toBe(
+    false,
+  );
+  await page.locator("#inicio summary").click();
+  await expect(page.locator("#inicio tbody tr")).toHaveCount(24);
+  await page.locator(".field-block select").selectOption("500");
+  await expect(page.locator("#inicio tbody tr").nth(1)).toContainText("Vacía");
+  await expect(
+    page.locator("#inicio tbody tr").nth(1).locator("td").nth(1),
+  ).toHaveText("2");
+  expect(
+    requests.filter((url) => url.endsWith("/thermal-field.json")),
+  ).toHaveLength(1);
+  expect(await page.locator("#inicio rect").count()).toBeLessThan(10);
 });

@@ -1,125 +1,116 @@
 # Sistema visual de EnerClima Panamá
 
-## Dirección
+## Alcance del Bloque B · fase 1
 
-Elegimos Atlas climático. Organizamos el sitio como una lámina de atlas, con serif de contraste, retícula editorial, trazos propios, silueta de Panamá y divisores de sección. Construimos la portada con la demanda diaria del JSON. Identificamos la silueta como diagramática y usamos coordenadas aeroportuarias de referencia; no presentamos cartografía oficial ni celdas meteorológicas.
+Implementamos el sistema tipográfico, el papel cálido y el campo conjunto de demanda y temperatura. Conservamos los nueve anclajes, el rigor científico y la exportación estática bajo `/enerclima-panama`. Reservamos los contornos de sección, los tres desbordes deliberados y las anotaciones marginales para las fases siguientes.
 
-## Tokens
+Ofrecemos exclusivamente un tema claro en este alcance. Retiramos el selector, el script de preferencias, la paleta oscura y el mapa oscuro. Ignoramos las preferencias oscuras antiguas guardadas y las del sistema; no mantenemos un segundo sistema visual.
 
-Definimos colores, tipografía, espaciado, duraciones, medidas y bordes en `web/app/tokens.css`. Ordenamos los estilos en las capas `tokens`, `base`, `atlas` y `motion`. Dividimos las subcapas de atlas en portada, resultados, investigación, piezas de datos, controles y ajustes responsivos; mantenemos sus archivos CSS separados. Distribuimos la lectura sobre una retícula editorial de doce columnas conceptuales; cada sección usa las fracciones necesarias.
+Conservamos el [registro histórico del Atlas anterior](DISENO_ATLAS_ANTERIOR.md). Sus temas y mediciones anteriores describen aquella versión.
 
-| Uso | Tema claro | Contraste con papel | Tema oscuro | Contraste con superficie |
-|---|---|---:|---|---:|
-| Fondo | #FAF7F1 | — | #102A2B | — |
-| Texto | #183A3A | 11.52:1 | #F4F0E8 | 13.31:1 |
-| Texto secundario | #53635F | 5.92:1 | #C4CEC8 | 9.37:1 |
-| Temperatura menor | #28776A | 4.99:1 | #64BDA5 | 6.75:1 |
-| Temperatura intermedia | #8A5B0A | 5.48:1 | #F2BD62 | 8.81:1 |
-| Temperatura mayor | #AD432C | 5.43:1 | #F48B72 | 6.33:1 |
+## Paleta y codificación
 
-Calculamos contrastes con luminancia relativa sRGB según WCAG. Usamos las reglas claras y oscuras como separadores decorativos; no las usamos para texto.
+Usamos papel `#F7F3EA`, tinta `#152421` y texto secundario `#4E5C58`. Calculamos contrastes de 14,52:1 y 6,33:1 contra el papel. Superponemos ruido SVG `feTurbulence` en una tesela de 160 × 160 con opacidad 0,025; conservamos el papel si el filtro no está disponible.
 
-Usamos espaciados de 4, 8, 12, 16, 24, 32, 48, 64 y 96 píxeles expresados en rem. Reservamos 14 píxeles equivalentes para etiquetas y 18 para cuerpo. Ajustamos títulos con `clamp()` y respetamos la escala del navegador. Usamos números tabulares, bordes rectos y foco visible de tres píxeles.
+Reservamos la rampa teal–ascua para temperatura. No coloreamos la demanda con ella. Usamos una superficie neutra de `#EEE8DD` a `#A8A295` para la demanda; vinculamos sus extremos a p1 = 851,2 y p99 = 1.586,4 MWh de la serie horaria. Recortamos únicamente el color fuera del dominio; conservamos las medias completas.
 
-Alojamos subconjuntos latinos de [Fraunces](https://github.com/google/fonts/blob/main/ofl/fraunces/OFL.txt) y [Source Sans 3](https://github.com/google/fonts/blob/main/ofl/sourcesans3/OFL.txt), ambas bajo SIL OFL 1.1. Incluimos las licencias junto a los WOFF2 y cargamos mediante `next/font/local`, con `font-display: swap`.
+| Ancla térmica | Color | Contraste contra el papel |
+|---|---|---:|
+| p1 horario | `#21656B` | 6,04:1 |
+| p95 horario: inflexión | `#776B5B` | 4,70:1 |
+| p99 horario | `#B43E2E` | 5,17:1 |
 
-## Uso de la escala térmica
+Calculamos los cuantiles sobre las 48.048 temperaturas horarias, antes de agregar. Usamos interpolación lineal con índice `(n - 1) * p`, equivalente al tipo 7. No usamos el rango de las medias regionales para describir la variabilidad horaria.
 
-Reservamos verde, ámbar y terracota para temperatura. Interpolamos la misma escala entre los umbrales P95 de las estaciones tanto en los puntos del mapa como en sus valores de eventos. Explicamos que el color compara umbrales dentro de su rango y no indica alertas. Usamos tinta neutra para demanda, correlaciones, calidad y métricas de error. Ajustamos los tres colores térmicos para el tema oscuro; no invertimos la imagen.
+| Estación | p1, °C | p95, °C | p99, °C |
+|---|---:|---:|---:|
+| Tocumen | 24,3 | 30,4 | 31,7 |
+| Santiago | 21,7 | 33,1 | 36,0 |
+| David | 21,1 | 29,5 | 31,8 |
 
-## Piezas de datos
+Mostramos un decimal en esta tabla y conservamos los cuantiles completos en `web/public/data/thermal-summary.json`. En Tocumen guardamos p1 = `24.27690063476565`, p95 = `30.410319519042993` y p99 = `31.71909576416018`. Hacemos coincidir exactamente p95 con el umbral de Eventos y p99 con el límite de sensibilidad del JSON original.
 
-- Construimos el hero con todos los puntos de `demandaDiaria`.
-- Dibujamos un reloj radial con `perfilHorario`; hacemos el radio proporcional al valor desde el origen y conservamos todas las horas.
-- Representamos `demandaMensual` mediante relieves anuales de amplitud común. Explicamos el origen en el mínimo observado y conservamos los meses de los años incompletos.
-- Presentamos cada coeficiente de `correlaciones` frente a `nat_demand`, con explicación del signo al foco y al pasar el puntero. Identificamos la autocorrelación de identidad; no inventamos una matriz de parejas.
-- Mostramos los campos de `calidad`, el mínimo para revisión y la discrepancia QV2M. No añadimos conteos que no figuran en el JSON.
-- Comparamos escenarios discretos de sensibilidad con sus propias referencias válidas. No sumamos una demanda final que no exista en el archivo fuente.
+Interpolamos los canales sRGB entre p1 y p95 y después entre p95 y p99, redondeando solamente los canales a enteros. Fijamos el color frío por debajo de p1 y el cálido por encima de p99. Situamos la inflexión en su posición numérica real dentro del dominio, no en el 50 % geométrico de la leyenda. Retiramos el punto claro `#D9CFC2`; el nuevo punto de inflexión supera el mínimo solicitado de 2:1.
 
-## Integridad científica
+Anclamos los colores de los umbrales del mapa y de Eventos a los cuantiles de su propia estación. Por eso representamos cada P95 con el mismo color de inflexión; comparamos los grados mediante sus cifras, no igualamos temperaturas entre estaciones por su color. No usamos estos colores para asignar categorías decorativas a ciudades.
 
-Conservamos `dashboard.json` sin cambios y usamos su precisión completa para los cálculos. Aplicamos el redondeo de presentación por magnitud en `web/lib/format.ts`, con coma decimal y punto de miles. Guardamos los valores originales en `data-exact` y `title`, y documentamos las reglas en [FORMATO_CIFRAS.md](FORMATO_CIFRAS.md). Tomamos métricas, intervalos, umbrales, escenarios, versión y generación del JSON.
+## Campo conjunto y celdas vacías
 
-Mantenemos exactamente `#inicio`, `#observatorio`, `#clima`, `#eventos`, `#modelos`, `#sensibilidad`, `#investigacion`, `#metodologia` y `#equipo`. Destacamos el alcance ex post junto a modelos, el alcance condicionado junto al simulador y las cuatro limitaciones completas en metodología. Conservamos la referencia semanal por separado.
+Calculamos en una misma lectura del CSV la demanda media `nat_demand`, la temperatura media `T2M_toc` y sus dos conteos independientes por bloque de cuatro días y hora registrada. Anclamos los bloques en `2015-01-03T00:00:00`, conservamos 501 columnas y las 24 horas y exigimos **N = 3** observaciones finitas por variable.
 
-## Arquitectura y rendimiento
+Guardamos cada celda como `[demanda_media, n_demanda, temperatura_media, n_temperatura]`, en orden bloque–hora. Guardamos `null` para la media que no alcanza N. Marcamos las 23 celdas insuficientes con rayado y no rellenamos sus valores. Conservamos los conteos de las 48.048 observaciones, incluidas las celdas enmascaradas.
 
-Componemos las secciones estáticas durante la exportación. Limitamos las islas de cliente a navegación, tema, selectores, sensibilidad, movimiento y carga diferida. Declaramos tipos y parseo en `web/lib/dashboard.ts`; aislamos la lectura del JSON en `web/lib/data.ts` para no importar todo el conjunto desde los controles.
+Conservamos la hora escrita en el CSV. No asignamos ni convertimos una zona horaria que el archivo no declara.
 
-Cargamos Recharts y Leaflet con `next/dynamic` e IntersectionObserver cuando entran en pantalla, con contenedores de altura reservada. Prescindimos de teselas y fuentes remotas. Conservamos `output: export` y el patrón `NEXT_PUBLIC_BASE_PATH`. Generamos robots, sitemap y manifest durante el build estático; incluimos favicon, icono Apple, OG, Twitter y JSON-LD Dataset y ScholarlyArticle.
+Rasterizamos la superficie de demanda y superponemos perfiles temporales de temperatura en p1, p50, p95 y p99. Usamos celdas válidas para calcular los cruces de cada nivel mediante marching squares; no trazamos segmentos sobre una celda vacía. Resolvemos las ambigüedades con el promedio de las cuatro esquinas y explicamos la interpolación como una operación de dibujo entre medias. No inferimos un valor en un hueco. Destacamos p95 con mayor grosor y usamos un halo de papel para distinguir los perfiles de la superficie.
 
-Comprimimos imágenes a AVIF y WebP y mantenemos cada archivo por debajo de 250 KB. Conservamos la antigua ilustración solo como archivo secundario optimizado; la portada usa SVG de datos.
+Llamamos a estos trazos **perfiles temporales**, sin atribuirles una interpretación de isolíneas geográficas. Describimos coincidencias, no causalidad. Conservamos el carácter condicionado de los escenarios y todas las limitaciones.
 
-## Movimiento y accesibilidad
+## Reproducibilidad y procedencia
 
-Revelamos exclusivamente piezas de datos, una vez y con doce píxeles de recorrido. Dibujamos trazos SVG al entrar en pantalla. Interpolamos el trazado y la posición del marcador al cambiar escenarios, conservando el texto numérico exacto del escenario seleccionado. Resolvemos así la petición de transición sin fabricar valores numéricos intermedios ni contadores científicos.
+Versionamos `scripts/build_thermal_field.py`, `thermal-field.json`, `thermal-summary.json`, el generador raster y su informe de peso. Conservamos el CSV privado; podemos obtener la fuente a través de la [ficha del conjunto de datos](https://doi.org/10.17632/byx7sztj59.1) y colocar el archivo original en `data/raw/continuous dataset.csv`.
 
-Desactivamos desplazamiento, dibujo progresivo y transiciones con `prefers-reduced-motion`. Seguimos el tema del sistema y conservamos una elección explícita en almacenamiento local. Añadimos acceso directo al contenido, estructura h1–h2–h3, etiquetas de controles y regiones, foco visible y tablas con encabezados y títulos. Cada figura tiene figcaption y tabla consultable. Las explicaciones de correlación expanden el contenido sin tapar otras celdas.
+Registramos el SHA-256 exacto de entrada:
 
-Verificamos anchos de 360, 390, 768, 1024, 1440 y 1920 píxeles. Las tablas extensas se desplazan dentro de su contenedor; mantenemos el texto científico exacto. No equiparamos una puntuación automatizada con una auditoría manual completa de WCAG.
+```text
+ef52f68fc8989d02ff2f2565134014eaf9707318a8389d4022cd38d44656fbce
+```
 
-## Verificación y mediciones
+Rechazamos una entrada cuyo hash difiera. Desde la raíz del repositorio regeneramos los dos JSON con Python 3.12 y únicamente su biblioteca estándar:
 
-Registramos la salida real de las cinco comprobaciones de cada fase en `evidencias/rediseno/fase-XX-*.txt`. Conservamos informes Lighthouse JSON y HTML, capturas de las seis anchuras y tema oscuro en esa carpeta local ignorada. Contrastamos los escenarios, coeficientes e intervalos con el JSON y comprobamos anclajes, tablas, persistencia del tema y ausencia de solicitudes de recursos externos.
+```sh
+python scripts/build_thermal_field.py --input "data/raw/continuous dataset.csv" --output "web/public/data/thermal-field.json"
+```
 
-| Categoría | Antes: sitio publicado | Después: exportación local |
-|---|---:|---:|
-| Rendimiento | 38 | 100 |
-| Accesibilidad | 93 | 100 |
-| Buenas prácticas | 96 | 100 |
-| SEO | 100 | 100 |
+Comprobamos la igualdad de bytes del resultado con:
 
-Medimos con Lighthouse móvil y Chromium, con limitación simulada de CPU y red. Tomamos el antes en la URL pública de la versión anterior y el después sobre la exportación estática local servida con gzip. Documentamos el cambio de entorno para no atribuir toda la diferencia a diseño o código. También medimos la URL publicada; registramos el resultado actual al final de este documento.
+```sh
+python scripts/build_thermal_field.py --input "data/raw/continuous dataset.csv" --output "web/public/data/thermal-field.json" --check
+```
 
-En una medición local anterior obtuvimos LCP de 1.1 s, TBT de 60 ms y CLS de 0.001. Corregimos la estructura de listas descriptivas y los nombres accesibles de los controles. Montamos las filas de las tablas extensas al abrirlas para reducir el trabajo inicial; conservamos todos los registros y un acceso al JSON sin JavaScript.
+Regeneramos el raster desde el agregado versionado durante el build, sin necesitar el CSV privado ni acceso a servicios externos:
 
-| Fase | Lint | Tipos | Build | Exportación | Navegador |
-|---|---:|---:|---:|---:|---|
-| 01 · tokens y capas | 0 | 0 | 0 | 0 | 4 aprobadas |
-| 02 · componentes y tipos | 0 | 0 | 0 | 0 | 4 aprobadas |
-| 03 · portada e índice | 0 | 0 | 0 | 0 | 4 aprobadas |
-| 04 · secciones 01–04 | 0 | 0 | 0 | 0 | 4 aprobadas |
-| 05 · secciones 05–08 | 0 | 0 | 0 | 0 | 4 aprobadas |
-| 06 · piezas de datos | 0 | 0 | 0 | 0 | 6 aprobadas |
-| 07 · tema y movimiento | 0 | 0 | 0 | 0 | 8 aprobadas |
-| 08 · rendimiento y metadatos | 0 | 0 | 0 | 0 | 9 aprobadas |
+```sh
+cd web
+npm ci
+npm run build
+```
 
-Registramos códigos de salida reales, después de corregir los fallos encontrados. Verificamos en la exportación final los recursos de metadatos, las tablas al abrirse y las seis anchuras. Confirmamos que el objeto Git de `dashboard.json` sigue siendo `172ac7c88204fe758352b2bebd29dc87ed40e487`, igual al de la versión inicial. No modificamos los documentos académicos originales ni añadimos dependencias al manifiesto o al lockfile de npm.
+Declaramos **sharp 0.35.5 como única dependencia npm directa nueva**, solo de desarrollo. Ya figuraba como dependencia transitiva de Next; la declaramos para garantizar que el generador pueda producir AVIF y WebP en una instalación limpia. No añadimos una biblioteca de visualización ni de animación.
 
+## Presupuesto del hero y archivos anteriores
 
+Generamos dos rasters: 1.503 × 432 píxeles para escritorio y 501 × 336 píxeles para móvil y lo mostramos completo, con dimensiones declaradas, sin una retícula de elementos HTML o SVG por celda. Servimos AVIF con fallback WebP, con dimensiones propias de cada fuente en picture. Conservamos la proporción intrínseca para evitar estirar el campo. Añadimos una prueba de selección de fuente y proporción en las seis anchuras después de detectar esa deformación en Lighthouse local. Permitimos como máximo **120.000 bytes sumando los cuatro archivos responsivos**, un criterio más estricto que limitar solo la alternativa descargada por el navegador.
 
-### Corrección posterior a la primera publicación
+Registramos 30.179 bytes en AVIF y 42.072 en WebP para escritorio, más 12.090 y 18.016 para móvil: **102.357 bytes combinados**. Hacemos fallar `prebuild` si superamos el límite y volvemos a comprobar el peso de los archivos reales de `web/out` en `test:export`. Conservamos el informe en `web/public/data/thermal-art.json`.
 
-Medimos tres veces la primera versión publicada y obtuvimos rendimiento 93, 89 y 90, con mediana 90; las otras tres categorías se mantuvieron en 100. Conservamos esos informes y no usamos la medición local como sustituto de la pública.
+No incluimos las 12.024 celdas en el HTML ni en los datos de hidratación. Consultamos el JSON agregado únicamente al abrir la tabla; mostramos 24 horas por bloque y ofrecemos todos los bloques y el JSON completo. Comprimimos solo la imagen; preservamos las cifras completas en el agregado y en los atributos accesibles.
 
-Para reducir el trabajo inicial retiramos las filas de las tablas cerradas del HTML y de los datos serializados. Consultamos `dashboard.json` desde el propio sitio al abrir una tabla o al entrar un gráfico en pantalla y compartimos una sola lectura en memoria. Conservamos las tablas completas, los valores exactos, los textos estáticos y la altura de los gráficos. Volvimos a ejecutar lint, tipos, build, exportación y las nueve pruebas antes de publicar la corrección.
+Confirmamos que `images/panama-energy-hero.png` y `previews/portada.png` ya estaban retirados del árbol público. Eliminamos también las versiones AVIF y WebP de la ilustración antigua que quedaban sin uso. Conservamos las capturas de portada y simulador en AVIF y WebP, cada una menor de 250 KB, y añadimos una prueba contra la reintroducción de aquellos archivos.
 
+## Tipografía
 
-Externalizamos también las series estáticas de demanda diaria, perfil horario y relieves mensuales en SVG propios generados por `npm run prebuild` desde el JSON. Aplicamos la paleta mediante máscaras CSS, con etiquetas HTML legibles en ambos temas y revelado progresivo compatible con movimiento reducido. Limitamos a centésimas la precisión de las coordenadas gráficas y conservamos la fuente científica completa. Desde el Bloque A aplicamos el formato de presentación centralizado a las cifras visibles y guardamos los valores originales en sus atributos. Reducimos el HTML inicial a 110,840 bytes y conservamos las nueve pruebas aprobadas después de esta corrección.
+Conservamos Source Sans 3 de ancho normal para párrafos. Reservamos Barlow Condensed para cifras, ejes y etiquetas. Conservamos Fraunces para titulares y fijamos deliberadamente sus ejes en el generador: **SOFT = 50, WONK = 1, opsz = 72**, en pesos 400 y 600. Elegimos SOFT 50 para suavizar los remates, WONK 1 para conservar las formas irregulares y opsz 72 para la escala de los titulares. Instanciamos esos valores antes del subconjunto; no fingimos ejes variables en un archivo estático. Cargamos el peso 400 para los titulares de esta fase.
 
+Alojamos todas las fuentes con `next/font/local` y mantenemos sus licencias SIL OFL 1.1. Fijamos la fuente de Fraunces y Barlow a la revisión `83c62e30d87daa70216dab6b984d00d20d96d585` de Google Fonts. Podemos regenerar esos subconjuntos con:
 
-Aplicamos `content-visibility: auto` con tamaño intrínseco reservado a las secciones fuera de pantalla para reducir la composición inicial. Conservamos los elementos en el documento y verificamos la navegación por anclas y las seis anchuras tras recorrer todas las secciones. Seguimos la [documentación de CSS Containment](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/content-visibility). Damos un fondo explícito a las etiquetas del reloj y de los relieves para mantener su contraste sobre las máscaras en ambos temas.
+```sh
+python -m pip install -r requirements-assets.txt
+python scripts/build_web_fonts.py
+```
 
+Conservamos `tnum` y `pnum` y comprobamos el **WOFF2 realmente autoalojado** en pruebas Node: descomprimimos el bloque Brotli, leemos GSUB y verificamos que `tnum` apunte a sustituciones no vacías en ambos pesos. Comprobamos también en navegador que los diez dígitos ocupen la misma anchura.
 
-Aislamos la caché local de Next.js y las evidencias temporales de auditoría en AppData mediante enlaces de directorio. Conservamos el código y los recursos públicos dentro de EnerClima-Panama; no incluimos rutas personales en el repositorio. En Linux y en GitHub Actions usamos los directorios normales del proyecto.
+## Movimiento, accesibilidad y siguientes fases
 
+Conservamos el estado final sin animaciones con movimiento reducido, foco visible, jerarquía de encabezados, figcaption y tabla consultable. Presentamos los datos del campo con etiquetas y conteos y no exigimos interpretar el color para acceder al valor. Mantenemos Leaflet y Recharts diferidos.
 
-## Auditoría pública anterior al Bloque A
+Verificamos overflow horizontal en 360, 390 y 768 px, además de las otras tres anchuras existentes, después de recorrer todas las secciones. Comprobamos también que el titular, la descripción, el campo, sus leyendas y la lectura no se recorten en móvil.
 
-Publicamos la corrección de contraste y composición y aprobamos las nueve pruebas contra la URL pública. Verificamos HTTP 200 para la página, los datos, robots, sitemap, manifest, iconos, imagen OG y los cuatro SVG generados. Comparamos el JSON servido con el archivo local y confirmamos igualdad de bytes. Conservamos los documentos académicos originales.
+Conservamos para las fases siguientes la escala irregular aprobada de espaciado, los límites curvos derivados de `temperaturaRegional`, los tres elementos que cruzan el gutter, las anotaciones guiadas por datos y la renovación final de los recursos de metadatos. Comprobamos los mismos límites móviles antes de cerrar cada fase.
 
-| Categoría | Antes público | Actual público: mediana de tres |
-|---|---:|---:|
-| Rendimiento | 38 | 86 |
-| Accesibilidad | 93 | 100 |
-| Buenas prácticas | 96 | 100 |
-| SEO | 100 | 100 |
+## Verificación de la fase 1
 
-Obtuvimos rendimiento 84, 86 y 91 en las tres corridas actuales. No alcanzamos el objetivo móvil de 95 en este entorno. Detectamos actividad alta de OneDrive durante las mediciones, pero no demostramos que explique por sí sola el resultado. Por indicación del grupo mantenemos activa la sincronización de OneDrive. Conservamos la meta de rendimiento de 95 como no alcanzada en este entorno; no sustituimos el resultado público por el 100 observado anteriormente en local.
+Conservamos los registros completos de lint, tipos, build, exportación y navegador en `evidencias/rediseno/bloque-b-fase-1-*.txt`. Conservamos también las mediciones Lighthouse, las capturas y las mediciones iniciales que motivaron la corrección de proporciones. Comparamos la mediana móvil pública con la referencia inmediatamente anterior de **90**, manteniendo OneDrive activo. Cerramos esta fase únicamente después de comprobar que no disminuya.
 
-Guardamos la salida real y las capturas en `evidencias/rediseno/`, que apunta a un directorio temporal local para evitar escrituras pesadas en OneDrive. Conservamos los informes anteriores, incluidos los resultados que motivaron las correcciones. No añadimos dependencias de npm; incorporamos únicamente el paso de generación de SVG al build.
-
-
-## Actualización de formato numérico · Bloque A
-
-Centralizamos los formatos semánticos, igualamos la precisión del coeficiente y su intervalo y conservamos el orden de magnitud de los cambios porcentuales pequeños. Mostramos las particiones con fechas largas y preservamos las marcas completas. Mantenemos el diseño Atlas climático hasta que aprobemos el plan del Bloque B.
+En la comprobación local final obtuvimos rendimiento 91, 91 y 94 (mediana 91) y 100 en accesibilidad, buenas prácticas y SEO. Conservamos las corridas iniciales de rendimiento 100 y buenas prácticas 96, junto con la corrección de proporciones. No sustituimos con estas mediciones locales la comparación pública con la referencia 90.

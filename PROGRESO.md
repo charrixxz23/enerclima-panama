@@ -40,3 +40,15 @@ Aprobamos las nueve pruebas contra GitHub Pages y confirmamos que los datos publ
 Implementamos formatos semánticos centralizados, valores completos accesibles, unidades con espacio duro, cifras tabulares y fechas largas. Conservamos los datos, cuadernos y generadores. Documentamos la política en `docs/FORMATO_CIFRAS.md` y preparamos el plan del Bloque B para aprobación antes de cambiar la dirección visual.
 
 Verificamos el Bloque A con lint, tipos, build estático y exportación sin errores; aprobamos 13 pruebas unitarias y 10 de navegador. Comprobamos también los diez dígitos tabulares en la fuente real, las seis anchuras y los valores completos en los atributos. Regeneramos las vistas previas en AVIF y WebP, todas menores de 250 KB. Conservamos la salida real en `evidencias/rediseno/bloque-a-*.txt`.
+
+## Bloque B · fase 1: campo conjunto y sistema visual
+
+Implementamos la superficie de demanda nacional y los perfiles temporales de temperatura de Tocumen a partir de medias por bloques de cuatro días y hora. Exigimos N = 3, conservamos ambos conteos y marcamos 23 celdas vacías. Registramos el SHA-256 del CSV, el script y el comando exacto para regenerar y verificar los dos JSON. Conservamos dashboard.json, los cuadernos, generadores anteriores y documentos originales sin cambios.
+
+Anclamos la rampa a p1–p99 horarios con inflexión en p95; el color de inflexión alcanza 4,70:1 contra el papel. Rasterizamos durante el build: AVIF/WebP de escritorio y móvil, 102.357 bytes combinados frente al máximo de 120.000. Incorporamos la puerta de peso al build y a la verificación de la exportación.
+
+Mantenemos únicamente el tema claro. Conservamos Source Sans 3 para párrafos, usamos Barlow Condensed en cifras y etiquetas y verificamos su tnum real en ambos WOFF2 y las anchuras en navegador. Instanciamos Fraunces con SOFT 50 y WONK 1. Retiramos la ilustración antigua restante; los PNG antiguos ya no forman parte del árbol público. Regeneramos las capturas en AVIF y WebP bajo 250 KB.
+
+Aprobamos 19 pruebas unitarias y 11 de navegador durante la verificación, incluidos overflow y recorte de la portada a 360, 390 y 768 px y las demás anchuras. Conservamos salidas, capturas y mediciones en evidencias/rediseno. Mantenemos OneDrive activo y tomamos como referencia de rendimiento la mediana pública inmediatamente anterior de 90. Cerramos la fase después de comprobar que no disminuya.
+
+Conservamos los contornos de secciones, los tres desbordes deliberados y las anotaciones marginales como trabajo de las fases siguientes. No damos el Bloque B completo por terminado.

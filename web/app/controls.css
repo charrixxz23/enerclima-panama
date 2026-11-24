@@ -1,10 +1,4 @@
 @layer atlas.controls {
-  .theme-toggle {
-    font-size: var(--text-xs);
-    padding: var(--s2);
-    margin-left: auto;
-    white-space: nowrap;
-  }
   .sensitivity-plot {
     margin-top: var(--s8);
   }

@@ -14,6 +14,8 @@ const mime = {
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".png": "image/png",
+  ".avif": "image/avif",
+  ".webp": "image/webp",
   ".svg": "image/svg+xml",
   ".txt": "text/plain; charset=utf-8",
   ".woff": "font/woff",
@@ -63,6 +65,17 @@ page.on("requestfailed", (request) => {
 });
 
 try {
+  const heroSizes = await Promise.all(
+    ["thermal-field", "thermal-field-mobile"].flatMap((name) =>
+      ["avif", "webp"].map(
+        async (ext) =>
+          (await readFile(path.join(outDir, `images/${name}.${ext}`))).length,
+      ),
+    ),
+  );
+  const heroBytes = heroSizes.reduce((sum, size) => sum + size, 0);
+  if (heroBytes > 120000)
+    throw new Error(`hero exportado excede presupuesto: ${heroBytes}`);
   const home = await page.goto(`${origin}${basePath}/`);
   if (home?.status() !== 200)
     throw new Error(`home returned ${home?.status()}`);
@@ -134,6 +147,7 @@ try {
       home: home.status(),
       image: image.status(),
       data: data.status(),
+      heroBytes,
       simulatorValue,
       hasMobileOverflow,
       pageErrors: errors.length,

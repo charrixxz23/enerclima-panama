@@ -11,11 +11,6 @@ const display = localFont({
       weight: "400",
       style: "normal",
     },
-    {
-      path: "../public/fonts/fraunces-600-latin.woff2",
-      weight: "600",
-      style: "normal",
-    },
   ],
   variable: "--font-display",
   display: "swap",
@@ -40,6 +35,23 @@ const body = localFont({
   ],
   variable: "--font-body",
   display: "swap",
+});
+const numbers = localFont({
+  src: [
+    {
+      path: "../public/fonts/barlow-condensed-400-latin.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/barlow-condensed-600-latin.woff2",
+      weight: "600",
+      style: "normal",
+    },
+  ],
+  variable: "--font-numbers",
+  display: "swap",
+  preload: false,
 });
 const site = "https://charrixxz23.github.io/enerclima-panama/";
 const title = "EnerClima Panamá | Atlas de demanda y clima";
@@ -91,10 +103,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf7f1" },
-    { media: "(prefers-color-scheme: dark)", color: "#102a2b" },
-  ],
+  themeColor: "#f7f3ea",
+  colorScheme: "light",
 };
 const authors = [
   "Alejandro Muñoz",
@@ -153,15 +163,10 @@ export default function RootLayout({
   return (
     <html
       lang="es-PA"
-      className={`${display.variable} ${body.variable}`}
-      suppressHydrationWarning
+      className={`${display.variable} ${body.variable} ${numbers.variable}`}
+      data-theme="light"
     >
       <body>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{const t=localStorage.getItem('enerclima-theme-v1');document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{}`,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

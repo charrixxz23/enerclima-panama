@@ -1,5 +1,4 @@
 "use client";
-import ThemeToggle from "./theme-toggle";
 
 import { useState } from "react";
 import AtlasMark from "./atlas-mark";
@@ -29,7 +28,6 @@ export default function Navigation() {
             EnerClima <b>Panamá</b>
           </span>
         </a>
-        <ThemeToggle />
         <span className="edition">
           Universidad Tecnológica de Panamá
           <br />

@@ -10,8 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "test:export": "node scripts/verify-static-export.mjs",
-    "prebuild": "node scripts/build-data-art.mjs",
-    "test:unit": "node --test unit/format.test.mjs"
+    "prebuild": "node scripts/build-data-art.mjs && node scripts/build-thermal-art.mjs",
+    "test:unit": "node --test unit/*.test.mjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
@@ -30,6 +30,7 @@
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.1.0",
+    "sharp": "0.35.5",
     "typescript": "^5.9.0"
   }
 }

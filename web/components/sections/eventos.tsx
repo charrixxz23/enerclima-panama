@@ -24,10 +24,7 @@ export default function Eventos() {
               <span>Umbral P95</span>
               <strong
                 style={{
-                  color: thermalColor(
-                    r.percentil_95_c,
-                    data.eventos.map((e) => e.percentil_95_c),
-                  ),
+                  color: thermalColor(r.percentil_95_c, r.estacion),
                 }}
               >
                 <Cifra

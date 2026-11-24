@@ -1,3 +1,5 @@
+import summary from "../public/data/thermal-summary.json";
+import { temperatureColor } from "./thermal";
 export interface DemandPoint {
   datetime: string;
   demanda_mwh: number;
@@ -175,30 +177,25 @@ export const stations = [
     key: "toc",
     name: "Tocumen",
     temp: "T2M_toc",
-    color: "var(--warm)",
     region: "Panamá",
   },
   {
     key: "san",
     name: "Santiago",
     temp: "T2M_san",
-    color: "var(--hot)",
     region: "Veraguas",
   },
   {
     key: "dav",
     name: "David",
     temp: "T2M_dav",
-    color: "var(--cool)",
     region: "Chiriquí",
   },
 ] as const;
 
-export function thermalColor(value: number, values: number[]): string {
-  const fraction =
-    (value - Math.min(...values)) /
-    (Math.max(...values) - Math.min(...values) || 1);
-  return fraction < 0.5
-    ? `color-mix(in srgb, var(--cool), var(--warm) ${fraction * 200}%)`
-    : `color-mix(in srgb, var(--warm), var(--hot) ${(fraction - 0.5) * 200}%)`;
+export function thermalColor(value: number, station = "Tocumen"): string {
+  const domain =
+    summary.cuantiles[station as keyof typeof summary.cuantiles] ??
+    summary.cuantiles.Tocumen;
+  return temperatureColor(value, domain, summary.colores_temperatura);
 }

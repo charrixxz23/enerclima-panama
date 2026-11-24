@@ -8,7 +8,7 @@
 
 > **El clima y la energía, en el mismo mapa.** Exploramos asociaciones históricas entre clima regional y demanda nacional, con sus límites visibles.
 
-<picture><source srcset="web/public/previews/portada.avif" type="image/avif"><img src="web/public/previews/portada.webp" alt="Portada del atlas EnerClima Panamá" width="1200" height="833"></picture>
+<picture><source srcset="web/public/previews/portada.avif" type="image/avif"><img src="web/public/previews/portada.webp" alt="Portada del atlas EnerClima Panamá" width="1200" height="1328"></picture>
 
 ## El problema que estudiamos
 
@@ -32,7 +32,7 @@ Trabajamos con una serie horaria entre enero de 2015 y junio de 2020. El conjunt
 - Ajustamos escenarios de temperatura en un simulador basado en el modelo.
 - Leemos metodología, referencias y limitaciones junto a los resultados.
 
-<picture><source srcset="web/public/previews/simulador.avif" type="image/avif"><img src="web/public/previews/simulador.webp" alt="Explorador de sensibilidad del modelo" width="1200" height="1119"></picture>
+<picture><source srcset="web/public/previews/simulador.avif" type="image/avif"><img src="web/public/previews/simulador.webp" alt="Explorador de sensibilidad del modelo" width="1200" height="1120"></picture>
 
 ## Tecnologías y arquitectura
 
@@ -110,9 +110,9 @@ No publicamos cédulas, informes identificados, datos fuente ni archivos cuya re
 
 ## Diseño del atlas
 
-Organizamos la lectura en nueve anclajes estables. Construimos la portada con la demanda diaria y una silueta diagramática propia. Añadimos un reloj horario, relieves mensuales, correlaciones frente a la demanda y un registro de calidad. Mostramos cifras abreviadas con una política común y conservamos los valores completos del JSON en los atributos de cada cifra. Ofrecemos alternativas textuales y tabulares para cada figura.
+Organizamos la lectura en nueve anclajes estables. Desde la fase 1 del Bloque B construimos la portada con una superficie de demanda nacional y perfiles temporales de temperatura de Tocumen; agregamos ambas variables por bloques de cuatro días y hora. Añadimos un reloj horario, relieves mensuales, correlaciones frente a la demanda y un registro de calidad. Mostramos cifras abreviadas con una política común y conservamos los valores completos del JSON en los atributos de cada cifra. Ofrecemos alternativas textuales y tabulares para cada figura.
 
-Alojamos las fuentes Fraunces y Source Sans 3 en el repositorio, con sus licencias OFL. Cargamos mapas y Recharts al entrar en pantalla; el mapa usa nuestro SVG local. Recordamos el tema claro u oscuro y respetamos la preferencia de movimiento reducido. No añadimos dependencias al proyecto.
+Alojamos Fraunces para titulares, Source Sans 3 para párrafos y Barlow Condensed para cifras y etiquetas, con sus licencias OFL. Cargamos mapas y Recharts al entrar en pantalla; el mapa usa nuestro SVG local. Desde el Bloque B mantenemos únicamente el tema claro y respetamos la preferencia de movimiento reducido. Declaramos sharp como única dependencia de desarrollo directa nueva para rasterizar el campo durante el build.
 
 Documentamos los tokens, el uso de color, las pruebas y las mediciones en [docs/DISENO.md](docs/DISENO.md). Conservamos las evidencias completas en la carpeta local ignorada `evidencias/rediseno/`.
 
@@ -123,3 +123,13 @@ Antes del Bloque A verificamos nueve pruebas contra el sitio publicado y la expo
 Centralizamos el formato en `web/lib/format.ts`: usamos coma decimal, punto de miles y precisión según la magnitud. Conservamos el JSON y los cálculos originales. Documentamos los casos y las excepciones en [FORMATO_CIFRAS.md](docs/FORMATO_CIFRAS.md). Ejecutamos las pruebas unitarias con `cd web` y `npm run test:unit`.
 
 Para el Bloque A aprobamos lint, tipos, build, exportación, 13 pruebas unitarias y 10 pruebas de navegador. Conservamos los nueve anclajes y los valores originales del JSON.
+
+## Campo conjunto de demanda y temperatura · fase 1
+
+Exigimos tres observaciones por variable y celda; marcamos 23 celdas vacías. Anclamos la rampa térmica a p1 y p99 horarios, con inflexión en p95. Rasterizamos durante el build y limitamos a 120.000 bytes la suma de los cuatro AVIF y WebP de escritorio y móvil. Documentamos el hash SHA-256 de la entrada, los cuantiles, los colores y el comando exacto de regeneración en [DISENO.md](docs/DISENO.md). Conservamos el CSV privado y dashboard.json sin cambios.
+
+Regeneramos los agregados desde la raíz con:
+
+```sh
+python scripts/build_thermal_field.py --input "data/raw/continuous dataset.csv" --output "web/public/data/thermal-field.json"
+```
