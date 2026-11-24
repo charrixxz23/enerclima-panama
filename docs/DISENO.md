@@ -93,3 +93,6 @@ Registramos códigos de salida reales, después de corregir los fallos encontrad
 Medimos tres veces la primera versión publicada y obtuvimos rendimiento 93, 89 y 90, con mediana 90; las otras tres categorías se mantuvieron en 100. Conservamos esos informes y no usamos la medición local como sustituto de la pública.
 
 Para reducir el trabajo inicial retiramos las filas de las tablas cerradas del HTML y de los datos serializados. Consultamos `dashboard.json` desde el propio sitio al abrir una tabla o al entrar un gráfico en pantalla y compartimos una sola lectura en memoria. Conservamos las tablas completas, los valores exactos, los textos estáticos y la altura de los gráficos. Volvimos a ejecutar lint, tipos, build, exportación y las nueve pruebas antes de publicar la corrección.
+
+
+Externalizamos también las series estáticas de demanda diaria, perfil horario y relieves mensuales en SVG propios generados por `npm run prebuild` desde el JSON. Aplicamos la paleta mediante máscaras CSS, con etiquetas HTML legibles en ambos temas y revelado progresivo compatible con movimiento reducido. Limitamos a centésimas la precisión de las coordenadas gráficas; no redondeamos los valores científicos ni los datos de las tablas. Reducimos el HTML inicial a 110,840 bytes y conservamos las nueve pruebas aprobadas después de esta corrección.

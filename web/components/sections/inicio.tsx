@@ -1,17 +1,10 @@
+import DataArt from "../data-art";
 import DataTable from "../data-table";
 import { dashboard as data } from "../../lib/data";
 import { dateLabel, number } from "../../lib/dashboard";
 import AtlasMark from "../atlas-mark";
 export default function Inicio() {
-  const rows = data.demandaDiaria,
-    low = Math.min(...rows.map((r) => r.demanda_mwh)),
-    high = Math.max(...rows.map((r) => r.demanda_mwh));
-  const points = rows
-    .map(
-      (r, i) =>
-        `${(i / (rows.length - 1)) * 700},${250 - ((r.demanda_mwh - low) / (high - low)) * 200}`,
-    )
-    .join(" ");
+  const rows = data.demandaDiaria;
   return (
     <section id="inicio" className="atlas-hero">
       <div className="hero-meta">
@@ -53,19 +46,12 @@ export default function Inicio() {
               <span key={s.nombre}>{s.nombre}</span>
             ))}
           </div>
-          <svg
+          <DataArt
+            name="demanda-diaria"
+            label="Serie de demanda diaria nacional"
+            ratio="700 / 280"
             className="hero-series"
-            viewBox="0 0 700 280"
-            role="img"
-            aria-label="Serie de demanda diaria nacional"
-          >
-            <path d="M0 50H700 M0 150H700 M0 250H700" className="grid-line" />
-            <polyline
-              points={points}
-              className="series-line draw-line"
-              pathLength="1"
-            />
-          </svg>
+          />
           <div className="plate-heading">
             <span>{dateLabel(rows[0].datetime)}</span>
             <span>{dateLabel(rows[rows.length - 1].datetime)}</span>

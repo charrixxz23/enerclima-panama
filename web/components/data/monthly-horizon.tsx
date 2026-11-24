@@ -1,89 +1,33 @@
+import DataArt from "../data-art";
 import DataTable from "../data-table";
-import { type MonthlyPoint } from "../../lib/dashboard";
+import type { MonthlyPoint } from "../../lib/dashboard";
 export default function MonthlyHorizon({ rows }: { rows: MonthlyPoint[] }) {
   const years = Array.from(new Set(rows.map((r) => r.mes.slice(0, 4))));
-  const low = Math.min(...rows.map((r) => r.demanda_mwh));
-  const high = Math.max(...rows.map((r) => r.demanda_mwh));
-  const ridge = (items: MonthlyPoint[], base: number) =>
-    items
-      .map(
-        (r, i) =>
-          `${i === 0 ? "M" : "L"}${80 + ((Number(r.mes.slice(5)) - 1) / 11) * 600} ${base - ((r.demanda_mwh - low) / (high - low)) * 48}`,
-      )
-      .join(" ");
+  const height = years.length * 75 + 30;
   return (
     <figure className="monthly-horizon data-piece">
       <div className="plate-heading">
         <h3>Los años, en relieve</h3>
         <span>Demanda media mensual</span>
       </div>
-      <svg
-        className="ridge-wide"
-        viewBox={`0 0 720 ${years.length * 75 + 30}`}
-        role="img"
-        aria-label="Relieves anuales de demanda mensual"
-      >
-        {years.map((year, i) => {
-          const items = rows.filter((r) => r.mes.startsWith(year)),
-            base = 75 + i * 75,
-            d = ridge(items, base),
-            last =
-              80 +
-              ((Number(items[items.length - 1].mes.slice(5)) - 1) / 11) * 600;
-          return (
-            <g key={year}>
-              <text x="0" y={base - 15}>
-                {year}
-              </text>
-              <path d={`M80 ${base}H680`} className="grid-line" />
-              <path
-                d={`${d} L${last} ${base} L80 ${base} Z`}
-                className="ridge-area"
-              />
-              <path d={d} className="series-line draw-line" pathLength="1" />
-            </g>
-          );
-        })}
-      </svg>
-      <svg
-        className="ridge-compact"
-        viewBox={`0 0 360 ${years.length * 75 + 30}`}
-        role="img"
-        aria-label="Relieves anuales de demanda mensual"
-      >
-        <g>
-          {years.map((year, i) => {
-            const items = rows.filter((r) => r.mes.startsWith(year)),
-              base = 75 + i * 75;
-            const curve = items
-              .map(
-                (r, j) =>
-                  `${j ? "L" : "M"}${60 + ((Number(r.mes.slice(5)) - 1) / 11) * 285} ${base - ((r.demanda_mwh - low) / (high - low)) * 48}`,
-              )
-              .join(" ");
-            const last =
-              60 +
-              ((Number(items[items.length - 1].mes.slice(5)) - 1) / 11) * 285;
-            return (
-              <g key={year}>
-                <text x="0" y={base - 15}>
-                  {year}
-                </text>
-                <path d={`M60 ${base}H345`} className="grid-line" />
-                <path
-                  d={`${curve} L${last} ${base} L60 ${base} Z`}
-                  className="ridge-area"
-                />
-                <path
-                  d={curve}
-                  className="series-line draw-line"
-                  pathLength="1"
-                />
-              </g>
-            );
-          })}
-        </g>
-      </svg>
+      {["compact", "wide"].map((mode) => (
+        <div className={`ridge-plate ridge-${mode}`} key={mode}>
+          <DataArt
+            name={`demanda-mensual-${mode}`}
+            label="Relieves anuales de demanda mensual"
+            ratio={`${mode === "compact" ? 360 : 720} / ${height}`}
+          />
+          {years.map((year, i) => (
+            <span
+              className="ridge-year"
+              key={year}
+              style={{ top: `${((75 + i * 75 - 15) / height) * 100}%` }}
+            >
+              {year}
+            </span>
+          ))}
+        </div>
+      ))}
       <figcaption>
         Comparamos la forma de cada año con una escala de amplitud compartida.
         El relieve parte del mínimo mensual observado; los años incompletos

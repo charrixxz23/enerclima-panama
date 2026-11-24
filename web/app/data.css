@@ -111,3 +111,38 @@
     }
   }
 }
+
+@layer atlas.data {
+  .data-art {
+    display: block;
+    width: 100%;
+    background-color: var(--text);
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+  }
+  .clock-plate {
+    position: relative;
+    width: 100%;
+    max-width: 28rem;
+    margin: var(--s6) auto 0;
+  }
+  .clock-hour {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: var(--text-xs);
+    color: var(--secondary);
+  }
+  .ridge-plate {
+    position: relative;
+    margin-top: var(--s6);
+  }
+  .ridge-year {
+    position: absolute;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: var(--text-xs);
+    color: var(--secondary);
+  }
+}
