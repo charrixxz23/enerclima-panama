@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="112" viewBox="0 0 560 112" role="img" aria-labelledby="title description">
+  <title id="title">EnerClima Panamá</title>
+  <desc id="description">Marca de EnerClima Panamá con una hoja y una onda eléctrica.</desc>
+  <rect width="112" height="112" rx="28" fill="#0f6b52"/>
+  <path d="M33 73c0-24 15-40 47-42-1 31-16 48-47 48" fill="none" stroke="#c6e1d5" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+  <path d="M35 78 67 47M66 68h17l-9 13h18" fill="none" stroke="#ffb33e" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+  <text x="137" y="73" fill="#123c36" font-family="Arial, sans-serif" font-size="46" font-weight="700">EnerClima Panamá</text>
+</svg>

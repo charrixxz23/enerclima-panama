@@ -1,0 +1,4 @@
+﻿estacion,variable,coeficiente_mwh_por_c,error_estandar_hac,ic95_inferior,ic95_superior,p_valor,n,covarianza,controles
+Tocumen,T2M_toc,22.71956265540159,2.240672058658626,18.327926119265463,27.111199191537715,3.685312957348257e-24,48048,HAC con 24 rezagos horarios,"hora, día de semana, mes, año, feriado y periodo escolar"
+Santiago,T2M_san,-4.370030166389542,1.6640505830170327,-7.631509377555805,-1.1085509552232788,0.008635923347232071,48048,HAC con 24 rezagos horarios,"hora, día de semana, mes, año, feriado y periodo escolar"
+David,T2M_dav,5.28545801128538,2.121555053569858,1.127286515069513,9.443629507501246,0.012727188901883362,48048,HAC con 24 rezagos horarios,"hora, día de semana, mes, año, feriado y periodo escolar"

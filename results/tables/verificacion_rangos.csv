@@ -1,0 +1,17 @@
+﻿variable,min_observado,max_observado,limite_inferior_cribado,limite_superior_cribado,valores_fuera_limite,criterio
+nat_demand,85.19250000000002,1754.882,0,5000.0,0,"cribado amplio positivo, no umbral operativo"
+T2M_toc,22.953454589843773,35.03957519531252,-60,60.0,0,rango físico amplio en °C
+T2M_san,19.765222167968773,39.06343994140627,-60,60.0,0,rango físico amplio en °C
+T2M_dav,19.933740234375023,34.21621093750002,-60,60.0,0,rango físico amplio en °C
+QV2M_toc,0.0120538585,0.022690402,0,0.1,0,humedad específica kg/kg según NASA
+QV2M_san,0.010246815,0.02216483,0,0.1,0,humedad específica kg/kg según NASA
+QV2M_dav,0.009655291,0.021066189,0,0.1,0,humedad específica kg/kg según NASA
+TQL_toc,0.0,0.52124023,0,10.0,0,agua líquida precipitable kg/m2 según NASA
+TQL_san,8.895993e-06,0.48498535,0,10.0,0,agua líquida precipitable kg/m2 según NASA
+TQL_dav,3.2305717e-05,0.4777832,0,10.0,0,agua líquida precipitable kg/m2 según NASA
+W2M_toc,0.008978889730601845,39.22972628709697,0,150.0,0,rango físico amplio en m/s
+W2M_san,0.060393672899512627,24.483937231847474,0,150.0,0,rango físico amplio en m/s
+W2M_dav,0.015497407333261198,10.288901666240113,0,150.0,0,rango físico amplio en m/s
+Holiday_ID,0.0,22.0,0,30.0,0,codigo entero categorico no negativo
+holiday,0.0,1.0,0,1.0,0,indicador binario
+school,0.0,1.0,0,1.0,0,indicador binario

@@ -1,0 +1,66 @@
+name: publicar en github pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: descargar el codigo
+        uses: actions/checkout@v7
+      - name: configurar node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: instalar dependencias
+        run: npm ci
+      - name: instalar chromium para pruebas
+        run: npx playwright install --with-deps chromium
+      - name: revisar estilo
+        run: npm run lint
+      - name: revisar tipos
+        run: npm run typecheck
+      - name: probar interacciones del sitio
+        run: npm run test:e2e
+      - name: compilar exportacion estatica
+        run: npm run build
+        env:
+          GITHUB_PAGES: "true"
+          NEXT_PUBLIC_BASE_PATH: /enerclima-panama
+      - name: validar sitio exportado bajo su subruta
+        run: npm run test:export
+      - name: subir artefacto estatico
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: web/out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: configurar github pages
+        uses: actions/configure-pages@v5
+      - name: publicar sitio
+        id: deployment
+        uses: actions/deploy-pages@v4

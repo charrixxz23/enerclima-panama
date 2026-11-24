@@ -1,0 +1,1 @@
+Los archivos descomprimidos provienen de `archive.zip` ubicado junto a la carpeta del proyecto. Conservamos allí los datos originales extraídos para reproducir el análisis. No incluimos estos datos en el repositorio público hasta verificar sus condiciones de redistribución.

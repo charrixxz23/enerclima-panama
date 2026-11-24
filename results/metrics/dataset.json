@@ -1,0 +1,125 @@
+{
+  "filas": 48048,
+  "columnas": 17,
+  "nombres_columnas": [
+    "datetime",
+    "nat_demand",
+    "T2M_toc",
+    "QV2M_toc",
+    "TQL_toc",
+    "W2M_toc",
+    "T2M_san",
+    "QV2M_san",
+    "TQL_san",
+    "W2M_san",
+    "T2M_dav",
+    "QV2M_dav",
+    "TQL_dav",
+    "W2M_dav",
+    "Holiday_ID",
+    "holiday",
+    "school"
+  ],
+  "fecha_inicio": "2015-01-03T01:00:00",
+  "fecha_fin": "2020-06-27T00:00:00",
+  "frecuencia_moda": "0 days 01:00:00",
+  "intervalos_no_horarios": 0,
+  "horas_esperadas": 48048,
+  "horas_faltantes": 0,
+  "fechas_duplicadas": 0,
+  "filas_duplicadas": 0,
+  "valores_nulos": 0,
+  "valores_infinitos": 0,
+  "forecast_filas": 40152,
+  "forecast_fechas_en_dataset": 39313,
+  "forecast_cobertura_pct": 97.91044032675832,
+  "indicadores": {
+    "holiday": [
+      0,
+      1
+    ],
+    "school": [
+      0,
+      1
+    ]
+  },
+  "demanda_resumen": {
+    "count": 48048.0,
+    "mean": 1182.8686472323861,
+    "std": 192.06889632625837,
+    "min": 85.19250000000002,
+    "25%": 1020.0569,
+    "50%": 1168.4277000000002,
+    "75%": 1327.56395,
+    "max": 1754.882
+  },
+  "rangos_observados": {
+    "nat_demand": [
+      85.19250000000002,
+      1754.882
+    ],
+    "T2M_toc": [
+      22.953454589843773,
+      35.03957519531252
+    ],
+    "QV2M_toc": [
+      0.0120538585,
+      0.022690402
+    ],
+    "TQL_toc": [
+      0.0,
+      0.52124023
+    ],
+    "W2M_toc": [
+      0.008978889730601845,
+      39.22972628709697
+    ],
+    "T2M_san": [
+      19.765222167968773,
+      39.06343994140627
+    ],
+    "QV2M_san": [
+      0.010246815,
+      0.02216483
+    ],
+    "TQL_san": [
+      8.895993e-06,
+      0.48498535
+    ],
+    "W2M_san": [
+      0.060393672899512627,
+      24.483937231847474
+    ],
+    "T2M_dav": [
+      19.933740234375023,
+      34.21621093750002
+    ],
+    "QV2M_dav": [
+      0.009655291,
+      0.021066189
+    ],
+    "TQL_dav": [
+      3.2305717e-05,
+      0.4777832
+    ],
+    "W2M_dav": [
+      0.015497407333261198,
+      10.288901666240113
+    ],
+    "Holiday_ID": [
+      0.0,
+      22.0
+    ],
+    "holiday": [
+      0.0,
+      1.0
+    ],
+    "school": [
+      0.0,
+      1.0
+    ]
+  },
+  "fuera_de_limites_cribado_amplio": 0,
+  "auditoria_generada": "2026-11-24T08:46:20.708803+00:00",
+  "version_analisis": "1.0.0"
+}

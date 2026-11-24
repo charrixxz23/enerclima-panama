@@ -1,0 +1,18 @@
+﻿variable,definicion,unidad,tipo,origen
+datetime,Marca temporal horaria de Panamá,"fecha y hora, zona indicada como UTC-05:00 en metadatos",datetime64[us],dataset incluido en archive.zip
+nat_demand,Demanda eléctrica nacional del SIN; el PDF del dataset la etiqueta en MWh. La unidad describe el intervalo y no potencia MW.,"MWh por intervalo horario, según metadatos del paquete",float64,dataset incluido en archive.zip
+T2M_toc,Temperatura del aire a 2 m en Tocumen,°C,float64,dataset incluido en archive.zip
+QV2M_toc,"Humedad a 2 m en Tocumen; la ficha del paquete dice humedad relativa, pero NASA define QV2M como humedad específica (kg/kg). Conservamos la discrepancia y el valor original.",kg/kg (humedad específica; definición de NASA; existe discrepancia con metadatos del paquete),float64,dataset incluido en archive.zip
+TQL_toc,Agua líquida precipitable total en columna para Tocumen; el código NASA TQL no es fracción de nubosidad.,kg/m² (agua líquida precipitable en columna; definición de NASA; no es nubosidad),float64,dataset incluido en archive.zip
+W2M_toc,Rapidez del viento a 2 m en Tocumen,m/s,float64,dataset incluido en archive.zip
+T2M_san,Temperatura del aire a 2 m en Santiago,°C,float64,dataset incluido en archive.zip
+QV2M_san,"Humedad a 2 m en Santiago; la ficha del paquete dice humedad relativa, pero NASA define QV2M como humedad específica (kg/kg). Conservamos la discrepancia y el valor original.",kg/kg (humedad específica; definición de NASA; existe discrepancia con metadatos del paquete),float64,dataset incluido en archive.zip
+TQL_san,Agua líquida precipitable total en columna para Santiago; el código NASA TQL no es fracción de nubosidad.,kg/m² (agua líquida precipitable en columna; definición de NASA; no es nubosidad),float64,dataset incluido en archive.zip
+W2M_san,Rapidez del viento a 2 m en Santiago,m/s,float64,dataset incluido en archive.zip
+T2M_dav,Temperatura del aire a 2 m en David,°C,float64,dataset incluido en archive.zip
+QV2M_dav,"Humedad a 2 m en David; la ficha del paquete dice humedad relativa, pero NASA define QV2M como humedad específica (kg/kg). Conservamos la discrepancia y el valor original.",kg/kg (humedad específica; definición de NASA; existe discrepancia con metadatos del paquete),float64,dataset incluido en archive.zip
+TQL_dav,Agua líquida precipitable total en columna para David; el código NASA TQL no es fracción de nubosidad.,kg/m² (agua líquida precipitable en columna; definición de NASA; no es nubosidad),float64,dataset incluido en archive.zip
+W2M_dav,Rapidez del viento a 2 m en David,m/s,float64,dataset incluido en archive.zip
+Holiday_ID,Código que identifica el tipo de feriado según la tabla incluida en el PDF de metadatos,entero categórico,int64,dataset incluido en archive.zip
+holiday,"Indicador: 1 feriado, 0 día regular",indicador binario,int64,dataset incluido en archive.zip
+school,"Indicador: 1 periodo escolar, 0 vacaciones",indicador binario,int64,dataset incluido en archive.zip

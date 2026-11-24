@@ -1,0 +1,399 @@
+{
+  "version_analisis": "1.0.0",
+  "fecha_generacion_utc": "2026-11-24T08:47:33.550304+00:00",
+  "fuente_datos": "IEEE PES Data Sharing Task Force, Short-term electricity load forecasting (Panama), archivos provistos por el grupo",
+  "unidad_demanda": "MWh por intervalo horario según el PDF de metadatos del paquete",
+  "periodo_historico": [
+    "2015-01-03T01:00:00",
+    "2020-06-27T00:00:00"
+  ],
+  "filas": 48048,
+  "demanda_media": 1182.8686472323861,
+  "demanda_mediana": 1168.4277000000002,
+  "demanda_maxima": 1754.882,
+  "demanda_minima": 85.19250000000002,
+  "correlaciones_spearman": {
+    "nat_demand": 1.0,
+    "T2M_dav": 0.6997469306702877,
+    "T2M_san": 0.6816916308063015,
+    "T2M_toc": 0.6729760848387492,
+    "W2M_san": 0.17828460936166834,
+    "TQL_san": 0.10975207818471676,
+    "QV2M_san": 0.0975063371947201,
+    "W2M_toc": 0.08920310897319904,
+    "TQL_toc": 0.0576211065053924,
+    "QV2M_dav": 0.05237755583924491,
+    "TQL_dav": 0.03909666024616051,
+    "school": 0.03684297723445388,
+    "QV2M_toc": -0.01723698991309526,
+    "W2M_dav": -0.05080057271919527,
+    "Holiday_ID": -0.16269914728454113,
+    "holiday": -0.16389103232047839
+  },
+  "eventos": [
+    {
+      "estacion": "Tocumen",
+      "percentil_95_c": 30.410319519042993,
+      "horas_sobre_umbral": 2403,
+      "dias_con_horas_elevadas": 542,
+      "demanda_media_eventos_mwh": 1372.6892737902622,
+      "demanda_media_resto_mwh": 1172.8754614372594,
+      "diferencia_media_mwh": 199.81381235300273
+    },
+    {
+      "estacion": "Santiago",
+      "percentil_95_c": 33.07207641601565,
+      "horas_sobre_umbral": 2403,
+      "dias_con_horas_elevadas": 437,
+      "demanda_media_eventos_mwh": 1370.205691065335,
+      "demanda_media_resto_mwh": 1173.0062106822588,
+      "diferencia_media_mwh": 197.1994803830762
+    },
+    {
+      "estacion": "David",
+      "percentil_95_c": 29.48135375976565,
+      "horas_sobre_umbral": 2403,
+      "dias_con_horas_elevadas": 476,
+      "demanda_media_eventos_mwh": 1373.6530244540158,
+      "demanda_media_resto_mwh": 1172.824724382927,
+      "diferencia_media_mwh": 200.82830007108896
+    }
+  ],
+  "modelos_prueba": [
+    {
+      "modelo": "random_forest_temporal_clima_historia",
+      "mae": 19.612740720030747,
+      "rmse": 27.722937184313444,
+      "mape_pct": 1.6629660080017143,
+      "r2": 0.9774517197182033
+    },
+    {
+      "modelo": "regresion_temporal_clima_historia",
+      "mae": 29.406789963177893,
+      "rmse": 38.327822186148396,
+      "mape_pct": 2.484574361863099,
+      "r2": 0.9569013934603583
+    },
+    {
+      "modelo": "referencia_semanal_ingenua",
+      "mae": 71.27411609579505,
+      "rmse": 99.22893017702442,
+      "mape_pct": 5.946306263257615,
+      "r2": 0.7111239341167839
+    },
+    {
+      "modelo": "regresion_temporal_clima",
+      "mae": 119.12747440960618,
+      "rmse": 147.29100353709168,
+      "mape_pct": 10.03471027330723,
+      "r2": 0.3635161549556263
+    },
+    {
+      "modelo": "regresion_temporal",
+      "mae": 124.72823922323931,
+      "rmse": 153.12375107859185,
+      "mape_pct": 10.448635401828515,
+      "r2": 0.31210831207103473
+    }
+  ],
+  "modelos_validacion": [
+    {
+      "modelo": "random_forest_temporal_clima_historia",
+      "variables": 26,
+      "mae": 17.49058239690744,
+      "rmse": 31.74745585680692,
+      "mape_pct": 1.6779111948496301,
+      "r2": 0.9714878195994648,
+      "segundos_entrenamiento": 5.80575940000017
+    },
+    {
+      "modelo": "regresion_temporal_clima_historia",
+      "variables": 26,
+      "mae": 29.787645723100496,
+      "rmse": 40.661726369474835,
+      "mape_pct": 2.5453856202409293,
+      "r2": 0.9532281873758648,
+      "segundos_entrenamiento": 0.03187129999969329
+    },
+    {
+      "modelo": "referencia_semanal_ingenua",
+      "variables": 1,
+      "mae": 63.84760241576162,
+      "rmse": 98.78671560825583,
+      "mape_pct": 5.495960088886602,
+      "r2": 0.7239360693195376,
+      "segundos_entrenamiento": 0.0
+    },
+    {
+      "modelo": "regresion_temporal_clima",
+      "variables": 22,
+      "mae": 96.95272558098644,
+      "rmse": 120.82039814358535,
+      "mape_pct": 8.06616467301627,
+      "r2": 0.5870541563110593,
+      "segundos_entrenamiento": 0.026192599999376398
+    },
+    {
+      "modelo": "regresion_temporal",
+      "variables": 10,
+      "mae": 100.96027028026742,
+      "rmse": 125.49280626805265,
+      "mape_pct": 8.317217108938852,
+      "r2": 0.5544974067456434,
+      "segundos_entrenamiento": 0.051181899999392044
+    }
+  ],
+  "particion": {
+    "train_filas": 33516,
+    "validacion_filas": 7182,
+    "prueba_filas": 7182,
+    "inicio_prueba": "2019-09-01T19:00:00",
+    "fin_prueba": "2020-06-27T00:00:00",
+    "inicio_entrenamiento": "2015-01-10T01:00:00",
+    "fin_entrenamiento": "2018-11-06T12:00:00",
+    "inicio_validacion": "2018-11-06T13:00:00",
+    "fin_validacion": "2019-09-01T18:00:00",
+    "modelo_seleccionado": "random_forest_temporal_clima_historia",
+    "modelo_climatico_sensibilidad": "random_forest_temporal_clima_historia"
+  },
+  "sensibilidad": [
+    {
+      "estacion": "Tocumen",
+      "incremento_c": 1,
+      "referencias_validas": 6921,
+      "limite_p99_c": 31.71909576416018,
+      "demanda_base_modelo_mwh": 1197.7563230447215,
+      "cambio_estimado_mwh": 0.4392553074213805,
+      "cambio_estimado_pct": 0.03667317792193193,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Tocumen",
+      "incremento_c": 2,
+      "referencias_validas": 6337,
+      "limite_p99_c": 31.71909576416018,
+      "demanda_base_modelo_mwh": 1185.8409170777236,
+      "cambio_estimado_mwh": 0.6614153164999055,
+      "cambio_estimado_pct": 0.05577605789905075,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Tocumen",
+      "incremento_c": 3,
+      "referencias_validas": 5451,
+      "limite_p99_c": 31.71909576416018,
+      "demanda_base_modelo_mwh": 1164.9252685591878,
+      "cambio_estimado_mwh": 0.7092600918049284,
+      "cambio_estimado_pct": 0.06088460014968696,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Santiago",
+      "incremento_c": 1,
+      "referencias_validas": 7027,
+      "limite_p99_c": 35.98917816162112,
+      "demanda_base_modelo_mwh": 1197.014560534277,
+      "cambio_estimado_mwh": 0.2072256865573799,
+      "cambio_estimado_pct": 0.017311876846751683,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Santiago",
+      "incremento_c": 2,
+      "referencias_validas": 6913,
+      "limite_p99_c": 35.98917816162112,
+      "demanda_base_modelo_mwh": 1195.6620739261955,
+      "cambio_estimado_mwh": 0.38082242440026237,
+      "cambio_estimado_pct": 0.03185033904686429,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Santiago",
+      "incremento_c": 3,
+      "referencias_validas": 6771,
+      "limite_p99_c": 35.98917816162112,
+      "demanda_base_modelo_mwh": 1194.4270988665328,
+      "cambio_estimado_mwh": 0.48691265754730423,
+      "cambio_estimado_pct": 0.040765372621683345,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "David",
+      "incremento_c": 1,
+      "referencias_validas": 7003,
+      "limite_p99_c": 31.802655029296897,
+      "demanda_base_modelo_mwh": 1197.2216267935662,
+      "cambio_estimado_mwh": 0.28671622290818377,
+      "cambio_estimado_pct": 0.023948466724250172,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "David",
+      "incremento_c": 2,
+      "referencias_validas": 6843,
+      "limite_p99_c": 31.802655029296897,
+      "demanda_base_modelo_mwh": 1196.0048727935912,
+      "cambio_estimado_mwh": 0.4461862483598751,
+      "cambio_estimado_pct": 0.037306390509738226,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "David",
+      "incremento_c": 3,
+      "referencias_validas": 6627,
+      "limite_p99_c": 31.802655029296897,
+      "demanda_base_modelo_mwh": 1193.594519114093,
+      "cambio_estimado_mwh": 0.42128928179529684,
+      "cambio_estimado_pct": 0.035295845871342074,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Tres estaciones",
+      "incremento_c": 1,
+      "referencias_validas": 6833,
+      "limite_p99_c": null,
+      "demanda_base_modelo_mwh": 1196.1189418271715,
+      "cambio_estimado_mwh": 0.9673695071762562,
+      "cambio_estimado_pct": 0.08087569499555944,
+      "tipo": "conjunta"
+    },
+    {
+      "estacion": "Tres estaciones",
+      "incremento_c": 2,
+      "referencias_validas": 6302,
+      "limite_p99_c": null,
+      "demanda_base_modelo_mwh": 1185.3796385138116,
+      "cambio_estimado_mwh": 1.521662780412537,
+      "cambio_estimado_pct": 0.12836923555733976,
+      "tipo": "conjunta"
+    },
+    {
+      "estacion": "Tres estaciones",
+      "incremento_c": 3,
+      "referencias_validas": 5442,
+      "limite_p99_c": null,
+      "demanda_base_modelo_mwh": 1164.6950339426173,
+      "cambio_estimado_mwh": 1.6753299587038182,
+      "cambio_estimado_pct": 0.14384280089463825,
+      "tipo": "conjunta"
+    }
+  ],
+  "asociaciones_ajustadas": [
+    {
+      "estacion": "Tocumen",
+      "variable": "T2M_toc",
+      "coeficiente_mwh_por_c": 22.71956265540159,
+      "error_estandar_hac": 2.240672058658626,
+      "ic95_inferior": 18.327926119265463,
+      "ic95_superior": 27.111199191537715,
+      "p_valor": 3.685312957348257e-24,
+      "n": 48048,
+      "covarianza": "HAC con 24 rezagos horarios",
+      "controles": "hora, día de semana, mes, año, feriado y periodo escolar"
+    },
+    {
+      "estacion": "Santiago",
+      "variable": "T2M_san",
+      "coeficiente_mwh_por_c": -4.370030166389542,
+      "error_estandar_hac": 1.6640505830170327,
+      "ic95_inferior": -7.631509377555805,
+      "ic95_superior": -1.1085509552232788,
+      "p_valor": 0.008635923347232071,
+      "n": 48048,
+      "covarianza": "HAC con 24 rezagos horarios",
+      "controles": "hora, día de semana, mes, año, feriado y periodo escolar"
+    },
+    {
+      "estacion": "David",
+      "variable": "T2M_dav",
+      "coeficiente_mwh_por_c": 5.28545801128538,
+      "error_estandar_hac": 2.121555053569858,
+      "ic95_inferior": 1.127286515069513,
+      "ic95_superior": 9.443629507501246,
+      "p_valor": 0.012727188901883362,
+      "n": 48048,
+      "covarianza": "HAC con 24 rezagos horarios",
+      "controles": "hora, día de semana, mes, año, feriado y periodo escolar"
+    }
+  ],
+  "metricas_por_temperatura": [
+    {
+      "estacion": "Tocumen",
+      "grupo": "temperatura normal",
+      "umbral_c_entrenamiento": 30.353074645996116,
+      "filas": 6755,
+      "mae": 19.762958653299954,
+      "rmse": 28.06777542814521,
+      "mape_pct": 1.678913831733923,
+      "r2": 0.9757620926988972
+    },
+    {
+      "estacion": "Tocumen",
+      "grupo": "sobre percentil 95 de entrenamiento",
+      "umbral_c_entrenamiento": 30.353074645996116,
+      "filas": 427,
+      "mae": 17.236342267493345,
+      "rmse": 21.545537612543413,
+      "mape_pct": 1.4106766653528464,
+      "r2": 0.991086712526664
+    },
+    {
+      "estacion": "Santiago",
+      "grupo": "temperatura normal",
+      "umbral_c_entrenamiento": 32.78257904052737,
+      "filas": 6745,
+      "mae": 19.791154950836365,
+      "rmse": 28.098056205428605,
+      "mape_pct": 1.6821159544154352,
+      "r2": 0.9758742172566582
+    },
+    {
+      "estacion": "Santiago",
+      "grupo": "sobre percentil 95 de entrenamiento",
+      "umbral_c_entrenamiento": 32.78257904052737,
+      "filas": 437,
+      "mae": 16.858955853248457,
+      "rmse": 21.103657564282308,
+      "mape_pct": 1.3673907481377658,
+      "r2": 0.9907724330728706
+    },
+    {
+      "estacion": "David",
+      "grupo": "temperatura normal",
+      "umbral_c_entrenamiento": 29.237237548828148,
+      "filas": 6731,
+      "mae": 19.743702804341627,
+      "rmse": 28.047978775349534,
+      "mape_pct": 1.676905429878317,
+      "r2": 0.9762949919400105
+    },
+    {
+      "estacion": "David",
+      "grupo": "sobre percentil 95 de entrenamiento",
+      "umbral_c_entrenamiento": 29.237237548828148,
+      "filas": 451,
+      "mae": 17.65818242846426,
+      "rmse": 22.31613455346761,
+      "mape_pct": 1.454925545360004,
+      "r2": 0.9886634893844146
+    }
+  ],
+  "pronostico_predespacho": {
+    "modelo": "pronóstico semanal predespacho del archivo original",
+    "mae": 59.19737325680272,
+    "rmse": 74.02858973510108,
+    "mape_pct": 4.952357523892246,
+    "r2": 0.8448460140563234,
+    "filas_comparadas": 2352,
+    "semanas_oficiales": 14,
+    "horizonte_horas_por_semana": 168,
+    "comparabilidad": "fechas exactas y mismas 14 ventanas oficiales del archivo de prueba",
+    "comparar_con_modelo_rodante": false
+  },
+  "limitaciones": [
+    "Las variables meteorológicas observadas en la misma hora del objetivo permiten un análisis ex post y no constituyen pronóstico operativo con clima futuro.",
+    "La demanda se expresa en MWh por intervalo horario según los metadatos del paquete; no la convertimos a MW.",
+    "La documentación incluida etiqueta QV2M como humedad relativa, pero la definición de NASA es humedad específica. Usamos sus valores sin conversión y documentamos la discrepancia.",
+    "Los cambios de temperatura simulados son estimaciones condicionadas al modelo, no efectos causales ni proyecciones oficiales."
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "metodo": "perturbaciones sobre observaciones del periodo de prueba, con predictores restantes fijos y exclusión de casos que exceden el percentil 99 observado",
+  "unidad_demanda": "MWh por intervalo horario",
+  "modelo": "mejor modelo con clima según RMSE de validación",
+  "resultados": [
+    {
+      "estacion": "Tocumen",
+      "incremento_c": 1,
+      "referencias_validas": 6921,
+      "limite_p99_c": 31.71909576416018,
+      "demanda_base_modelo_mwh": 1197.7563230447215,
+      "cambio_estimado_mwh": 0.4392553074213805,
+      "cambio_estimado_pct": 0.03667317792193193,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Tocumen",
+      "incremento_c": 2,
+      "referencias_validas": 6337,
+      "limite_p99_c": 31.71909576416018,
+      "demanda_base_modelo_mwh": 1185.8409170777236,
+      "cambio_estimado_mwh": 0.6614153164999055,
+      "cambio_estimado_pct": 0.05577605789905075,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Tocumen",
+      "incremento_c": 3,
+      "referencias_validas": 5451,
+      "limite_p99_c": 31.71909576416018,
+      "demanda_base_modelo_mwh": 1164.9252685591878,
+      "cambio_estimado_mwh": 0.7092600918049284,
+      "cambio_estimado_pct": 0.06088460014968696,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Santiago",
+      "incremento_c": 1,
+      "referencias_validas": 7027,
+      "limite_p99_c": 35.98917816162112,
+      "demanda_base_modelo_mwh": 1197.014560534277,
+      "cambio_estimado_mwh": 0.2072256865573799,
+      "cambio_estimado_pct": 0.017311876846751683,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Santiago",
+      "incremento_c": 2,
+      "referencias_validas": 6913,
+      "limite_p99_c": 35.98917816162112,
+      "demanda_base_modelo_mwh": 1195.6620739261955,
+      "cambio_estimado_mwh": 0.38082242440026237,
+      "cambio_estimado_pct": 0.03185033904686429,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Santiago",
+      "incremento_c": 3,
+      "referencias_validas": 6771,
+      "limite_p99_c": 35.98917816162112,
+      "demanda_base_modelo_mwh": 1194.4270988665328,
+      "cambio_estimado_mwh": 0.48691265754730423,
+      "cambio_estimado_pct": 0.040765372621683345,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "David",
+      "incremento_c": 1,
+      "referencias_validas": 7003,
+      "limite_p99_c": 31.802655029296897,
+      "demanda_base_modelo_mwh": 1197.2216267935662,
+      "cambio_estimado_mwh": 0.28671622290818377,
+      "cambio_estimado_pct": 0.023948466724250172,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "David",
+      "incremento_c": 2,
+      "referencias_validas": 6843,
+      "limite_p99_c": 31.802655029296897,
+      "demanda_base_modelo_mwh": 1196.0048727935912,
+      "cambio_estimado_mwh": 0.4461862483598751,
+      "cambio_estimado_pct": 0.037306390509738226,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "David",
+      "incremento_c": 3,
+      "referencias_validas": 6627,
+      "limite_p99_c": 31.802655029296897,
+      "demanda_base_modelo_mwh": 1193.594519114093,
+      "cambio_estimado_mwh": 0.42128928179529684,
+      "cambio_estimado_pct": 0.035295845871342074,
+      "tipo": "unica_estacion"
+    },
+    {
+      "estacion": "Tres estaciones",
+      "incremento_c": 1,
+      "referencias_validas": 6833,
+      "limite_p99_c": null,
+      "demanda_base_modelo_mwh": 1196.1189418271715,
+      "cambio_estimado_mwh": 0.9673695071762562,
+      "cambio_estimado_pct": 0.08087569499555944,
+      "tipo": "conjunta"
+    },
+    {
+      "estacion": "Tres estaciones",
+      "incremento_c": 2,
+      "referencias_validas": 6302,
+      "limite_p99_c": null,
+      "demanda_base_modelo_mwh": 1185.3796385138116,
+      "cambio_estimado_mwh": 1.521662780412537,
+      "cambio_estimado_pct": 0.12836923555733976,
+      "tipo": "conjunta"
+    },
+    {
+      "estacion": "Tres estaciones",
+      "incremento_c": 3,
+      "referencias_validas": 5442,
+      "limite_p99_c": null,
+      "demanda_base_modelo_mwh": 1164.6950339426173,
+      "cambio_estimado_mwh": 1.6753299587038182,
+      "cambio_estimado_pct": 0.14384280089463825,
+      "tipo": "conjunta"
+    }
+  ]
+}
