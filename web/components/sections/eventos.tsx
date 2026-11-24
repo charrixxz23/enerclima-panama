@@ -6,11 +6,11 @@ import SectionHeading from "../section-heading";
 export default function Eventos() {
   const toc = data.eventos.find((row) => row.estacion === "Tocumen")!;
   return (
-    <TemporalPanel id="eventos">
+    <TemporalPanel id="eventos" className="proposal-events">
       <SectionHeading
         index="03"
         label="Eventos térmicos"
-        title="Leemos las horas de mayor temperatura."
+        title="Horas cálidas, demanda alta."
         description="Usamos el percentil 95 de cada estación en el periodo completo como umbral descriptivo."
       />
       <p className="caveat prominent">
@@ -114,6 +114,32 @@ export default function Eventos() {
           ))}
         </div>
       </div>
+      <aside
+        className="proposal-event-reading"
+        aria-label="Diferencia media descriptiva"
+      >
+        <span className="kicker">Diferencia media</span>
+        <strong className="proposal-event-value">
+          <Cifra tipo="demanda" value={toc.diferencia_media_mwh} />
+        </strong>
+        <span className="proposal-event-unit">MWh por hora</span>
+        <p>
+          En las 2.403 horas sobre el percentil 95 de Tocumen (30,4 °C), la
+          demanda media fue de{" "}
+          <Cifra
+            tipo="demanda"
+            value={toc.demanda_media_eventos_mwh}
+            unidad="MWh"
+          />
+          , frente a{" "}
+          <Cifra
+            tipo="demanda"
+            value={toc.demanda_media_resto_mwh}
+            unidad="MWh"
+          />{" "}
+          en el resto. Es una diferencia descriptiva; no demuestra causalidad.
+        </p>
+      </aside>
     </TemporalPanel>
   );
 }

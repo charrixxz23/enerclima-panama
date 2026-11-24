@@ -36,7 +36,7 @@ test("conservamos anclajes y resultados exactos del JSON", async ({ page }) => {
   const response = await page.goto(home);
   expect(response?.status()).toBe(200);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    /El clima y la energía,\s*en el mismo mapa\./,
+    /Cuando el clima cambia,\s*la demanda también\./,
   );
   expect(
     await page.locator("section[id]").evaluateAll((es) => es.map((e) => e.id)),

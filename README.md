@@ -6,9 +6,9 @@
 
 <p align="center"><img src="web/public/images/enerclima-logo.svg" alt="Logotipo de EnerClima Panamá" width="420"></p>
 
-> **El clima y la energía, en el mismo mapa.** Exploramos asociaciones históricas entre clima regional y demanda nacional, con sus límites visibles.
+> **Cuando el clima cambia, la demanda también.** Exploramos asociaciones históricas entre clima regional y demanda nacional, con sus límites visibles.
 
-<picture><source srcset="web/public/previews/portada.avif" type="image/avif"><img src="web/public/previews/portada.webp" alt="Portada del atlas EnerClima Panamá" width="1200" height="1368"></picture>
+<picture><source srcset="web/public/previews/portada.avif" type="image/avif"><img src="web/public/previews/portada.webp" alt="Portada del atlas EnerClima Panamá" width="1200" height="714"></picture>
 
 ## El problema que estudiamos
 
@@ -149,3 +149,8 @@ Cerramos la fase 2 después de aprobar lint, tipos, build, exportación, 22 prue
 Obtenemos rendimiento público 96, 93 y 91, mediana **93**, frente a la referencia anterior de 92; accesibilidad, buenas prácticas y SEO alcanzan 100 en las tres corridas. Registramos TBT mediano de 306 ms, LCP de 1.065 ms sobre el h1 y CLS 0. Conservamos la meta de 95 como pendiente y tomamos 93 como nueva referencia. Publicamos métricas, cobertura estimada y CPU por script en [RENDIMIENTO_FASE2.md](docs/RENDIMIENTO_FASE2.md).
 
 Comprobamos el peso del hero por la única imagen elegida en cada visita: AVIF de 12.219 B en móvil, 30.839 B en escritorio y 66.736 B en pantalla ancha; la alternativa más pesada ocupa 112.090 B, bajo 120.000 B. Conservamos el tema claro y reservamos la revisión final de metadatos visuales para la siguiente fase del plan.
+
+
+## Ajuste visual
+
+Recompusimos la portada y Eventos a partir de la referencia visual compartida: portada petróleo con el campo de datos, cifras principales y lectura contextual; Eventos destaca la diferencia media descriptiva. Conservamos las limitaciones estadísticas, el sistema de temperatura y las variantes móviles.

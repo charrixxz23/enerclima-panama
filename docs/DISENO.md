@@ -194,3 +194,10 @@ Aprobamos 22 pruebas unitarias y 13 pruebas locales de navegador, las cinco comp
 Comprobamos el peso real publicado en Linux por visitante: AVIF móvil 12.219 B, escritorio 30.839 B y ancho 66.736 B. La alternativa más pesada es WebP ancho, 112.090 B frente al máximo de 120.000 B. No sumamos las seis variantes. Conservamos las vistas previas bajo 250 KB y el tema exclusivamente claro.
 
 El commit de cierre documental conserva exactamente el árbol web del código medido. No añadimos otra pieza visual después de estas corridas. Reservamos la revisión final de los recursos de metadatos para la fase siguiente del plan.
+
+
+## Ajuste visual según la propuesta
+
+Tomamos la lámina «EnerClima Panamá — propuesta visual» como referencia visual solicitada: cabecera y portada azul petróleo, acento naranja, titular editorial, campo de datos en segundo plano, tarjeta explicativa y banda de métricas superpuesta. Recompusimos Eventos con una lectura grande de la diferencia descriptiva y las tres estaciones debajo. Conservamos el contenido y el muestreo del campo existentes, las cifras del conjunto original, las advertencias de no causalidad y los contrastes aprobados. Conservamos el resto del sitio en papel claro y el alcance exclusivamente claro; el color de acento de la portada no reemplaza ni extiende la rampa térmica.
+
+Adaptamos la composición para móvil: mantenemos la tarjeta explicativa y las métricas en el flujo, reorganizamos el índice y apilamos la lectura de Eventos sin recortar valores. Regeneramos la vista previa del README para que represente la página corregida. Medimos las vistas previas después de regenerarlas: portada AVIF 35.760 B, portada WebP 42.578 B, simulador AVIF 41.066 B y simulador WebP 46.800 B; cada recurso queda bajo 250 KB. Mantenemos el tema exclusivamente claro, sin modo oscuro.

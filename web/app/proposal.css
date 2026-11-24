@@ -1,0 +1,437 @@
+@layer atlas.refinements {
+  .atlas-header {
+    width: 100%;
+    max-width: none;
+    padding-inline: max(2rem, calc((100% - var(--measure)) / 2));
+    color: #f7f3ea;
+    background: #071e23;
+    border: 0;
+  }
+  .atlas-header .masthead {
+    min-height: 4rem;
+    padding-block: 0;
+  }
+  .atlas-header .atlas-brand {
+    color: #f7f3ea;
+  }
+  .atlas-header .atlas-brand svg {
+    color: #ef9d32;
+  }
+  .atlas-header .edition {
+    color: #d3d6cf;
+  }
+  .atlas-header .atlas-nav {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: 0.5rem;
+    padding-block: 0.65rem;
+    border-color: rgb(247 243 234 / 20%);
+  }
+  .atlas-header .atlas-nav a {
+    padding: 0.35rem 0;
+    color: #f7f3ea;
+    background: transparent;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  .atlas-header .atlas-nav a span {
+    color: #ef9d32;
+  }
+  .proposal-hero {
+    min-height: 46rem;
+    margin-bottom: 5rem;
+    padding-bottom: 5rem;
+    color: #f7f3ea;
+    background: #071e23;
+  }
+  .proposal-hero .hero-meta {
+    position: relative;
+    z-index: 2;
+    padding-block: 1.4rem;
+    color: #f2bf6d;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .proposal-hero .atlas-hero-grid {
+    position: relative;
+    z-index: 2;
+    min-height: 27rem;
+    align-content: center;
+    padding-block: 3rem 6rem;
+  }
+  .proposal-hero .atlas-hero-grid > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 0.65fr);
+    align-items: end;
+    gap: 1.25rem 3rem;
+  }
+  .proposal-hero .kicker {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #ef9d32;
+  }
+  .proposal-hero h1 {
+    grid-column: 1;
+    max-width: none;
+    font-size: clamp(3rem, 5vw, 4.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+  .proposal-hero h1 em {
+    color: #ef9d32;
+  }
+  .proposal-hero-line {
+    white-space: nowrap;
+  }
+  .proposal-hero .hero-description {
+    grid-column: 1;
+    margin: 0 0 0.25rem;
+    max-width: 38ch;
+    color: #e1e4dc;
+    font-size: 1rem;
+  }
+  .proposal-hero .thermal-field {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    opacity: 0.76;
+    pointer-events: none;
+  }
+  .proposal-hero .thermal-field::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        90deg,
+        rgb(7 30 35 / 96%) 0%,
+        rgb(7 30 35 / 82%) 46%,
+        rgb(7 30 35 / 48%) 100%
+      ),
+      linear-gradient(
+        0deg,
+        #071e23 0%,
+        transparent 38%,
+        rgb(7 30 35 / 24%) 100%
+      );
+  }
+  .proposal-hero .field-heading,
+  .proposal-hero .field-hours,
+  .proposal-hero .field-dates,
+  .proposal-hero .field-legends,
+  .proposal-hero .thermal-field figcaption,
+  .proposal-hero .thermal-table {
+    display: none;
+  }
+  .proposal-hero .field-plot {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+  .proposal-hero .field-plot picture,
+  .proposal-hero .field-plot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .proposal-hero .field-plot img {
+    object-fit: cover;
+    object-position: center;
+  }
+  .proposal-field-note {
+    position: absolute;
+    z-index: 2;
+    right: max(2rem, calc((100% - var(--measure)) / 2));
+    top: 45%;
+    width: min(24rem, 31vw);
+    padding: 1.1rem 1.25rem;
+    border: 1px solid rgb(239 157 50 / 72%);
+    background: rgb(7 30 35 / 86%);
+    color: #f7f3ea;
+    font-size: 0.8rem;
+  }
+  .proposal-field-note .kicker {
+    margin-bottom: 0.5rem;
+    color: #ef9d32;
+  }
+  .proposal-field-note ul {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .proposal-field-note li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .proposal-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    flex: 0 0 auto;
+  }
+  .proposal-dot-demand {
+    background: #a8a295;
+  }
+  .proposal-dot-temperature {
+    background: #ef9d32;
+  }
+  .proposal-metrics {
+    position: absolute;
+    z-index: 3;
+    right: max(2rem, calc((100% - var(--measure)) / 2));
+    bottom: -2.5rem;
+    left: max(2rem, calc((100% - var(--measure)) / 2));
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    min-height: 7rem;
+    padding: 1.15rem 0;
+    color: #152421;
+    background: #f7f3ea;
+    box-shadow: 0 1rem 2rem rgb(7 30 35 / 16%);
+  }
+  .proposal-metrics > div {
+    display: grid;
+    align-content: center;
+    gap: 0.2rem;
+    padding-inline: 1.5rem;
+    border-right: 1px solid #cfc7b9;
+  }
+  .proposal-metrics > div:last-child {
+    border: 0;
+  }
+  .proposal-metrics span,
+  .proposal-metrics small {
+    color: #4e5c58;
+    font-size: 0.7rem;
+  }
+  .proposal-metrics strong {
+    color: #152421;
+    font-size: clamp(1.2rem, 2vw, 2rem);
+  }
+  .proposal-metrics strong .cifra {
+    font-size: inherit;
+  }
+  .proposal-metrics .cifra {
+    color: inherit;
+  }
+  .proposal-hero-bottom {
+    position: relative;
+    z-index: 2;
+    position: absolute;
+    top: 76%;
+    left: max(2rem, calc((100% - var(--measure)) / 2));
+    display: block;
+    width: auto;
+    padding: 0;
+    color: #e1e4dc;
+  }
+  .proposal-hero-bottom .hero-footnote,
+  .proposal-hero-bottom > a:last-child {
+    display: none;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .proposal-metrics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .proposal-metrics > div:nth-child(2) {
+      border-right: 0;
+    }
+    .proposal-field-note {
+      width: 14rem;
+      font-size: 0.72rem;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 900px) {
+    .atlas-header .atlas-nav {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .proposal-hero-bottom > a:last-child {
+    color: #f2bf6d;
+  }
+  .proposal-events {
+    background: #f7f3ea;
+  }
+  .proposal-events .temporal-content {
+    display: grid;
+    grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.65fr);
+    align-items: start;
+    gap: 1.5rem 4rem;
+    padding-block: 4rem;
+  }
+  .proposal-events .atlas-section-heading {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    display: block;
+  }
+  .proposal-events .atlas-section-heading > div:last-of-type h2 {
+    max-width: 12ch;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+  }
+  .proposal-events .atlas-section-heading .section-description {
+    margin-top: 1.5rem;
+  }
+  .proposal-events .prominent {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+  }
+  .proposal-events .event-annotations {
+    display: contents;
+  }
+  .proposal-events .thermal-margin {
+    display: none;
+  }
+  .proposal-events .event-ledger {
+    grid-column: 2;
+    grid-row: 3;
+    margin: 0;
+  }
+  .proposal-events .event-ledger article {
+    padding-block: 0.8rem;
+  }
+  .proposal-events .proposal-event-reading {
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: end;
+    column-gap: 1.25rem;
+    padding-block: 0.6rem 1.3rem;
+    border-top: 2px solid #817b70;
+  }
+  .proposal-event-reading .kicker,
+  .proposal-event-reading p {
+    grid-column: 2;
+  }
+  .proposal-event-value {
+    grid-column: 1;
+    grid-row: 2 / span 2;
+    color: #b43e2e;
+    font-size: clamp(4rem, 7vw, 6rem);
+    line-height: 0.9;
+  }
+  .proposal-event-unit {
+    grid-column: 1;
+    color: #152421;
+    font-family: var(--font-numbers), sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+  .proposal-event-reading p {
+    color: #4e5c58;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 767px) {
+    .atlas-header {
+      padding-inline: 1rem;
+    }
+    .atlas-header .atlas-nav {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      text-align: left;
+    }
+    .atlas-header .atlas-nav a {
+      text-align: left;
+    }
+    .proposal-hero {
+      min-height: 52rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+    }
+    .proposal-hero .hero-meta,
+    .proposal-hero .atlas-hero-grid,
+    .proposal-hero .hero-bottom {
+      width: calc(100% - 2rem);
+    }
+    .proposal-hero .hero-meta {
+      font-size: 0.65rem;
+    }
+    .proposal-hero .atlas-hero-grid {
+      min-height: 24rem;
+      padding-block: 2.5rem 1.5rem;
+    }
+    .proposal-hero .atlas-hero-grid > div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.2rem;
+    }
+    .proposal-hero h1,
+    .proposal-hero .hero-description {
+      grid-column: 1;
+    }
+    .proposal-hero h1 {
+      font-size: clamp(2.6rem, 11.5vw, 3.4rem);
+    }
+    .proposal-hero-line {
+      white-space: normal;
+    }
+    .proposal-field-note {
+      position: relative;
+      inset: auto;
+      width: calc(100% - 2rem);
+      margin: -1rem auto 0;
+    }
+    .proposal-metrics {
+      right: 1rem;
+      bottom: -1rem;
+      left: 1rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding-block: 0.65rem;
+    }
+    .proposal-metrics > div {
+      min-height: 4.5rem;
+      padding-inline: 0.8rem;
+    }
+    .proposal-metrics > div:nth-child(2) {
+      border-right: 0;
+    }
+    .proposal-hero-bottom {
+      top: auto;
+      bottom: 4.5rem;
+      left: 1rem;
+    }
+    .proposal-events .temporal-content {
+      display: block;
+      padding-block: 2rem;
+    }
+    .proposal-events .atlas-section-heading > div:last-of-type h2 {
+      max-width: 14ch;
+      max-width: 16ch;
+      font-size: clamp(2.3rem, 10vw, 3rem);
+    }
+    .proposal-events .prominent {
+      margin-block: 1.5rem;
+    }
+    .proposal-events .proposal-event-reading {
+      margin-bottom: 1.5rem;
+    }
+    .proposal-event-value {
+      font-size: 3.75rem;
+    }
+    .proposal-events .event-ledger {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+    .proposal-events .event-ledger article {
+      min-width: 0;
+    }
+    .proposal-events .event-ledger dl > div {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+      padding-block: 0.4rem;
+    }
+  }
+  @media (max-width: 390px) {
+    .proposal-events .event-ledger {
+      grid-template-columns: 1fr;
+    }
+  }
+}
