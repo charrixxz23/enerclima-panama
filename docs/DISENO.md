@@ -69,9 +69,9 @@ Registramos la salida real de las cinco comprobaciones de cada fase en `evidenci
 | Buenas prácticas | 96 | 100 |
 | SEO | 100 | 100 |
 
-Medimos con Lighthouse móvil y Chromium, con limitación simulada de CPU y red. Tomamos el antes en la URL pública de la versión anterior y el después sobre la exportación estática local servida con gzip. Documentamos el cambio de entorno para no atribuir toda la diferencia a diseño o código. Comprobaremos también el sitio publicado al terminar el flujo de GitHub Pages.
+Medimos con Lighthouse móvil y Chromium, con limitación simulada de CPU y red. Tomamos el antes en la URL pública de la versión anterior y el después sobre la exportación estática local servida con gzip. Documentamos el cambio de entorno para no atribuir toda la diferencia a diseño o código. También medimos la URL publicada; registramos el resultado actual al final de este documento.
 
-En la medición final local obtuvimos LCP de 1.1 s, TBT de 60 ms y CLS de 0.001. Corregimos la estructura de listas descriptivas y los nombres accesibles de los controles. Montamos las filas de las tablas extensas al abrirlas para reducir el trabajo inicial; conservamos todos los registros y un acceso al JSON sin JavaScript.
+En una medición local anterior obtuvimos LCP de 1.1 s, TBT de 60 ms y CLS de 0.001. Corregimos la estructura de listas descriptivas y los nombres accesibles de los controles. Montamos las filas de las tablas extensas al abrirlas para reducir el trabajo inicial; conservamos todos los registros y un acceso al JSON sin JavaScript.
 
 | Fase | Lint | Tipos | Build | Exportación | Navegador |
 |---|---:|---:|---:|---:|---|
@@ -101,4 +101,20 @@ Externalizamos también las series estáticas de demanda diaria, perfil horario 
 Aplicamos `content-visibility: auto` con tamaño intrínseco reservado a las secciones fuera de pantalla para reducir la composición inicial. Conservamos los elementos en el documento y verificamos la navegación por anclas y las seis anchuras tras recorrer todas las secciones. Seguimos la [documentación de CSS Containment](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/content-visibility). Damos un fondo explícito a las etiquetas del reloj y de los relieves para mantener su contraste sobre las máscaras en ambos temas.
 
 
-Aislamos la cache local de Next.js y las evidencias temporales de auditoria en AppData mediante enlaces de directorio. Conservamos el codigo y los recursos publicos dentro de EnerClima-Panama; no incluimos rutas personales en el repositorio. En Linux y en GitHub Actions usamos los directorios normales del proyecto.
+Aislamos la caché local de Next.js y las evidencias temporales de auditoría en AppData mediante enlaces de directorio. Conservamos el código y los recursos públicos dentro de EnerClima-Panama; no incluimos rutas personales en el repositorio. En Linux y en GitHub Actions usamos los directorios normales del proyecto.
+
+
+## Auditoría de la publicación actual
+
+Publicamos la corrección de contraste y composición y aprobamos las nueve pruebas contra la URL pública. Verificamos HTTP 200 para la página, los datos, robots, sitemap, manifest, iconos, imagen OG y los cuatro SVG generados. Comparamos el JSON servido con el archivo local y confirmamos igualdad de bytes. Conservamos los documentos académicos originales.
+
+| Categoría | Antes público | Actual público: mediana de tres |
+|---|---:|---:|
+| Rendimiento | 38 | 86 |
+| Accesibilidad | 93 | 100 |
+| Buenas prácticas | 96 | 100 |
+| SEO | 100 | 100 |
+
+Obtuvimos rendimiento 84, 86 y 91 en las tres corridas actuales. No alcanzamos el objetivo móvil de 95 en este entorno. Detectamos actividad alta de OneDrive durante las mediciones, pero no demostramos que explique por sí sola el resultado. Mantenemos el objetivo de rendimiento pendiente de una comprobación con menor carga de fondo; no sustituimos el resultado público por el 100 observado anteriormente en local.
+
+Guardamos la salida real y las capturas en `evidencias/rediseno/`, que apunta a un directorio temporal local para evitar escrituras pesadas en OneDrive. Conservamos los informes anteriores, incluidos los resultados que motivaron las correcciones. No añadimos dependencias de npm; incorporamos únicamente el paso de generación de SVG al build.

@@ -116,4 +116,4 @@ Alojamos las fuentes Fraunces y Source Sans 3 en el repositorio, con sus licenci
 
 Documentamos los tokens, el uso de color, las pruebas y las mediciones en [docs/DISENO.md](docs/DISENO.md). Conservamos las evidencias completas en la carpeta local ignorada `evidencias/rediseno/`.
 
-Verificamos las nueve pruebas de navegador y la exportación con su subruta. En Lighthouse móvil medimos 100 en rendimiento, accesibilidad, buenas prácticas y SEO sobre la exportación final local; documentamos la referencia anterior y las condiciones de medición en el sistema de diseño.
+Verificamos las nueve pruebas contra el sitio publicado y la exportación con su subruta. En las tres mediciones públicas actuales obtuvimos una mediana móvil de 86 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO. Mantenemos pendiente la meta de rendimiento ≥95; documentamos las corridas y sus condiciones en el sistema de diseño.
