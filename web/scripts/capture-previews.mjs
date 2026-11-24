@@ -19,6 +19,10 @@ try {
       "http://127.0.0.1:3001/enerclima-panama/",
   );
   await page.evaluate(() => document.fonts.ready);
+  await page.addStyleTag({
+    content:
+      "section[id] { content-visibility: visible !important; contain-intrinsic-size: none !important; }",
+  });
   await page.screenshot({ path: path.join(output, "portada-final.png") });
   await page
     .locator("#sensibilidad")

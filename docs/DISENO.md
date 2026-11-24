@@ -38,7 +38,7 @@ Reservamos verde, ámbar y terracota para temperatura. Interpolamos la misma esc
 
 ## Integridad científica
 
-Conservamos `dashboard.json` sin cambios. Formateamos el entero según es-PA y preservamos la representación decimal completa de JavaScript, incluida la notación científica cuando corresponde. No usamos redondeos ni contadores numéricos. Tomamos métricas, intervalos, umbrales, escenarios, versión y generación del JSON.
+Conservamos `dashboard.json` sin cambios y usamos su precisión completa para los cálculos. Aplicamos el redondeo de presentación por magnitud en `web/lib/format.ts`, con coma decimal y punto de miles. Guardamos los valores originales en `data-exact` y `title`, y documentamos las reglas en [FORMATO_CIFRAS.md](FORMATO_CIFRAS.md). Tomamos métricas, intervalos, umbrales, escenarios, versión y generación del JSON.
 
 Mantenemos exactamente `#inicio`, `#observatorio`, `#clima`, `#eventos`, `#modelos`, `#sensibilidad`, `#investigacion`, `#metodologia` y `#equipo`. Destacamos el alcance ex post junto a modelos, el alcance condicionado junto al simulador y las cuatro limitaciones completas en metodología. Conservamos la referencia semanal por separado.
 
@@ -95,7 +95,7 @@ Medimos tres veces la primera versión publicada y obtuvimos rendimiento 93, 89 
 Para reducir el trabajo inicial retiramos las filas de las tablas cerradas del HTML y de los datos serializados. Consultamos `dashboard.json` desde el propio sitio al abrir una tabla o al entrar un gráfico en pantalla y compartimos una sola lectura en memoria. Conservamos las tablas completas, los valores exactos, los textos estáticos y la altura de los gráficos. Volvimos a ejecutar lint, tipos, build, exportación y las nueve pruebas antes de publicar la corrección.
 
 
-Externalizamos también las series estáticas de demanda diaria, perfil horario y relieves mensuales en SVG propios generados por `npm run prebuild` desde el JSON. Aplicamos la paleta mediante máscaras CSS, con etiquetas HTML legibles en ambos temas y revelado progresivo compatible con movimiento reducido. Limitamos a centésimas la precisión de las coordenadas gráficas; no redondeamos los valores científicos ni los datos de las tablas. Reducimos el HTML inicial a 110,840 bytes y conservamos las nueve pruebas aprobadas después de esta corrección.
+Externalizamos también las series estáticas de demanda diaria, perfil horario y relieves mensuales en SVG propios generados por `npm run prebuild` desde el JSON. Aplicamos la paleta mediante máscaras CSS, con etiquetas HTML legibles en ambos temas y revelado progresivo compatible con movimiento reducido. Limitamos a centésimas la precisión de las coordenadas gráficas y conservamos la fuente científica completa. Desde el Bloque A aplicamos el formato de presentación centralizado a las cifras visibles y guardamos los valores originales en sus atributos. Reducimos el HTML inicial a 110,840 bytes y conservamos las nueve pruebas aprobadas después de esta corrección.
 
 
 Aplicamos `content-visibility: auto` con tamaño intrínseco reservado a las secciones fuera de pantalla para reducir la composición inicial. Conservamos los elementos en el documento y verificamos la navegación por anclas y las seis anchuras tras recorrer todas las secciones. Seguimos la [documentación de CSS Containment](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/content-visibility). Damos un fondo explícito a las etiquetas del reloj y de los relieves para mantener su contraste sobre las máscaras en ambos temas.
@@ -104,7 +104,7 @@ Aplicamos `content-visibility: auto` con tamaño intrínseco reservado a las sec
 Aislamos la caché local de Next.js y las evidencias temporales de auditoría en AppData mediante enlaces de directorio. Conservamos el código y los recursos públicos dentro de EnerClima-Panama; no incluimos rutas personales en el repositorio. En Linux y en GitHub Actions usamos los directorios normales del proyecto.
 
 
-## Auditoría de la publicación actual
+## Auditoría pública anterior al Bloque A
 
 Publicamos la corrección de contraste y composición y aprobamos las nueve pruebas contra la URL pública. Verificamos HTTP 200 para la página, los datos, robots, sitemap, manifest, iconos, imagen OG y los cuatro SVG generados. Comparamos el JSON servido con el archivo local y confirmamos igualdad de bytes. Conservamos los documentos académicos originales.
 
@@ -118,3 +118,8 @@ Publicamos la corrección de contraste y composición y aprobamos las nueve prue
 Obtuvimos rendimiento 84, 86 y 91 en las tres corridas actuales. No alcanzamos el objetivo móvil de 95 en este entorno. Detectamos actividad alta de OneDrive durante las mediciones, pero no demostramos que explique por sí sola el resultado. Por indicación del grupo mantenemos activa la sincronización de OneDrive. Conservamos la meta de rendimiento de 95 como no alcanzada en este entorno; no sustituimos el resultado público por el 100 observado anteriormente en local.
 
 Guardamos la salida real y las capturas en `evidencias/rediseno/`, que apunta a un directorio temporal local para evitar escrituras pesadas en OneDrive. Conservamos los informes anteriores, incluidos los resultados que motivaron las correcciones. No añadimos dependencias de npm; incorporamos únicamente el paso de generación de SVG al build.
+
+
+## Actualización de formato numérico · Bloque A
+
+Centralizamos los formatos semánticos, igualamos la precisión del coeficiente y su intervalo y conservamos el orden de magnitud de los cambios porcentuales pequeños. Mostramos las particiones con fechas largas y preservamos las marcas completas. Mantenemos el diseño Atlas climático hasta que aprobemos el plan del Bloque B.

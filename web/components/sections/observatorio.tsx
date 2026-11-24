@@ -1,7 +1,8 @@
+import Cifra from "../cifra";
 import DemandClock from "../data/demand-clock";
 import MonthlyHorizon from "../data/monthly-horizon";
 import { dashboard as data } from "../../lib/data";
-import { number, dateLabel } from "../../lib/dashboard";
+import { fmtFechaCorta } from "../../lib/format";
 import SectionHeading from "../section-heading";
 import DataTable from "../data-table";
 import LazyChart from "../lazy-chart";
@@ -17,23 +18,40 @@ export default function Observatorio() {
       <dl className="data-ledger">
         <div>
           <dt>Registros horarios</dt>
-          <dd>{number(data.resumen.filas)}</dd>
+          <dd>
+            <Cifra tipo="conteo" value={data.resumen.filas} />
+          </dd>
           <dd className="ledger-note">
             <small>
-              {dateLabel(data.periodo[0])} — {dateLabel(data.periodo[1])}
+              {fmtFechaCorta(data.periodo[0])} —{" "}
+              {fmtFechaCorta(data.periodo[1])}
             </small>
           </dd>
         </div>
         <div>
-          <dt>Demanda media · MWh</dt>
-          <dd>{number(data.resumen.media)}</dd>
+          <dt>Demanda media</dt>
+          <dd>
+            <Cifra
+              tipo="demanda"
+              hero
+              unidad="MWh"
+              value={data.resumen.media}
+            />
+          </dd>
           <dd className="ledger-note">
             <small>Por intervalo horario</small>
           </dd>
         </div>
         <div>
-          <dt>Demanda máxima · MWh</dt>
-          <dd>{number(data.resumen.maxima)}</dd>
+          <dt>Demanda máxima</dt>
+          <dd>
+            <Cifra
+              tipo="demanda"
+              hero
+              unidad="MWh"
+              value={data.resumen.maxima}
+            />
+          </dd>
           <dd className="ledger-note">
             <small>Máximo del periodo observado</small>
           </dd>
@@ -49,9 +67,10 @@ export default function Observatorio() {
           <p className="caveat">
             <b>Revisamos el mínimo</b>
             <br />
-            Conservamos {number(data.resumen.minima)} MWh en la serie. Un
-            registro completo también puede contener valores que requieren
-            revisión.
+            Conservamos{" "}
+            <Cifra tipo="demanda" value={data.resumen.minima} unidad="MWh" /> en
+            la serie. Un registro completo también puede contener valores que
+            requieren revisión.
           </p>
         </div>
         <figure className="data-piece">

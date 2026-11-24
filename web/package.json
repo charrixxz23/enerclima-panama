@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "test:export": "node scripts/verify-static-export.mjs",
-    "prebuild": "node scripts/build-data-art.mjs"
+    "prebuild": "node scripts/build-data-art.mjs",
+    "test:unit": "node --test unit/format.test.mjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

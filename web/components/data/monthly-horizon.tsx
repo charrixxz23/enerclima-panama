@@ -19,7 +19,9 @@ export default function MonthlyHorizon({ rows }: { rows: MonthlyPoint[] }) {
           />
           {years.map((year, i) => (
             <span
-              className="ridge-year"
+              className="ridge-year cifra"
+              data-exact={year}
+              title={year}
               key={year}
               style={{ top: `${((75 + i * 75 - 15) / height) * 100}%` }}
             >

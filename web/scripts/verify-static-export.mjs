@@ -3,6 +3,7 @@ import { readFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium, expect } from "@playwright/test";
+import { fmtDemanda } from "../lib/format.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const outDir = path.resolve(here, "../out");
@@ -100,7 +101,11 @@ try {
   const result = page.locator(".sim-result > strong");
   await result.scrollIntoViewIfNeeded();
   await expect(result).toHaveText(
-    `+${expectedScenario.cambio_estimado_mwh} MWh`,
+    `${fmtDemanda(expectedScenario.cambio_estimado_mwh, { signo: true })}\u00a0MWh`,
+  );
+  await expect(result.locator("[data-exact]")).toHaveAttribute(
+    "data-exact",
+    String(expectedScenario.cambio_estimado_mwh),
   );
   const simulatorValue = await result.innerText();
 

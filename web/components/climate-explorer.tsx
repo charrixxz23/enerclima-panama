@@ -1,6 +1,8 @@
 "use client";
+import Cifra from "./cifra";
+import { fmtPExacto } from "../lib/format";
 import { useState } from "react";
-import { number, stations, type Association } from "../lib/dashboard";
+import { stations, type Association } from "../lib/dashboard";
 import DataTable from "./data-table";
 import LazyChart from "./lazy-chart";
 export default function ClimateExplorer({
@@ -44,13 +46,27 @@ export default function ClimateExplorer({
         <div className="association">
           <p className="kicker">Asociación ajustada · {a.estacion}</p>
           <p>
-            <strong>{number(a.coeficiente_mwh_por_c)} MWh/°C</strong>
+            <strong>
+              <Cifra
+                tipo="coeficiente"
+                value={a.coeficiente_mwh_por_c}
+                unidad="MWh/°C"
+              />
+            </strong>
           </p>
           <p>
-            IC 95%: {number(a.ic95_inferior)} a {number(a.ic95_superior)}.
+            IC 95%: <Cifra tipo="intervalo" value={a.ic95_inferior} /> a{" "}
+            <Cifra tipo="intervalo" value={a.ic95_superior} />.
           </p>
           <p>
             {a.covarianza}; controles: {a.controles}.
+          </p>
+          <p>
+            <Cifra tipo="p" value={a.p_valor} />
+          </p>
+          <p className="source-note exact-p-note">
+            Conservamos el valor completo de p en esta nota:{" "}
+            <span data-exact={String(a.p_valor)}>{fmtPExacto(a.p_valor)}</span>.
           </p>
           <p className="caveat">
             Describimos una asociación estadística. No demostramos causalidad ni

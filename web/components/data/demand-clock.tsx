@@ -1,3 +1,4 @@
+import Cifra from "../cifra";
 import DataArt from "../data-art";
 import DataTable from "../data-table";
 import type { HourPoint } from "../../lib/dashboard";
@@ -22,7 +23,7 @@ export default function DemandClock({ rows }: { rows: HourPoint[] }) {
                 top: `${50 - Math.cos((r.hora / rows.length) * Math.PI * 2) * 45}%`,
               }}
             >
-              {r.hora} h
+              <Cifra tipo="conteo" value={r.hora} unidad="h" />
             </span>
           ))}
       </div>

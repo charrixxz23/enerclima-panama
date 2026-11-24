@@ -1,5 +1,7 @@
+import Cifra from "../cifra";
+import Fecha from "../fecha";
 import { dashboard as data } from "../../lib/data";
-import { number } from "../../lib/dashboard";
+
 import SectionHeading from "../section-heading";
 export default function Modelos() {
   return (
@@ -43,10 +45,18 @@ export default function Modelos() {
                     <small>Seleccionado en validación</small>
                   ) : null}
                 </th>
-                <td>{number(r.mae)}</td>
-                <td>{number(r.rmse)}</td>
-                <td>{number(r.mape_pct)}</td>
-                <td>{number(r.r2)}</td>
+                <td>
+                  <Cifra tipo="error" value={r.mae} />
+                </td>
+                <td>
+                  <Cifra tipo="error" value={r.rmse} />
+                </td>
+                <td>
+                  <Cifra tipo="porcentaje" value={r.mape_pct} />
+                </td>
+                <td>
+                  <Cifra tipo="r2" value={r.r2} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -58,36 +68,50 @@ export default function Modelos() {
           MAPE: error relativo. R²: variación explicada.
         </p>
         <p>
-          Periodo de prueba: {data.particion.inicio_prueba.replace("T", " ")} —{" "}
-          {data.particion.fin_prueba.replace("T", " ")}. Conservamos{" "}
-          {number(data.particion.prueba_filas)} observaciones.
+          Periodo de prueba: <Fecha value={data.particion.inicio_prueba} /> —{" "}
+          <Fecha value={data.particion.fin_prueba} />. Conservamos{" "}
+          <Cifra tipo="conteo" value={data.particion.prueba_filas} />{" "}
+          observaciones.
         </p>
       </div>
       <aside className="benchmark">
         <h3>Una referencia con otro horizonte</h3>
         <p>
           Reportamos el predespacho semanal por separado: cubre{" "}
-          {number(data.predespacho.semanas_oficiales)} semanas y{" "}
-          {number(data.predespacho.filas_comparadas)} horas. Su horizonte es de{" "}
-          {number(data.predespacho.horizonte_horas_por_semana)} horas por
-          semana.
+          <Cifra tipo="conteo" value={data.predespacho.semanas_oficiales} />{" "}
+          semanas y{" "}
+          <Cifra tipo="conteo" value={data.predespacho.filas_comparadas} />{" "}
+          horas. Su horizonte es de{" "}
+          <Cifra
+            tipo="conteo"
+            value={data.predespacho.horizonte_horas_por_semana}
+          />{" "}
+          horas por semana.
         </p>
         <dl className="data-ledger">
           <div>
             <dt>MAE · MWh</dt>
-            <dd>{number(data.predespacho.mae)}</dd>
+            <dd>
+              <Cifra tipo="error" value={data.predespacho.mae} />
+            </dd>
           </div>
           <div>
             <dt>RMSE · MWh</dt>
-            <dd>{number(data.predespacho.rmse)}</dd>
+            <dd>
+              <Cifra tipo="error" value={data.predespacho.rmse} />
+            </dd>
           </div>
           <div>
             <dt>MAPE · %</dt>
-            <dd>{number(data.predespacho.mape_pct)}</dd>
+            <dd>
+              <Cifra tipo="porcentaje" value={data.predespacho.mape_pct} />
+            </dd>
           </div>
           <div>
             <dt>R²</dt>
-            <dd>{number(data.predespacho.r2)}</dd>
+            <dd>
+              <Cifra tipo="r2" value={data.predespacho.r2} />
+            </dd>
           </div>
         </dl>
         <p className="source-note">

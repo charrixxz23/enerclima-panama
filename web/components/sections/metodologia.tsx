@@ -1,6 +1,9 @@
+import Cifra from "../cifra";
+import Fecha from "../fecha";
+import { asset } from "../../lib/dashboard";
 import QualityLedger from "../data/quality-ledger";
 import { dashboard as data } from "../../lib/data";
-import { number } from "../../lib/dashboard";
+
 import SectionHeading from "../section-heading";
 export default function Metodologia() {
   const p = data.particion;
@@ -13,6 +16,13 @@ export default function Metodologia() {
         description="Revisamos la calidad, separamos por tiempo y comparamos errores, asociaciones y escenarios."
       />
       <QualityLedger quality={data.calidad} limitations={data.limitaciones} />
+      <p className="caveat rounding-policy">
+        Presentamos las cifras con la precisión definida para cada magnitud;
+        usamos hasta cuatro cifras significativas como criterio general y
+        conservamos los valores completos en{" "}
+        <a href={asset("data/dashboard.json")}>dashboard.json</a> y en los
+        atributos de cada cifra.
+      </p>
       <div className="partition">
         <h3>Separamos por tiempo</h3>
         <dl>
@@ -33,12 +43,14 @@ export default function Metodologia() {
           ].map(([name, count, start, end]) => (
             <div key={String(name)}>
               <dt>{name}</dt>
-              <dd>{number(Number(count))} observaciones</dd>
+              <dd>
+                <Cifra tipo="conteo" value={Number(count)} /> observaciones
+              </dd>
               <dd className="ledger-note">
                 <small>
-                  {String(start).replace("T", " ")}
+                  <Fecha value={String(start)} />
                   <br />
-                  {String(end).replace("T", " ")}
+                  <Fecha value={String(end)} />
                 </small>
               </dd>
             </div>

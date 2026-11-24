@@ -1,5 +1,6 @@
+import Cifra from "../cifra";
 import DataTable from "../data-table";
-import { number, type Quality } from "../../lib/dashboard";
+import { type Quality } from "../../lib/dashboard";
 export default function QualityLedger({
   quality: q,
   limitations,
@@ -20,18 +21,23 @@ export default function QualityLedger({
         {highlights.map(([name, value]) => (
           <div key={name}>
             <dt>{name}</dt>
-            <dd>{number(value)}</dd>
+            <dd>
+              <Cifra tipo="conteo" value={value} />
+            </dd>
           </div>
         ))}
       </dl>
       <p>
         Cobertura de fechas del archivo de pronóstico en el conjunto:{" "}
-        <strong>{number(q.forecast_cobertura_pct)}%</strong>.
+        <strong>
+          <Cifra tipo="porcentaje" value={q.forecast_cobertura_pct} />
+        </strong>
+        .
       </p>
       <p className="caveat">
         <b>Valor para revisión.</b> Conservamos el mínimo de{" "}
-        {number(q.demanda_resumen.min)} MWh; la ausencia de huecos y nulos no
-        garantiza la validez de cada observación.
+        <Cifra tipo="demanda" value={q.demanda_resumen.min} unidad="MWh" />; la
+        ausencia de huecos y nulos no garantiza la validez de cada observación.
       </p>
       <p className="caveat">
         <b>Discrepancia QV2M.</b> {limitations[2]}
@@ -39,7 +45,7 @@ export default function QualityLedger({
       <DataTable
         source="calidad"
         summary="Consultamos la auditoría completa"
-        caption="Campos originales de calidad, sin redondeos"
+        caption="Auditoría de calidad · formato de presentación"
         headers={["Campo", "Valor"]}
       />
     </div>

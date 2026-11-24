@@ -168,26 +168,6 @@ export function parseDashboard(input: unknown): Dashboard {
   return d;
 }
 
-export function number(value: number, legacyDigits?: number): string {
-  void legacyDigits;
-  const raw = String(value);
-  if (/[eE]/.test(raw)) return raw;
-  const [integer, fraction] = raw.split(".");
-  return (
-    new Intl.NumberFormat("es-PA", { maximumFractionDigits: 0 }).format(
-      Number(integer),
-    ) + (fraction ? `.${fraction}` : "")
-  );
-}
-export const signed = (value: number) =>
-  `${value > 0 ? "+" : ""}${number(value)}`;
-export function dateLabel(value: string): string {
-  return new Intl.DateTimeFormat("es-PA", {
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(value));
-}
 export const asset = (path: string) =>
   `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/${path.replace(/^\//, "")}`;
 export const stations = [

@@ -1,5 +1,6 @@
+import Cifra from "../cifra";
 import DataTable from "../data-table";
-import { signed } from "../../lib/dashboard";
+
 import type { CSSProperties } from "react";
 export default function Correlations({
   rows,
@@ -33,7 +34,9 @@ export default function Correlations({
             }
           >
             <span>{key}</span>
-            <strong>{signed(value)}</strong>
+            <strong>
+              <Cifra tipo="correlacion" value={value} />
+            </strong>
             <span className="correlation-bar" aria-hidden="true" />
             <p id={`correlation-${key}`} className="correlation-explain">
               {explain(key, value)}

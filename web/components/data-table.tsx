@@ -1,6 +1,15 @@
 "use client";
 import { useState } from "react";
-import { asset, number, type Dashboard } from "../lib/dashboard";
+import { asset, type Dashboard } from "../lib/dashboard";
+import {
+  fmtDemanda,
+  fmtTemp,
+  fmtConteo,
+  fmtCorrelacion,
+  fmtCoordenada,
+  fmtCalidad,
+  fmtFechaLarga,
+} from "../lib/format";
 import { readDashboard } from "../lib/client-data";
 type Source =
   | "demandaDiaria"
@@ -12,42 +21,62 @@ type Source =
   | "calidad"
   | "estaciones";
 type ValueKey = "demanda_mwh" | "T2M_toc" | "T2M_san" | "T2M_dav";
-function tableRows(data: Dashboard, source: Source, key: ValueKey): string[][] {
+interface Celda {
+  texto: string;
+  exacto?: string;
+  numerica?: boolean;
+}
+const literal = (texto: string): Celda => ({ texto });
+const cifra = (value: number, texto: string): Celda => ({
+  texto,
+  exacto: String(value),
+  numerica: true,
+});
+const fecha = (value: string): Celda => ({
+  texto: fmtFechaLarga(value),
+  exacto: value,
+});
+function tableRows(data: Dashboard, source: Source, key: ValueKey): Celda[][] {
   switch (source) {
     case "demandaDiaria":
     case "demandaSemanal":
       return data[source].map((r) => [
-        r.datetime.split("T")[0],
-        number(r.demanda_mwh),
+        fecha(r.datetime),
+        cifra(r.demanda_mwh, fmtDemanda(r.demanda_mwh)),
       ]);
     case "temperaturaRegional":
-      return data.temperaturaRegional.map((r) => [
-        r.datetime.split("T")[0],
-        number(r[key === "demanda_mwh" ? "T2M_toc" : key]),
-      ]);
+      return data.temperaturaRegional.map((r) => {
+        const v = r[key === "demanda_mwh" ? "T2M_toc" : key];
+        return [fecha(r.datetime), cifra(v, fmtTemp(v))];
+      });
     case "perfilHorario":
       return data.perfilHorario.map((r) => [
-        `${r.hora} h`,
-        number(r.demanda_mwh),
+        cifra(r.hora, `${fmtConteo(r.hora)}\u00a0h`),
+        cifra(r.demanda_mwh, fmtDemanda(r.demanda_mwh)),
       ]);
     case "demandaMensual":
-      return data.demandaMensual.map((r) => [r.mes, number(r.demanda_mwh)]);
+      return data.demandaMensual.map((r) => [
+        literal(r.mes),
+        cifra(r.demanda_mwh, fmtDemanda(r.demanda_mwh)),
+      ]);
     case "correlaciones":
-      return Object.entries(data.correlaciones).map(([k, v]) => [k, number(v)]);
+      return Object.entries(data.correlaciones).map(([k, v]) => [
+        literal(k),
+        cifra(v, fmtCorrelacion(v)),
+      ]);
     case "estaciones":
       return data.estaciones.map((r) => [
-        r.nombre,
-        number(r.latitud),
-        number(r.longitud),
+        literal(r.nombre),
+        cifra(r.latitud, fmtCoordenada(r.latitud)),
+        cifra(r.longitud, fmtCoordenada(r.longitud)),
       ]);
     case "calidad":
       return Object.entries(data.calidad).map(([k, v]) => [
-        k,
-        typeof v === "number"
-          ? number(v)
-          : typeof v === "string"
-            ? v
-            : JSON.stringify(v),
+        literal(k),
+        {
+          texto: fmtCalidad(k, v),
+          exacto: typeof v === "object" ? JSON.stringify(v) : String(v),
+        },
       ]);
   }
 }
@@ -102,11 +131,24 @@ export default function DataTable({
                 <tr key={index}>
                   {row.map((cell, i) =>
                     i === 0 ? (
-                      <th key={i} scope="row">
-                        {cell}
+                      <th
+                        key={i}
+                        scope="row"
+                        className={cell.numerica ? "cifra" : undefined}
+                        data-exact={cell.exacto}
+                        title={cell.exacto}
+                      >
+                        {cell.texto}
                       </th>
                     ) : (
-                      <td key={i}>{cell}</td>
+                      <td
+                        key={i}
+                        className={cell.numerica ? "cifra" : undefined}
+                        data-exact={cell.exacto}
+                        title={cell.exacto}
+                      >
+                        {cell.texto}
+                      </td>
                     ),
                   )}
                 </tr>

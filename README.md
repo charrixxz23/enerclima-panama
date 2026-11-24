@@ -14,13 +14,13 @@
 
 En este proyecto analizamos cómo se relacionan las temperaturas observadas en Tocumen, Santiago y David con la demanda eléctrica nacional de Panamá. El calor puede cambiar las necesidades de refrigeración y coincide con patrones horarios y estacionales de consumo. Una lectura cuidadosa de estas señales aporta contexto para la planificación energética y ambiental.
 
-Trabajamos con una serie horaria entre enero de 2015 y junio de 2020. El conjunto reúne 48,048 registros y 17 variables. La demanda está expresada en MWh por intervalo horario, según los metadatos recibidos.
+Trabajamos con una serie horaria entre enero de 2015 y junio de 2020. El conjunto reúne 48.048 registros y 17 variables. La demanda está expresada en MWh por intervalo horario, según los metadatos recibidos.
 
 ## Hallazgos principales
 
-- Nuestro modelo Random Forest obtuvo un MAE de **19.612740720030747 MWh**, un RMSE de **27.722937184313444 MWh** y un MAPE de **1.6629660080017143%** en la prueba temporal.
-- En las horas sobre el percentil 95 de temperatura, en Tocumen observamos una diferencia media de **199.81381235300273 MWh** respecto a las demás horas. Esta diferencia es descriptiva y no atribuye causalidad.
-- Evaluamos por separado la referencia semanal de predespacho en 14 ventanas oficiales: MAE **59.19737325680272 MWh** y RMSE **74.02858973510108 MWh**.
+- Nuestro modelo Random Forest obtuvo un MAE de **19,6 MWh**, un RMSE de **27,7 MWh** y un MAPE de **1,66%** en la prueba temporal.
+- En las horas sobre el percentil 95 de temperatura, en Tocumen observamos una diferencia media de **199,8 MWh** respecto a las demás horas. Esta diferencia es descriptiva y no atribuye causalidad.
+- Evaluamos por separado la referencia semanal de predespacho en 14 ventanas oficiales: MAE **59,2 MWh** y RMSE **74,0 MWh**.
 - El modelo de una hora usa clima observado en la misma hora objetivo; por ello sus resultados son retrospectivos y no representan un pronóstico operativo.
 
 ## Qué podemos explorar
@@ -110,10 +110,16 @@ No publicamos cédulas, informes identificados, datos fuente ni archivos cuya re
 
 ## Diseño del atlas
 
-Organizamos la lectura en nueve anclajes estables. Construimos la portada con la demanda diaria y una silueta diagramática propia. Añadimos un reloj horario, relieves mensuales, correlaciones frente a la demanda y un registro de calidad. Mostramos valores exactos del JSON y alternativas textuales y tabulares para cada figura.
+Organizamos la lectura en nueve anclajes estables. Construimos la portada con la demanda diaria y una silueta diagramática propia. Añadimos un reloj horario, relieves mensuales, correlaciones frente a la demanda y un registro de calidad. Mostramos cifras abreviadas con una política común y conservamos los valores completos del JSON en los atributos de cada cifra. Ofrecemos alternativas textuales y tabulares para cada figura.
 
 Alojamos las fuentes Fraunces y Source Sans 3 en el repositorio, con sus licencias OFL. Cargamos mapas y Recharts al entrar en pantalla; el mapa usa nuestro SVG local. Recordamos el tema claro u oscuro y respetamos la preferencia de movimiento reducido. No añadimos dependencias al proyecto.
 
 Documentamos los tokens, el uso de color, las pruebas y las mediciones en [docs/DISENO.md](docs/DISENO.md). Conservamos las evidencias completas en la carpeta local ignorada `evidencias/rediseno/`.
 
-Verificamos las nueve pruebas contra el sitio publicado y la exportación con su subruta. En las tres mediciones públicas actuales obtuvimos una mediana móvil de 86 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO. Mantenemos pendiente la meta de rendimiento ≥95; documentamos las corridas y sus condiciones en el sistema de diseño.
+Antes del Bloque A verificamos nueve pruebas contra el sitio publicado y la exportación con su subruta. En las tres mediciones públicas actuales obtuvimos una mediana móvil de 86 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO. Mantenemos pendiente la meta de rendimiento ≥95; documentamos las corridas y sus condiciones en el sistema de diseño.
+
+## Presentación numérica
+
+Centralizamos el formato en `web/lib/format.ts`: usamos coma decimal, punto de miles y precisión según la magnitud. Conservamos el JSON y los cálculos originales. Documentamos los casos y las excepciones en [FORMATO_CIFRAS.md](docs/FORMATO_CIFRAS.md). Ejecutamos las pruebas unitarias con `cd web` y `npm run test:unit`.
+
+Para el Bloque A aprobamos lint, tipos, build, exportación, 13 pruebas unitarias y 10 pruebas de navegador. Conservamos los nueve anclajes y los valores originales del JSON.

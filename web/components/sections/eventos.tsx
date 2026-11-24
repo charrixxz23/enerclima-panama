@@ -1,5 +1,6 @@
+import Cifra from "../cifra";
 import { dashboard as data } from "../../lib/data";
-import { number, signed, thermalColor } from "../../lib/dashboard";
+import { thermalColor } from "../../lib/dashboard";
 import SectionHeading from "../section-heading";
 export default function Eventos() {
   return (
@@ -29,29 +30,56 @@ export default function Eventos() {
                   ),
                 }}
               >
-                {number(r.percentil_95_c)} °C
+                <Cifra
+                  tipo="temperatura"
+                  value={r.percentil_95_c}
+                  unidad="°C"
+                />
               </strong>
             </p>
             <dl>
               <div>
                 <dt>Horas sobre el umbral</dt>
-                <dd>{number(r.horas_sobre_umbral)}</dd>
+                <dd>
+                  <Cifra tipo="conteo" value={r.horas_sobre_umbral} />
+                </dd>
               </div>
               <div>
                 <dt>Días con horas elevadas</dt>
-                <dd>{number(r.dias_con_horas_elevadas)}</dd>
+                <dd>
+                  <Cifra tipo="conteo" value={r.dias_con_horas_elevadas} />
+                </dd>
               </div>
               <div>
                 <dt>Demanda media en eventos</dt>
-                <dd>{number(r.demanda_media_eventos_mwh)} MWh</dd>
+                <dd>
+                  <Cifra
+                    tipo="demanda"
+                    value={r.demanda_media_eventos_mwh}
+                    unidad="MWh"
+                  />
+                </dd>
               </div>
               <div>
                 <dt>Demanda media en el resto</dt>
-                <dd>{number(r.demanda_media_resto_mwh)} MWh</dd>
+                <dd>
+                  <Cifra
+                    tipo="demanda"
+                    value={r.demanda_media_resto_mwh}
+                    unidad="MWh"
+                  />
+                </dd>
               </div>
               <div>
                 <dt>Diferencia descriptiva</dt>
-                <dd>{signed(r.diferencia_media_mwh)} MWh</dd>
+                <dd>
+                  <Cifra
+                    tipo="demanda"
+                    signo
+                    value={r.diferencia_media_mwh}
+                    unidad="MWh"
+                  />
+                </dd>
               </div>
             </dl>
           </article>

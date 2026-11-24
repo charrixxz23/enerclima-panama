@@ -1,4 +1,5 @@
 "use client";
+import Cifra from "./cifra";
 import {
   MapContainer,
   ImageOverlay,
@@ -10,7 +11,6 @@ import { useTheme } from "./theme-toggle";
 import L from "leaflet";
 import {
   asset,
-  number,
   thermalColor,
   type Station,
   type ThermalEvent,
@@ -63,7 +63,16 @@ export default function MapView({
           >
             <Popup>
               {s.nombre}. {s.nota}. Umbral P95:{" "}
-              {t ? number(t.percentil_95_c) : "—"} °C.
+              {t ? (
+                <Cifra
+                  tipo="temperatura"
+                  value={t.percentil_95_c}
+                  unidad="°C"
+                />
+              ) : (
+                "—"
+              )}
+              .
             </Popup>
           </Marker>
         );

@@ -1,7 +1,8 @@
+import Cifra from "../cifra";
 import DataArt from "../data-art";
 import DataTable from "../data-table";
 import { dashboard as data } from "../../lib/data";
-import { dateLabel, number } from "../../lib/dashboard";
+import { fmtFechaCorta } from "../../lib/format";
 import AtlasMark from "../atlas-mark";
 export default function Inicio() {
   const rows = data.demandaDiaria;
@@ -10,7 +11,21 @@ export default function Inicio() {
       <div className="hero-meta">
         <span>Atlas de demanda y clima</span>
         <span>
-          {dateLabel(data.periodo[0])} — {dateLabel(data.periodo[1])}
+          <time
+            dateTime={data.periodo[0]}
+            data-exact={data.periodo[0]}
+            title={data.periodo[0]}
+          >
+            {fmtFechaCorta(data.periodo[0])}
+          </time>{" "}
+          —{" "}
+          <time
+            dateTime={data.periodo[1]}
+            data-exact={data.periodo[1]}
+            title={data.periodo[1]}
+          >
+            {fmtFechaCorta(data.periodo[1])}
+          </time>
         </span>
       </div>
       <div className="atlas-hero-grid">
@@ -30,7 +45,8 @@ export default function Inicio() {
             Abrimos el atlas
           </a>
           <p className="hero-footnote">
-            Trabajamos con {number(data.resumen.filas)} registros horarios.
+            Trabajamos con <Cifra tipo="conteo" value={data.resumen.filas} />{" "}
+            registros horarios.
             <br />
             Estudiamos asociaciones; no demostramos causalidad.
           </p>
@@ -53,8 +69,20 @@ export default function Inicio() {
             className="hero-series"
           />
           <div className="plate-heading">
-            <span>{dateLabel(rows[0].datetime)}</span>
-            <span>{dateLabel(rows[rows.length - 1].datetime)}</span>
+            <time
+              dateTime={rows[0].datetime}
+              data-exact={rows[0].datetime}
+              title={rows[0].datetime}
+            >
+              {fmtFechaCorta(rows[0].datetime)}
+            </time>
+            <time
+              dateTime={rows[rows.length - 1].datetime}
+              data-exact={rows[rows.length - 1].datetime}
+              title={rows[rows.length - 1].datetime}
+            >
+              {fmtFechaCorta(rows[rows.length - 1].datetime)}
+            </time>
           </div>
           <figcaption>
             Leemos la media diaria nacional sobre un esquema de Panamá. La

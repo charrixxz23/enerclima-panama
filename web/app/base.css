@@ -14,6 +14,10 @@
     color: var(--text);
     font-family: var(--font-body, Arial), sans-serif;
     font-size: var(--text-md);
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings:
+      "tnum" 1,
+      "lnum" 1;
     line-height: 1.65;
   }
   h1,
@@ -147,5 +151,22 @@
   .table-scroll {
     overflow: auto;
     max-height: var(--table-height, 28rem);
+  }
+}
+
+@layer base {
+  .cifra,
+  [data-exact] {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings:
+      "tnum" 1,
+      "lnum" 1;
+  }
+  .cifra {
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
+  .exact-p-note {
+    overflow-wrap: anywhere;
   }
 }

@@ -1,6 +1,8 @@
 "use client";
+import Cifra from "../cifra";
+import { fmtTemp } from "../../lib/format";
 import type { CSSProperties } from "react";
-import { number, signed, type Sensitivity } from "../../lib/dashboard";
+import { type Sensitivity } from "../../lib/dashboard";
 export default function SensitivityPlot({
   rows,
   increment,
@@ -24,7 +26,7 @@ export default function SensitivityPlot({
       <svg
         viewBox="0 0 500 265"
         role="img"
-        aria-label={`Cambios estimados con ${signed(increment)} grados en cada estación`}
+        aria-label={`Cambios estimados con ${fmtTemp(increment, { signo: true })} grados en cada estación`}
       >
         <path d="M30 210H470" className="grid-line" />
         <path d={d} style={{ d: `path("${d}")` }} className="scenario-path" />
@@ -66,7 +68,8 @@ export default function SensitivityPlot({
         ))}
       </ol>
       <figcaption>
-        Comparamos cambios estimados para {signed(increment)} °C. Unimos
+        Comparamos cambios estimados para{" "}
+        <Cifra tipo="temperatura" signo value={increment} unidad="°C" />. Unimos
         escenarios discretos para facilitar la lectura; la línea no representa
         una respuesta física continua. Cada escenario usa sus propias
         referencias válidas.
@@ -87,8 +90,12 @@ export default function SensitivityPlot({
               {shown.map((r) => (
                 <tr key={r.estacion}>
                   <th scope="row">{r.estacion}</th>
-                  <td>{number(r.cambio_estimado_mwh)}</td>
-                  <td>{number(r.referencias_validas)}</td>
+                  <td>
+                    <Cifra tipo="demanda" value={r.cambio_estimado_mwh} />
+                  </td>
+                  <td>
+                    <Cifra tipo="conteo" value={r.referencias_validas} />
+                  </td>
                 </tr>
               ))}
             </tbody>

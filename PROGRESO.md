@@ -33,3 +33,10 @@ Conservamos `dashboard.json` sin cambios y mantenemos fuera del repositorio los 
 ### Verificación pública actual
 
 Aprobamos las nueve pruebas contra GitHub Pages y confirmamos que los datos publicados son idénticos al JSON local. Medimos tres corridas públicas con rendimiento 84, 86 y 91 (mediana 86), accesibilidad 100, buenas prácticas 100 y SEO 100. Conservamos el objetivo móvil de rendimiento ≥95 como no alcanzado en este entorno. Por indicación del grupo mantenemos activa la sincronización de OneDrive y conservamos las mediciones reales, sin atribuirle de forma concluyente el resultado.
+
+
+## Bloque A · presentación de cifras
+
+Implementamos formatos semánticos centralizados, valores completos accesibles, unidades con espacio duro, cifras tabulares y fechas largas. Conservamos los datos, cuadernos y generadores. Documentamos la política en `docs/FORMATO_CIFRAS.md` y preparamos el plan del Bloque B para aprobación antes de cambiar la dirección visual.
+
+Verificamos el Bloque A con lint, tipos, build estático y exportación sin errores; aprobamos 13 pruebas unitarias y 10 de navegador. Comprobamos también los diez dígitos tabulares en la fuente real, las seis anchuras y los valores completos en los atributos. Regeneramos las vistas previas en AVIF y WebP, todas menores de 250 KB. Conservamos la salida real en `evidencias/rediseno/bloque-a-*.txt`.

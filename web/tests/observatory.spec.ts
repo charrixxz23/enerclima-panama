@@ -2,6 +2,16 @@ import { expect, test } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import data from "../public/data/dashboard.json";
+import {
+  fmtDemanda,
+  fmtTemp,
+  fmtCoef,
+  fmtIC,
+  fmtPct,
+  fmtR2,
+  fmtError,
+  fmtFechaLarga,
+} from "../lib/format";
 const evidence = path.resolve(process.cwd(), "../evidencias/rediseno");
 const home = process.env.PLAYWRIGHT_BASE_URL
   ? new URL(process.env.PLAYWRIGHT_BASE_URL).pathname
@@ -33,16 +43,39 @@ test("conservamos anclajes y resultados exactos del JSON", async ({ page }) => {
   ).toEqual(ids);
   for (const id of ids)
     await expect(page.locator(`nav a[href="#${id}"]`)).toHaveCount(1);
-  await expect(page.locator("#observatorio")).toContainText(
-    String(data.resumen.minima),
-  );
-  for (const r of data.modelo)
-    for (const value of [r.mae, r.rmse, r.mape_pct, r.r2])
-      await expect(page.locator("#modelos")).toContainText(String(value));
+  await expect(
+    page.locator(`#observatorio [data-exact="${data.resumen.minima}"]`),
+  ).toHaveText("85,2\u00a0MWh");
+  await expect(
+    page.locator(`#observatorio [data-exact="${data.resumen.media}"]`),
+  ).toHaveText("1.183\u00a0MWh");
+  await expect(
+    page.locator(`#observatorio [data-exact="${data.resumen.filas}"]`),
+  ).toHaveText("48.048");
+  for (const r of data.modelo) {
+    for (const [value, expected] of [
+      [r.mae, fmtError(r.mae)],
+      [r.rmse, fmtError(r.rmse)],
+      [r.mape_pct, fmtPct(r.mape_pct)],
+      [r.r2, fmtR2(r.r2)],
+    ] as const) {
+      const cell = page.locator(`.model-comparison [data-exact="${value}"]`);
+      await expect(cell).toHaveText(expected);
+      await expect(cell).toHaveAttribute("title", String(value));
+    }
+  }
   for (const r of data.eventos)
-    await expect(page.locator("#eventos")).toContainText(
-      String(r.percentil_95_c),
-    );
+    await expect(
+      page.locator(`#eventos [data-exact="${r.percentil_95_c}"]`),
+    ).toHaveText(`${fmtTemp(r.percentil_95_c)}\u00a0°C`);
+  await expect(page.locator("#metodologia .rounding-policy")).toContainText(
+    "cuatro cifras significativas",
+  );
+  await expect(
+    page.locator(
+      `#metodologia [data-exact="${data.particion.inicio_entrenamiento}"]`,
+    ),
+  ).toHaveText("10 de enero de 2015");
   for (const l of data.limitaciones)
     await expect(page.locator(".limitations")).toContainText(l);
   expect(errors).toEqual([]);
@@ -58,11 +91,14 @@ test("contrastamos los doce escenarios con los resultados originales", async ({
       .locator("#sensitivity-increment")
       .selectOption(String(r.incremento_c));
     await expect(page.locator(".sim-result > strong")).toHaveText(
-      `${r.cambio_estimado_mwh > 0 ? "+" : ""}${String(r.cambio_estimado_mwh)} MWh`,
+      `${fmtDemanda(r.cambio_estimado_mwh, { signo: true })}\u00a0MWh`,
     );
-    await expect(page.locator(".sim-result")).toContainText(
-      String(r.cambio_estimado_pct),
-    );
+    await expect(
+      page.locator(".sim-result > strong [data-exact]"),
+    ).toHaveAttribute("data-exact", String(r.cambio_estimado_mwh));
+    await expect(
+      page.locator(`.sim-result [data-exact="${r.cambio_estimado_pct}"]`),
+    ).toHaveText(fmtPct(r.cambio_estimado_pct));
   }
 });
 test("contrastamos coeficientes e intervalos en las tres estaciones", async ({
@@ -72,15 +108,15 @@ test("contrastamos coeficientes e intervalos en las tres estaciones", async ({
   await page.locator("#clima").scrollIntoViewIfNeeded();
   for (const r of data.asociaciones) {
     await page.locator("#station-select").selectOption(r.estacion);
-    await expect(page.locator(".association")).toContainText(
-      String(r.coeficiente_mwh_por_c),
-    );
-    await expect(page.locator(".association")).toContainText(
-      String(r.ic95_inferior),
-    );
-    await expect(page.locator(".association")).toContainText(
-      String(r.ic95_superior),
-    );
+    await expect(
+      page.locator(`.association [data-exact="${r.coeficiente_mwh_por_c}"]`),
+    ).toHaveText(`${fmtCoef(r.coeficiente_mwh_por_c)}\u00a0MWh/°C`);
+    await expect(
+      page.locator(`.association [data-exact="${r.ic95_inferior}"]`),
+    ).toHaveText(fmtIC(r.ic95_inferior));
+    await expect(
+      page.locator(`.association [data-exact="${r.ic95_superior}"]`),
+    ).toHaveText(fmtIC(r.ic95_superior));
   }
 });
 test("navegamos a todas las anclas desde el índice móvil", async ({ page }) => {
@@ -141,7 +177,7 @@ test("cada figura ofrece una lectura y una tabla accesible", async ({
     data.demandaDiaria.length,
   );
   await expect(page.locator("#inicio tbody tr").last()).toContainText(
-    data.demandaDiaria[data.demandaDiaria.length - 1].datetime.split("T")[0],
+    fmtFechaLarga(data.demandaDiaria[data.demandaDiaria.length - 1].datetime),
   );
   await expect(page.locator(".correlation-cell")).toHaveCount(
     Object.keys(data.correlaciones).length,
@@ -150,9 +186,16 @@ test("cada figura ofrece una lectura y una tabla accesible", async ({
   await expect(
     page.locator(".correlation-cell").last().locator(".correlation-explain"),
   ).toBeVisible();
-  await expect(page.locator(".quality-ledger")).toContainText(
-    String(data.calidad.forecast_cobertura_pct),
-  );
+  await expect(
+    page.locator(
+      `.quality-ledger [data-exact="${data.calidad.forecast_cobertura_pct}"]`,
+    ),
+  ).toHaveText("97,9%");
+  await expect(
+    page.locator(
+      `.correlation-cell [data-exact="${data.correlaciones.QV2M_toc}"]`,
+    ),
+  ).toHaveText("−0,02");
 });
 
 test("respetamos el tema del sistema y persistimos la preferencia", async ({
@@ -241,4 +284,65 @@ test("verificamos metadatos estaticos y el limite de imagenes", async ({
     }
   };
   await visit(path.resolve("public"));
+});
+
+test("conservamos el valor completo y los espacios duros en pantalla", async ({
+  page,
+}) => {
+  await page.goto(home);
+  await page.locator("#sensibilidad").scrollIntoViewIfNeeded();
+  await expect(page.locator(".sim-result > strong")).toHaveText(
+    "+0,44\u00a0MWh",
+  );
+  await expect(page.locator(".sim-result > strong .cifra")).toHaveAttribute(
+    "data-exact",
+    String(data.sensibilidad[0].cambio_estimado_mwh),
+  );
+  await expect(
+    page.locator(
+      `.sim-result [data-exact="${data.sensibilidad[0].cambio_estimado_pct}"]`,
+    ),
+  ).toHaveText("0,037%");
+  expect(await page.locator(".sim-result > strong").textContent()).toContain(
+    "\u00a0MWh",
+  );
+  const widths = await page
+    .locator(".sim-result > strong .cifra")
+    .evaluate(async (element) => {
+      await document.fonts.ready;
+      const style = getComputedStyle(element);
+      const probe = document.createElement("span");
+      Object.assign(probe.style, {
+        position: "absolute",
+        visibility: "hidden",
+        fontFamily: style.fontFamily,
+        fontSize: style.fontSize,
+        fontWeight: style.fontWeight,
+        fontVariantNumeric: "tabular-nums lining-nums",
+        fontFeatureSettings: style.fontFeatureSettings,
+      });
+      document.body.append(probe);
+      const sizes = Array.from({ length: 10 }, (_, i) => {
+        probe.textContent = String(i);
+        return probe.getBoundingClientRect().width;
+      });
+      probe.remove();
+      return sizes;
+    });
+  expect(Math.max(...widths) - Math.min(...widths)).toBeLessThan(0.02);
+  await page.locator("#clima").scrollIntoViewIfNeeded();
+  await expect(page.locator(".association")).toContainText(
+    "IC 95%: 18,33 a 27,11",
+  );
+  await expect(page.locator(".association")).toContainText("p < 0,001");
+  await expect(page.locator(".exact-p-note")).toContainText(
+    String(data.asociaciones[0].p_valor),
+  );
+  await page.locator("#inicio summary").click();
+  const row = page.locator("#inicio tbody tr").first();
+  await expect(row.locator("td")).toHaveText("1.069,3");
+  await expect(row.locator("td")).toHaveAttribute(
+    "data-exact",
+    String(data.demandaDiaria[0].demanda_mwh),
+  );
 });

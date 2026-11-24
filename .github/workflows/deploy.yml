@@ -35,6 +35,8 @@ jobs:
         run: npm run lint
       - name: revisar tipos
         run: npm run typecheck
+      - name: probar formatos numericos
+        run: npm run test:unit
       - name: probar interacciones del sitio
         run: npm run test:e2e
       - name: compilar exportacion estatica
