@@ -1,0 +1,222 @@
+{
+  "lcp_elementos": [
+    {
+      "type": "node",
+      "lhId": "page-0-H1",
+      "path": "1,HTML,1,BODY,4,MAIN,0,SECTION,2,DIV,0,DIV,1,H1",
+      "selector": "section#inicio > div.atlas-hero-grid > div > h1",
+      "boundingRect": {
+        "top": 267,
+        "bottom": 423,
+        "left": 16,
+        "right": 396,
+        "width": 380,
+        "height": 155
+      },
+      "snippet": "<h1>",
+      "nodeLabel": "El clima y la energía,\nen el mismo mapa."
+    },
+    {
+      "type": "node",
+      "lhId": "page-0-H1",
+      "path": "1,HTML,1,BODY,4,MAIN,0,SECTION,2,DIV,0,DIV,1,H1",
+      "selector": "section#inicio > div.atlas-hero-grid > div > h1",
+      "boundingRect": {
+        "top": 267,
+        "bottom": 423,
+        "left": 16,
+        "right": 396,
+        "width": 380,
+        "height": 155
+      },
+      "snippet": "<h1>",
+      "nodeLabel": "El clima y la energía,\nen el mismo mapa."
+    },
+    {
+      "type": "node",
+      "lhId": "page-0-H1",
+      "path": "1,HTML,1,BODY,4,MAIN,0,SECTION,2,DIV,0,DIV,1,H1",
+      "selector": "section#inicio > div.atlas-hero-grid > div > h1",
+      "boundingRect": {
+        "top": 267,
+        "bottom": 423,
+        "left": 16,
+        "right": 396,
+        "width": 380,
+        "height": 155
+      },
+      "snippet": "<h1>",
+      "nodeLabel": "El clima y la energía,\nen el mismo mapa."
+    }
+  ],
+  "commit": "9da5bed",
+  "referencia_rendimiento": 92,
+  "categorias": {
+    "performance": [
+      96,
+      93,
+      91
+    ],
+    "accessibility": [
+      100,
+      100,
+      100
+    ],
+    "best-practices": [
+      100,
+      100,
+      100
+    ],
+    "seo": [
+      100,
+      100,
+      100
+    ]
+  },
+  "url": "https://charrixxz23.github.io/enerclima-panama/",
+  "fechas": [
+    "2026-11-24T21:00:28.517Z",
+    "2026-11-24T21:00:43.591Z",
+    "2026-11-24T21:00:59.084Z"
+  ],
+  "entorno": [
+    {
+      "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/159.0.0.0 Mobile Safari/537.36",
+      "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.0.0 Safari/537.36",
+      "benchmarkIndex": 1536.5,
+      "credits": {
+        "axe-core": "4.14.0",
+        "ard": "0.91 (f073b1e)"
+      }
+    },
+    {
+      "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/159.0.0.0 Mobile Safari/537.36",
+      "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.0.0 Safari/537.36",
+      "benchmarkIndex": 1736,
+      "credits": {
+        "axe-core": "4.14.0",
+        "ard": "0.91 (f073b1e)"
+      }
+    },
+    {
+      "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/159.0.0.0 Mobile Safari/537.36",
+      "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.0.0 Safari/537.36",
+      "benchmarkIndex": 1513.5,
+      "credits": {
+        "axe-core": "4.14.0",
+        "ard": "0.91 (f073b1e)"
+      }
+    }
+  ],
+  "configuracion_red_cpu": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+  },
+  "lighthouse": "13.6.0",
+  "metodo": "simulate",
+  "metricas": {
+    "total-blocking-time": {
+      "corridas": [
+        231,
+        306,
+        364.5
+      ],
+      "mediana": 306
+    },
+    "largest-contentful-paint": {
+      "corridas": [
+        1064.834,
+        1020.831,
+        1092.838
+      ],
+      "mediana": 1064.834
+    },
+    "cumulative-layout-shift": {
+      "corridas": [
+        0,
+        0,
+        0
+      ],
+      "mediana": 0
+    },
+    "mainthread-work-breakdown": {
+      "corridas": [
+        1163.5879999999995,
+        1283.4719999999988,
+        1518.2920000000001
+      ],
+      "mediana": 1283.4719999999988
+    }
+  },
+  "javascript_no_usado_estimado_bytes": {
+    "corridas": [
+      62141,
+      62203,
+      62199
+    ],
+    "mediana": 62199
+  },
+  "cpu_por_url": [
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/794-961df89b69f69717.js",
+      "familia": "Next App Router y cliente RSC",
+      "total": 457.24799999999954,
+      "scripting": 400.80799999999954,
+      "scriptParseCompile": 16.276
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/",
+      "familia": "documento",
+      "total": 559.844,
+      "scripting": 9.927999999999997,
+      "scriptParseCompile": 13.684000000000001
+    },
+    {
+      "url": "Unattributable",
+      "familia": "sin atribucion",
+      "total": 249.10000000000093,
+      "scripting": 4.968000000000001,
+      "scriptParseCompile": 0
+    }
+  ],
+  "scripts_iniciales": [
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/webpack-fcf6bf20ecb84eab.js",
+      "bytes_transferidos": 2192,
+      "familia": "aplicacion o arranque",
+      "sha256": "73951def2a758bc6a3a8af3591fae225bb4823c0d61d7192f47e5f70182693b0"
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/4bd1b696-c7408084347438ae.js",
+      "bytes_transferidos": 64900,
+      "familia": "React DOM",
+      "sha256": "7d5ccf185a6f85ab38ce400a7f10aa0a3496eb4e9aee1e500a85e01c4222fcec"
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/794-961df89b69f69717.js",
+      "bytes_transferidos": 68589,
+      "familia": "Next App Router y cliente RSC",
+      "sha256": "91644cc378a99e5ed089aaf1561689ca949808541987e60bc052cffdef814600"
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/main-app-6dcbf784d92d1137.js",
+      "bytes_transferidos": 363,
+      "familia": "aplicacion o arranque",
+      "sha256": "026973f2b825346afd4e35dc7ac8a3ac2b904a2b3be3595fe0d8656602e0ab4c"
+    },
+    {
+      "url": "https://charrixxz23.github.io/enerclima-panama/_next/static/chunks/app/page-c317a5d33c956b98.js",
+      "bytes_transferidos": 7930,
+      "familia": "aplicacion o arranque",
+      "sha256": "9d884570fa554b479083dff334e59ae8fb3ab52689bd1d80b2943ac629207981"
+    }
+  ],
+  "bibliotecas_descargadas_al_inicio": {
+    "Recharts": false,
+    "Leaflet": false
+  }
+}

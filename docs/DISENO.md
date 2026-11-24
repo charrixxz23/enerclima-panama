@@ -183,3 +183,14 @@ En la comprobación local de esta corrección obtenemos TBT de 294 ms, LCP de 96
 
 
 La corrección 9cd5d8a eleva la mediana pública a 91, con TBT de 369 ms y accesibilidad 100, pero aún no aprueba la referencia 92. Conservamos [el diagnóstico intermedio](RENDIMIENTO_FASE2_INTERMEDIO.md). Reducimos además la navegación y los encabezados inmutables a bloques HTML opacos, escapando todo su texto. Retiramos el estado React del índice móvil y conservamos su apertura, cierre, foco y atributos ARIA mediante el controlador existente. No diferimos todo el arranque para ocultar trabajo a Lighthouse ni sustituimos la puerta pública por la corrida local.
+
+
+## Verificación pública final de la fase 2
+
+Medimos el código 9da5bed con tres corridas públicas: rendimiento 96, 93 y 91, mediana **93**, frente a la referencia 92. Obtenemos accesibilidad, buenas prácticas y SEO 100 en todas. Registramos TBT mediano de 306 ms, LCP de 1.064,8 ms sobre el h1 y CLS 0. Conservamos [las cifras por corrida y CPU por URL](RENDIMIENTO_FASE2.md), con su JSON, los dos diagnósticos fallidos anteriores y todos los informes originales. Conservamos la meta de 95 como pendiente y fijamos 93 como referencia inmediata para la siguiente fase. Mantenemos OneDrive activo.
+
+Aprobamos 22 pruebas unitarias y 13 pruebas locales de navegador, las cinco comprobaciones de compilación y las 13 pruebas completas contra GitHub Pages. Comprobamos las siete anchuras, el formato exacto, las tablas, el índice móvil con movimiento reducido y la ausencia de librerías de gráficos al inicio. Probamos además que Escape cierre el índice y devuelva el foco al botón.
+
+Comprobamos el peso real publicado en Linux por visitante: AVIF móvil 12.219 B, escritorio 30.839 B y ancho 66.736 B. La alternativa más pesada es WebP ancho, 112.090 B frente al máximo de 120.000 B. No sumamos las seis variantes. Conservamos las vistas previas bajo 250 KB y el tema exclusivamente claro.
+
+El commit de cierre documental conserva exactamente el árbol web del código medido. No añadimos otra pieza visual después de estas corridas. Reservamos la revisión final de los recursos de metadatos para la fase siguiente del plan.

@@ -140,3 +140,12 @@ python scripts/build_thermal_field.py --input "data/raw/continuous dataset.csv" 
 Construimos los límites de ocho secciones desde las medias semanales de temperatura muestreadas cada dos semanas del JSON original. Identificamos estación, periodo y conteo y ofrecemos la tabla completa de cada perfil sin cargarla al inicio. Entrelazamos el reloj, el campo de portada y la cifra de 2.403 h; adaptamos estos elementos al flujo móvil. Conservamos el tema claro y los datos originales.
 
 Regeneramos las formas y tablas con `node web/scripts/build-temporal-profiles.mjs`; también se ejecuta durante el build. Documentamos la procedencia, la escala de espacio, las siete anchuras y la referencia pública de rendimiento 92 en [DISENO.md](docs/DISENO.md). Conservamos el diagnóstico previo por script en [RENDIMIENTO_REVISION_PREVIA.md](docs/RENDIMIENTO_REVISION_PREVIA.md).
+
+
+### Verificación pública de la fase 2
+
+Cerramos la fase 2 después de aprobar lint, tipos, build, exportación, 22 pruebas unitarias y 13 pruebas contra GitHub Pages. Comprobamos siete anchuras, incluidas 360, 390 y 768 px, sin scroll horizontal. Preservamos el JSON original y mantenemos OneDrive activo.
+
+Obtenemos rendimiento público 96, 93 y 91, mediana **93**, frente a la referencia anterior de 92; accesibilidad, buenas prácticas y SEO alcanzan 100 en las tres corridas. Registramos TBT mediano de 306 ms, LCP de 1.065 ms sobre el h1 y CLS 0. Conservamos la meta de 95 como pendiente y tomamos 93 como nueva referencia. Publicamos métricas, cobertura estimada y CPU por script en [RENDIMIENTO_FASE2.md](docs/RENDIMIENTO_FASE2.md).
+
+Comprobamos el peso del hero por la única imagen elegida en cada visita: AVIF de 12.219 B en móvil, 30.839 B en escritorio y 66.736 B en pantalla ancha; la alternativa más pesada ocupa 112.090 B, bajo 120.000 B. Conservamos el tema claro y reservamos la revisión final de metadatos visuales para la siguiente fase del plan.

@@ -71,3 +71,10 @@ La primera publicación cb4f658 obtiene mediana 87 y no aprueba el cierre. Conse
 
 
 La primera corrección alcanza mediana pública 91 y accesibilidad 100, pero conservamos el cierre pendiente frente a 92. Reducimos después la hidratación de la navegación y los ocho encabezados estáticos. Aprobamos 22 pruebas unitarias y las 13 de navegador, además de lint, tipos, build y exportación, antes de medir de nuevo la versión pública.
+
+
+## Cierre verificado del Bloque B · fase 2
+
+Aprobamos la puerta de rendimiento con el código 9da5bed: corridas públicas 96, 93 y 91, mediana 93 frente a 92; las otras tres categorías alcanzan 100 en todas. Aprobamos 22 pruebas unitarias, 13 de navegador local y 13 contra GitHub Pages. Confirmamos datos originales idénticos, siete anchuras sin desbordamiento y la descarga de una sola imagen del campo por visita. Conservamos el diagnóstico completo en docs/RENDIMIENTO_FASE2.md y los informes originales en evidencias/rediseno.
+
+Cerramos esta fase después de corregir las mediciones fallidas de 87 y 91 y el contraste del reloj; no sustituimos las corridas públicas por la local ni cambiamos la referencia para aprobarlas. Mantenemos OneDrive activo, el tema claro y los datos privados fuera de Git. Conservamos la meta 95 como pendiente y establecemos 93 como referencia de la siguiente fase. La revisión final de metadatos visuales queda para esa fase; no damos por concluido todo el Bloque B.
