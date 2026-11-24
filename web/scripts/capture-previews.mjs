@@ -28,12 +28,15 @@ try {
     .evaluate((element) =>
       Math.ceil(element.getBoundingClientRect().bottom + window.scrollY),
     );
-  await page.setViewportSize({ width: 1440, height: bottom });
+  await page.setViewportSize({ width: 1440, height: bottom + 120 });
   await page.screenshot({ path: path.join(output, "portada-final.png") });
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page
     .locator("#sensibilidad")
     .screenshot({ path: path.join(output, "simulador-final.png") });
+  await page
+    .locator("#eventos")
+    .screenshot({ path: path.join(output, "eventos-final.png") });
   console.log("capturas finales guardadas");
 } finally {
   await browser.close();

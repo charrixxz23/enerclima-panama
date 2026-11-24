@@ -4,7 +4,6 @@ import { asset } from "../../lib/dashboard";
 import { fmtFechaCorta } from "../../lib/format";
 import { temperatureColor } from "../../lib/thermal";
 import Cifra from "../cifra";
-import ThermalTable from "../thermal-table";
 export default function ThermalField() {
   const q = summary.cuantiles.Tocumen;
   return (
@@ -119,7 +118,6 @@ export default function ThermalField() {
         <Cifra tipo="conteo" value={summary.agregacion.celdas_vacias} /> celdas
         vacías con rayado. Describimos coincidencias; no demostramos causalidad.
       </figcaption>
-      <ThermalTable />
     </figure>
   );
 }

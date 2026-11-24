@@ -8,7 +8,7 @@
 
 > **Cuando el clima cambia, la demanda también.** Exploramos asociaciones históricas entre clima regional y demanda nacional, con sus límites visibles.
 
-<picture><source srcset="web/public/previews/portada.avif" type="image/avif"><img src="web/public/previews/portada.webp" alt="Portada del atlas EnerClima Panamá" width="1200" height="714"></picture>
+<picture><source srcset="web/public/previews/portada.avif" type="image/avif"><img src="web/public/previews/portada.webp" alt="Portada del atlas EnerClima Panamá" width="1200" height="814"></picture>
 
 ## El problema que estudiamos
 

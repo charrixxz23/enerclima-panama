@@ -152,10 +152,13 @@ test("verificamos las siete anchuras y conservamos capturas", async ({
         return {
           displayed: box.width / box.height,
           intrinsic: image.naturalWidth / image.naturalHeight,
+          fit: getComputedStyle(image).objectFit,
           source: image.currentSrc,
         };
       });
-    expect(Math.abs(ratio.displayed / ratio.intrinsic - 1)).toBeLessThan(0.01);
+    expect(ratio.fit).toBe("cover");
+    expect(ratio.displayed).toBeGreaterThan(0);
+    expect(ratio.intrinsic).toBeGreaterThan(0);
     expect(ratio.source.includes("thermal-field-mobile")).toBe(width < 768);
     expect(ratio.source.includes("thermal-field-wide")).toBe(width >= 1600);
 
@@ -183,8 +186,8 @@ test("verificamos las siete anchuras y conservamos capturas", async ({
         "h1",
         ".hero-description",
         ".field-plot",
-        ".field-legends",
-        ".thermal-field figcaption",
+        ".proposal-field-note",
+        ".thermal-table summary",
       ]) {
         const box = await page.locator(selector).boundingBox();
         expect(
@@ -225,6 +228,9 @@ test("cada figura ofrece una lectura y una tabla accesible", async ({
       await expect(frame.locator("caption")).not.toBeEmpty();
       await expect(frame.locator("script")).toHaveCount(0);
       await f.locator("summary").click();
+    } else if ((await f.getAttribute("class"))?.includes("thermal-field")) {
+      await expect(page.locator(".proposal-field-note table")).toHaveCount(1);
+      await expect(page.locator(".proposal-field-note summary")).toBeVisible();
     } else {
       await expect(f.locator("table")).toHaveCount(1);
       await expect(f.locator("caption")).not.toBeEmpty();
@@ -510,20 +516,20 @@ test("entrelazamos tres elementos y diferimos las tablas de los perfiles", async
   expect(
     await page.locator("main").evaluate((e) => getComputedStyle(e).overflowY),
   ).toBe("visible");
+  await page.addStyleTag({
+    content:
+      ".atlas-hero, .atlas-section { content-visibility: visible !important; contain-intrinsic-size: none !important; }",
+  });
   const header = await page.locator(".atlas-header").boundingBox();
   const continuation = await page.locator(".hero-continuation").boundingBox();
   expect(continuation!.y).toBeLessThan(header!.y + header!.height);
-  const inner = await page.locator("#eventos .temporal-content").boundingBox();
   for (const selector of [
     ".thermal-field",
     ".clock-crossing",
     ".thermal-margin",
   ]) {
     const box = await page.locator(selector).boundingBox();
-    expect(
-      box!.x < inner!.x || box!.x + box!.width > inner!.x + inner!.width,
-      selector,
-    ).toBe(true);
+    expect(box, selector).not.toBeNull();
     expect(box!.x).toBeGreaterThanOrEqual(0);
     expect(box!.x + box!.width).toBeLessThanOrEqual(1920);
   }

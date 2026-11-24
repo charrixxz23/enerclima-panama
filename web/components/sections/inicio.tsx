@@ -2,6 +2,7 @@ import Cifra from "../cifra";
 import profiles from "../../public/data/temporal-profiles.json";
 import { asset } from "../../lib/dashboard";
 import ThermalField from "../data/thermal-field";
+import ThermalTable from "../thermal-table";
 import { dashboard as data } from "../../lib/data";
 import { fmtFechaCorta } from "../../lib/format";
 export default function Inicio() {
@@ -75,6 +76,7 @@ export default function Inicio() {
             temperatura
           </li>
         </ul>
+        <ThermalTable />
       </aside>
       <div className="proposal-metrics" aria-label="Cifras principales">
         <div>
