@@ -1,3 +1,4 @@
+import TemporalPanel from "../temporal-panel";
 import Cifra from "../cifra";
 import Fecha from "../fecha";
 import { asset } from "../../lib/dashboard";
@@ -8,7 +9,7 @@ import SectionHeading from "../section-heading";
 export default function Metodologia() {
   const p = data.particion;
   return (
-    <section id="metodologia" className="atlas-section">
+    <TemporalPanel id="metodologia">
       <SectionHeading
         index="07"
         label="Metodología"
@@ -68,6 +69,6 @@ export default function Metodologia() {
           ))}
         </ol>
       </aside>
-    </section>
+    </TemporalPanel>
   );
 }

@@ -1,9 +1,10 @@
+import TemporalPanel from "../temporal-panel";
 import { dashboard as data } from "../../lib/data";
 import SectionHeading from "../section-heading";
 import SensitivityExplorer from "../sensitivity-explorer";
 export default function Sensibilidad() {
   return (
-    <section id="sensibilidad" className="atlas-section">
+    <TemporalPanel id="sensibilidad">
       <SectionHeading
         index="05"
         label="Sensibilidad"
@@ -15,6 +16,6 @@ export default function Sensibilidad() {
         representa una respuesta física continua.
       </p>
       <SensitivityExplorer rows={data.sensibilidad} />
-    </section>
+    </TemporalPanel>
   );
 }

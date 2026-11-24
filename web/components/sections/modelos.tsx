@@ -1,3 +1,4 @@
+import TemporalPanel from "../temporal-panel";
 import Cifra from "../cifra";
 import Fecha from "../fecha";
 import { dashboard as data } from "../../lib/data";
@@ -5,7 +6,7 @@ import { dashboard as data } from "../../lib/data";
 import SectionHeading from "../section-heading";
 export default function Modelos() {
   return (
-    <section id="modelos" className="atlas-section">
+    <TemporalPanel id="modelos">
       <SectionHeading
         index="04"
         label="Modelos"
@@ -119,6 +120,6 @@ export default function Modelos() {
           evaluación rodante del modelo.
         </p>
       </aside>
-    </section>
+    </TemporalPanel>
   );
 }

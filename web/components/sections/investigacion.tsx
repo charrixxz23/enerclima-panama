@@ -1,10 +1,11 @@
+import TemporalPanel from "../temporal-panel";
 import Correlations from "../data/correlations";
 import { dashboard as data } from "../../lib/data";
 import SectionHeading from "../section-heading";
 const repo = "https://github.com/charrixxz23/enerclima-panama";
 export default function Investigacion() {
   return (
-    <section id="investigacion" className="atlas-section">
+    <TemporalPanel id="investigacion">
       <SectionHeading
         index="06"
         label="Investigación"
@@ -69,6 +70,6 @@ export default function Investigacion() {
           ETESA / CND · estadísticas del mercado eléctrico
         </a>
       </div>
-    </section>
+    </TemporalPanel>
   );
 }

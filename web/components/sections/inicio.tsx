@@ -1,10 +1,19 @@
 import Cifra from "../cifra";
+import profiles from "../../public/data/temporal-profiles.json";
+import { asset } from "../../lib/dashboard";
 import ThermalField from "../data/thermal-field";
 import { dashboard as data } from "../../lib/data";
 import { fmtFechaCorta } from "../../lib/format";
 export default function Inicio() {
   return (
     <section id="inicio" className="atlas-hero">
+      <div
+        className="hero-continuation"
+        aria-hidden="true"
+        style={{
+          maskImage: `url("${asset(profiles.profiles.observatorio.stroke)}")`,
+        }}
+      />
       <div className="hero-meta">
         <span>Atlas de demanda y clima</span>
         <span>

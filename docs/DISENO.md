@@ -2,7 +2,7 @@
 
 ## Alcance del Bloque B · fase 1
 
-Implementamos el sistema tipográfico, el papel cálido y el campo conjunto de demanda y temperatura. Conservamos los nueve anclajes, el rigor científico y la exportación estática bajo `/enerclima-panama`. Reservamos los contornos de sección, los tres desbordes deliberados y las anotaciones marginales para las fases siguientes.
+Implementamos el sistema tipográfico, el papel cálido y el campo conjunto de demanda y temperatura. Conservamos los nueve anclajes, el rigor científico y la exportación estática bajo `/enerclima-panama`. Completamos sus contornos, tres desbordes y anotaciones en la fase 2, descrita al final de este documento.
 
 Ofrecemos exclusivamente un tema claro en este alcance. Retiramos el selector, el script de preferencias, la paleta oscura y el mapa oscuro. Ignoramos las preferencias oscuras antiguas guardadas y las del sistema; no mantenemos un segundo sistema visual.
 
@@ -113,7 +113,7 @@ Conservamos el estado final sin animaciones con movimiento reducido, foco visibl
 
 Verificamos overflow horizontal en 360, 390 y 768 px, además de las otras tres anchuras existentes, después de recorrer todas las secciones. Comprobamos también que el titular, la descripción, el campo, sus leyendas y la lectura no se recorten en móvil.
 
-Conservamos para las fases siguientes la escala irregular aprobada de espaciado, los límites curvos derivados de `temperaturaRegional`, los tres elementos que cruzan el gutter, las anotaciones guiadas por datos y la renovación final de los recursos de metadatos. Comprobamos los mismos límites móviles antes de cerrar cada fase.
+Implementamos la escala irregular, los límites curvos, los tres elementos que cruzan el margen y la anotación guiada por datos en la fase 2. Reservamos la renovación final de los recursos de metadatos para la fase siguiente. Comprobamos los mismos límites móviles antes de cerrar cada fase.
 
 ## Verificación de la fase 1
 
@@ -124,3 +124,45 @@ En la comprobación local final obtuvimos rendimiento 91, 91 y 94 (mediana 91) y
 ## Diagnóstico antes de abrir la fase 2
 
 Entregamos el [diagnóstico público por métrica y script](RENDIMIENTO_ANTES_FASE2.md), con su JSON de cifras. Medimos TBT, LCP y su elemento, CLS, cobertura estimada sin usar y tiempos del hilo principal por URL. Verificamos que Recharts y Leaflet no se descarguen al inicio y que entren al consultar sus secciones. Optamos por perfiles de servidor y máscaras precalculadas, sin nuevas islas cliente, para conservar esa separación.
+
+
+## Revisión previa y referencia de la fase 2
+
+Resolvemos los cinco puntos de revisión antes de abrir esta fase. Conservamos el diagnóstico de la fase 1 en RENDIMIENTO_ANTES_FASE2.md y registramos la medición posterior a las correcciones en [RENDIMIENTO_REVISION_PREVIA.md](RENDIMIENTO_REVISION_PREVIA.md), commit `1697177`. En esta última obtenemos rendimiento 94, 92 y 89, mediana **92**, que pasa a ser la referencia obligatoria. Registramos TBT de 349 ms, LCP de 1.050 ms sobre el h1, CLS de 0 y 61.997 B de JavaScript estimado sin usar. Recharts y Leaflet siguen aportando 0 B y 0 ms a la carga inicial; no los confundimos con el trabajo de React DOM y Next.
+
+## Bloque B · fase 2: perfiles y secciones entrelazadas
+
+Derivamos ocho perfiles de `temperaturaRegional` de dashboard.json, sin alterar ese archivo. La serie contiene medias semanales muestreadas cada dos semanas: el generador original usa `resample("W").mean()` y luego `iloc[::2]`. No las presentamos como medias de dos semanas ni como datos horarios. Elegimos explícitamente estación y periodo para cada sección:
+
+| Sección | Estación | Periodo | Puntos | Primera y última fecha |
+|---|---|---|---:|---|
+| observatorio | Tocumen | completo | 144 | 2015-01-04 → 2020-06-28 |
+| clima | Santiago | completo | 144 | 2015-01-04 → 2020-06-28 |
+| eventos | David | completo | 144 | 2015-01-04 → 2020-06-28 |
+| modelos | Santiago | validacion | 21 | 2018-11-18 → 2019-08-25 |
+| sensibilidad | Tocumen | prueba | 21 | 2019-09-08 → 2020-06-14 |
+| investigacion | David | entrenamiento | 100 | 2015-01-18 → 2018-11-04 |
+| metodologia | Santiago | entrenamiento | 100 | 2015-01-18 → 2018-11-04 |
+| equipo | David | prueba | 21 | 2019-09-08 → 2020-06-14 |
+
+Compartimos el dominio vertical de las tres estaciones completas, de 23,1 a 30,3 °C; conservamos sus extremos exactos en `temporal-profiles.json`. Normalizamos la fecha de cada periodo a 0–1. No usamos estas formas para comparar duraciones entre periodos. Usamos toda la serie regional en Observatorio, Clima y Eventos, la ventana de validación en Modelos y la de prueba en Sensibilidad. Retomamos entrenamiento en Investigación y Metodología y prueba en Equipo como cierre visual; no atribuimos una variable climática al equipo humano. Las etiquetas declaran siempre estación, periodo, conteo y rango.
+
+Unimos los puntos con cúbicas monótonas limitadas para evitar nuevos extremos entre muestras. Conservamos la amplitud relativa entre estaciones con el dominio común. Reflejamos la curva únicamente en el cierre inferior de la sección; ese reflejo es composición y no una segunda serie observada. No llamamos isotermas a estos perfiles.
+
+Generamos SVG externos con clipPath real y los utilizamos como máscaras CSS para recortar la superficie y dibujar su borde. No añadimos miles de nodos al DOM, nuevas bibliotecas ni componentes cliente. Producimos tablas HTML estáticas con todas las fechas y valores completos, enlazadas desde cada figura en details, dentro de iframe nativo con loading="lazy". Comprobamos que las ocho tablas no se soliciten en la carga inicial y que, al abrirlas, sus filas y valores coincidan con el JSON original. Aplicamos los formateadores centrales y conservamos data-exact y title.
+
+Regeneramos las 24 piezas SVG, las ocho tablas y el manifiesto desde la raíz con:
+
+```sh
+node web/scripts/build-temporal-profiles.mjs
+```
+
+Ejecutamos también el generador automáticamente en prebuild. Registramos el SHA-256 de dashboard.json: `bbe505c36a73ce31cb1030341ec46260eba9c46665fad2ec0a4cb2981a34fd17`. Conservamos el trazado en tinta; la rampa térmica permanece reservada a valores de temperatura.
+
+Entrelazamos el reloj radial entre Observatorio y Clima, con 64 px de solapamiento en escritorio y un ancho máximo 160 px mayor que la columna central. Extendemos el campo del hero hasta el margen de 16 px de la ventana y colgamos la cifra de 2.403 h a la izquierda de la columna desde 1.920 px. Estos son los tres elementos que rompen el margen central. Repetimos el perfil de Tocumen por detrás de la navegación y mantenemos una base de papel bajo sus enlaces. Permitimos pintura vertical del main y recortamos solo su eje horizontal: no escondemos esa continuación con overflow:clip en ambos ejes.
+
+Vinculamos la anotación de Tocumen a las 2.403 horas sobre 30,4 °C del registro de Eventos, con aria-describedby y una guía arqueada cuyo extremo llega al conteo. No añadimos una nueva interpretación causal. En móvil devolvemos el reloj y la anotación al flujo, ocultamos la guía y retiramos el desplazamiento del titular. Verificamos 360, 390 y 768 px y extendemos la prueba a 1.024, 1.440, 1.920 y 2.560 px; comprobamos el contenido después de recorrer todos los anclajes.
+
+Elegimos 80 px de espacio interior ordinario en escritorio, 48 px en Eventos y 128 px en Metodología. Hacemos Eventos más compacto para leer sus umbrales juntos y damos a Metodología más pausa para sus criterios y limitaciones. En móvil reducimos esos espacios a 48, 32 y 64 px, respectivamente. Diferenciamos también la altura de sus curvas: 128, 80 y 160 px en escritorio. No uniformamos todas las secciones ni usamos alturas elegidas al azar.
+
+Conservamos foco visible, jerarquía de encabezados, tablas y movimiento reducido. Mantenemos el contorno legible sobre ambas superficies y damos al texto térmico del umbral un fondo de papel para conservar el contraste 4,70:1. Usamos content-visibility en las secciones fuera de pantalla; imprimimos su contenido completo. Continuamos exclusivamente con tema claro.

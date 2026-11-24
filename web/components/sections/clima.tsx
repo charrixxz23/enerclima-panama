@@ -1,3 +1,4 @@
+import TemporalPanel from "../temporal-panel";
 import DataTable from "../data-table";
 import { dashboard as data } from "../../lib/data";
 
@@ -6,7 +7,7 @@ import LazyMap from "../lazy-map";
 import ClimateExplorer from "../climate-explorer";
 export default function Clima() {
   return (
-    <section id="clima" className="atlas-section">
+    <TemporalPanel id="clima">
       <SectionHeading
         index="02"
         label="Clima regional"
@@ -41,6 +42,6 @@ export default function Clima() {
         </figure>
         <ClimateExplorer associations={data.asociaciones} />
       </div>
-    </section>
+    </TemporalPanel>
   );
 }

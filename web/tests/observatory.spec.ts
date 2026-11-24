@@ -66,7 +66,7 @@ test("conservamos anclajes y resultados exactos del JSON", async ({ page }) => {
   }
   for (const r of data.eventos)
     await expect(
-      page.locator(`#eventos [data-exact="${r.percentil_95_c}"]`),
+      page.locator(`#eventos .event-ledger [data-exact="${r.percentil_95_c}"]`),
     ).toHaveText(`${fmtTemp(r.percentil_95_c)}\u00a0°C`);
   await expect(page.locator("#metodologia .rounding-policy")).toContainText(
     "cuatro cifras significativas",
@@ -214,8 +214,21 @@ test("cada figura ofrece una lectura y una tabla accesible", async ({
   expect(await figures.count()).toBeGreaterThanOrEqual(6);
   for (const f of await figures.all()) {
     await expect(f.locator("figcaption")).not.toBeEmpty();
-    await expect(f.locator("table")).toHaveCount(1);
-    await expect(f.locator("caption")).not.toBeEmpty();
+    if ((await f.getAttribute("class"))?.includes("temporal-profile")) {
+      await f.scrollIntoViewIfNeeded();
+      await f.locator("summary").click();
+      const frame = f.frameLocator("iframe");
+      await expect(frame.locator("table")).toHaveCount(1);
+      await expect(frame.locator("tbody tr")).toHaveCount(
+        Number(await f.getAttribute("data-profile-count")),
+      );
+      await expect(frame.locator("caption")).not.toBeEmpty();
+      await expect(frame.locator("script")).toHaveCount(0);
+      await f.locator("summary").click();
+    } else {
+      await expect(f.locator("table")).toHaveCount(1);
+      await expect(f.locator("caption")).not.toBeEmpty();
+    }
   }
   await page.locator("#inicio summary").click();
   await expect(page.locator("#inicio tbody tr")).toHaveCount(24);
@@ -457,4 +470,71 @@ test("descargamos una sola imagen del campo por visitante", async ({
     expect((await resource.body()).length).toBeLessThanOrEqual(120000);
     page.off("response", listener);
   }
+});
+
+test("entrelazamos tres elementos y diferimos las tablas de los perfiles", async ({
+  page,
+}) => {
+  const tables: string[] = [];
+  page.on("request", (request) => {
+    if (/\/data\/profiles\/.*\.html$/.test(request.url()))
+      tables.push(request.url());
+  });
+  await page.setViewportSize({ width: 1920, height: 1000 });
+  await page.goto(home);
+  await page.waitForLoadState("networkidle");
+  expect(tables).toEqual([]);
+  const ids = [
+    "observatorio",
+    "clima",
+    "eventos",
+    "modelos",
+    "sensibilidad",
+    "investigacion",
+    "metodologia",
+    "equipo",
+  ];
+  for (const id of ids) {
+    await expect(
+      page.locator(`#${id} .profile-details iframe`),
+    ).toHaveAttribute("loading", "lazy");
+    await page.locator(`#${id}`).scrollIntoViewIfNeeded();
+  }
+  await page.locator(".clock-context").scrollIntoViewIfNeeded();
+  await expect(page.locator(".clock-context")).toContainText("1.384,9");
+  await expect(page.getByRole("img", { name: "Reloj radial de demanda media por hora" })).toBeVisible();
+  expect(
+    await page.locator("main").evaluate((e) => getComputedStyle(e).overflowY),
+  ).toBe("visible");
+  const header = await page.locator(".atlas-header").boundingBox();
+  const continuation = await page.locator(".hero-continuation").boundingBox();
+  expect(continuation!.y).toBeLessThan(header!.y + header!.height);
+  const inner = await page.locator("#eventos .temporal-content").boundingBox();
+  for (const selector of [
+    ".thermal-field",
+    ".clock-crossing",
+    ".thermal-margin",
+  ]) {
+    const box = await page.locator(selector).boundingBox();
+    expect(
+      box!.x < inner!.x || box!.x + box!.width > inner!.x + inner!.width,
+      selector,
+    ).toBe(true);
+    expect(box!.x).toBeGreaterThanOrEqual(0);
+    expect(box!.x + box!.width).toBeLessThanOrEqual(1920);
+  }
+  await expect(page.locator("#horas-tocumen")).toHaveAttribute(
+    "aria-describedby",
+    "annotation-p95",
+  );
+  expect(
+    await page
+      .locator("#eventos .temporal-content")
+      .evaluate((e) => getComputedStyle(e).paddingTop),
+  ).toBe("48px");
+  expect(
+    await page
+      .locator("#metodologia .temporal-content")
+      .evaluate((e) => getComputedStyle(e).paddingTop),
+  ).toBe("128px");
 });

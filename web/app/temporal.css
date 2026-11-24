@@ -1,0 +1,276 @@
+@layer atlas.refinements {
+  main {
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+  .atlas-hero {
+    width: 100%;
+    margin-inline: 0;
+    position: relative;
+    isolation: isolate;
+  }
+  .hero-meta,
+  .atlas-hero-grid,
+  .hero-bottom {
+    width: min(calc(100% - 2rem), var(--measure));
+    margin-inline: auto;
+  }
+  .thermal-field {
+    width: calc(100% - 2rem);
+    margin-inline: auto;
+  }
+  .hero-continuation {
+    position: absolute;
+    z-index: -1;
+    top: -10rem;
+    left: 0;
+    width: 100%;
+    height: 16rem;
+    background: var(--text);
+    opacity: 0.18;
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    pointer-events: none;
+  }
+  .atlas-header {
+    position: relative;
+    z-index: 2;
+  }
+  .atlas-nav a {
+    background: var(--paper);
+  }
+  .temporal-panel.atlas-section {
+    --curve-height: 6rem;
+    --section-space: 3rem;
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    margin: 0;
+    padding-block: 0 var(--curve-height);
+    border: 0;
+    content-visibility: auto;
+    contain-intrinsic-size: auto var(--section-estimate);
+  }
+  .temporal-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--surface);
+    mask-image:
+      var(--profile-top), linear-gradient(#000, #000), var(--profile-bottom);
+    mask-size:
+      100% var(--curve-height),
+      100% calc(100% - var(--curve-height) - var(--curve-height) + 2px),
+      100% var(--curve-height);
+    mask-position: top, center, bottom;
+    mask-repeat: no-repeat;
+    pointer-events: none;
+  }
+  .temporal-content,
+  .profile-caption {
+    width: min(calc(100% - 2rem), var(--measure));
+    margin-inline: auto;
+  }
+  .temporal-content {
+    position: relative;
+    padding-block: var(--section-space);
+  }
+  .temporal-profile {
+    padding-top: var(--curve-height);
+  }
+  .profile-stroke {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: var(--curve-height);
+    background: var(--text);
+    opacity: 0.6;
+    mask-image: var(--profile-stroke);
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    pointer-events: none;
+  }
+  .profile-caption {
+    color: var(--secondary);
+    font-size: var(--text-xs);
+    display: grid;
+    gap: 0.5rem;
+  }
+  .profile-caption figcaption {
+    margin: 0;
+    font-size: inherit;
+    max-width: 90ch;
+  }
+  .profile-details {
+    max-width: 100%;
+  }
+  .profile-details summary {
+    padding-block: 0.5rem;
+  }
+  .profile-details iframe {
+    display: block;
+    width: 100%;
+    height: 19rem;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    margin-block: 1rem;
+  }
+  .profile-details p {
+    margin-block: 0.5rem;
+  }
+  #eventos.temporal-panel {
+    --curve-height: 4rem;
+    --section-space: 2rem;
+  }
+  #metodologia.temporal-panel {
+    --curve-height: 8rem;
+    --section-space: 4rem;
+  }
+  #equipo.temporal-panel {
+    --section-estimate: 36rem;
+  }
+  #observatorio .data-ledger {
+    border: 0;
+    padding-top: 0;
+  }
+  .signature-grid {
+    display: block;
+  }
+  .event-ledger article,
+  .event-ledger dl > div {
+    border: 0;
+  }
+  .event-annotations {
+    position: relative;
+  }
+  .thermal-margin {
+    margin-bottom: 1.5rem;
+    max-width: 32rem;
+  }
+  .annotation-value {
+    display: block;
+    font-size: 2.25rem;
+    font-weight: 600;
+    line-height: 1.05;
+    margin-bottom: 0.5rem;
+  }
+  .annotation-leader {
+    display: none;
+  }
+  .clock-crossing {
+    width: min(calc(100% - 2rem), calc(var(--measure) + 10rem));
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 2rem;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 36rem;
+  }
+  .clock-crossing > .clock-figure {
+    width: min(100%, 26rem);
+    justify-self: center;
+  }
+  .clock-context {
+    align-self: center;
+    max-width: 42ch;
+  }
+  .clock-context > p:not(.kicker) {
+    font-size: 1.15rem;
+  }
+  @media (min-width: 768px) {
+    .hero-meta,
+    .atlas-hero-grid,
+    .hero-bottom,
+    .temporal-content,
+    .profile-caption {
+      width: min(calc(100% - 4rem), var(--measure));
+    }
+    .temporal-panel.atlas-section {
+      --curve-height: 8rem;
+      --section-space: 5rem;
+    }
+    #eventos.temporal-panel {
+      --curve-height: 5rem;
+      --section-space: 3rem;
+    }
+    #metodologia.temporal-panel {
+      --curve-height: 10rem;
+      --section-space: 8rem;
+    }
+    .profile-caption {
+      grid-template-columns: minmax(0, 1fr) minmax(16rem, 24rem);
+      gap: 2rem;
+      align-items: start;
+    }
+  }
+  @media (min-width: 1024px) {
+    .atlas-hero h1 {
+      transform: translateX(-1rem);
+    }
+    .clock-crossing {
+      margin-block: -4rem;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .clock-context {
+      padding-left: 4rem;
+    }
+    .clock-crossing > .clock-figure {
+      justify-self: end;
+    }
+  }
+  @media (min-width: 1920px) {
+    .atlas-hero h1 {
+      transform: translateX(-2rem);
+    }
+    .thermal-margin {
+      position: absolute;
+      left: -166px;
+      top: 0;
+      width: 150px;
+      margin: 0;
+      font-size: 0.875rem;
+    }
+    .annotation-value {
+      font-size: 3.5rem;
+    }
+    .annotation-leader {
+      display: block;
+      position: absolute;
+      left: calc(100% - 8px);
+      top: 120px;
+      width: 96px;
+      height: 112px;
+      overflow: visible;
+      fill: none;
+      stroke: var(--text);
+      stroke-width: 1.2;
+      pointer-events: none;
+    }
+    .annotation-leader circle {
+      fill: var(--paper);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .temporal-profile,
+    .clock-crossing {
+      animation: none;
+    }
+  }
+  @media print {
+    .temporal-panel.atlas-section,
+    .clock-crossing {
+      content-visibility: visible;
+      contain-intrinsic-size: none;
+    }
+  }
+}
+
+@layer atlas.refinements {
+  .thermal-value strong {
+    background: var(--paper);
+    padding-inline: 0.25rem;
+  }
+}

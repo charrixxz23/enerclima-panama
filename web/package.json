@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "test:export": "node scripts/verify-static-export.mjs",
-    "prebuild": "node scripts/build-data-art.mjs && node scripts/build-thermal-art.mjs",
+    "prebuild": "node scripts/build-data-art.mjs && node scripts/build-thermal-art.mjs && node scripts/build-temporal-profiles.mjs",
     "test:unit": "node --test unit/*.test.mjs"
   },
   "dependencies": {

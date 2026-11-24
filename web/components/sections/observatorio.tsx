@@ -1,5 +1,5 @@
+import TemporalPanel from "../temporal-panel";
 import Cifra from "../cifra";
-import DemandClock from "../data/demand-clock";
 import MonthlyHorizon from "../data/monthly-horizon";
 import { dashboard as data } from "../../lib/data";
 import { fmtFechaCorta } from "../../lib/format";
@@ -8,7 +8,7 @@ import DataTable from "../data-table";
 import LazyChart from "../lazy-chart";
 export default function Observatorio() {
   return (
-    <section id="observatorio" className="atlas-section">
+    <TemporalPanel id="observatorio">
       <SectionHeading
         index="01"
         label="Observatorio energético"
@@ -88,13 +88,12 @@ export default function Observatorio() {
         </figure>
       </div>
       <div className="signature-grid">
-        <DemandClock rows={data.perfilHorario} />
         <MonthlyHorizon rows={data.demandaMensual} />
       </div>
       <p className="source-note">
         Fuente: CND de Panamá y NASA Earthdata, integrados en Short-term
         electricity load forecasting (Panama).
       </p>
-    </section>
+    </TemporalPanel>
   );
 }

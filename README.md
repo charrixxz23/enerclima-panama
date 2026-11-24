@@ -8,7 +8,7 @@
 
 > **El clima y la energía, en el mismo mapa.** Exploramos asociaciones históricas entre clima regional y demanda nacional, con sus límites visibles.
 
-<picture><source srcset="web/public/previews/portada.avif" type="image/avif"><img src="web/public/previews/portada.webp" alt="Portada del atlas EnerClima Panamá" width="1200" height="1328"></picture>
+<picture><source srcset="web/public/previews/portada.avif" type="image/avif"><img src="web/public/previews/portada.webp" alt="Portada del atlas EnerClima Panamá" width="1200" height="1368"></picture>
 
 ## El problema que estudiamos
 
@@ -32,7 +32,7 @@ Trabajamos con una serie horaria entre enero de 2015 y junio de 2020. El conjunt
 - Ajustamos escenarios de temperatura en un simulador basado en el modelo.
 - Leemos metodología, referencias y limitaciones junto a los resultados.
 
-<picture><source srcset="web/public/previews/simulador.avif" type="image/avif"><img src="web/public/previews/simulador.webp" alt="Explorador de sensibilidad del modelo" width="1200" height="1120"></picture>
+<picture><source srcset="web/public/previews/simulador.avif" type="image/avif"><img src="web/public/previews/simulador.webp" alt="Explorador de sensibilidad del modelo" width="1200" height="1276"></picture>
 
 ## Tecnologías y arquitectura
 
@@ -116,7 +116,7 @@ Alojamos Fraunces para titulares, Source Sans 3 para párrafos y Barlow Condense
 
 Documentamos los tokens, el uso de color, las pruebas y las mediciones en [docs/DISENO.md](docs/DISENO.md). Conservamos las evidencias completas en la carpeta local ignorada `evidencias/rediseno/`.
 
-Antes del Bloque A verificamos nueve pruebas contra el sitio publicado y la exportación con su subruta. En las tres mediciones públicas actuales obtuvimos una mediana móvil de 86 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO. Mantenemos pendiente la meta de rendimiento ≥95; documentamos las corridas y sus condiciones en el sistema de diseño.
+Antes del Bloque A verificamos nueve pruebas contra el sitio publicado y la exportación con su subruta. En las tres mediciones públicas anteriores al Bloque A obtuvimos una mediana móvil de 86 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO. Mantenemos pendiente la meta de rendimiento ≥95; documentamos las corridas y sus condiciones en el sistema de diseño.
 
 ## Presentación numérica
 
@@ -133,3 +133,10 @@ Regeneramos los agregados desde la raíz con:
 ```sh
 python scripts/build_thermal_field.py --input "data/raw/continuous dataset.csv" --output "web/public/data/thermal-field.json"
 ```
+
+
+## Perfiles temporales · fase 2
+
+Construimos los límites de ocho secciones desde las medias semanales de temperatura muestreadas cada dos semanas del JSON original. Identificamos estación, periodo y conteo y ofrecemos la tabla completa de cada perfil sin cargarla al inicio. Entrelazamos el reloj, el campo de portada y la cifra de 2.403 h; adaptamos estos elementos al flujo móvil. Conservamos el tema claro y los datos originales.
+
+Regeneramos las formas y tablas con `node web/scripts/build-temporal-profiles.mjs`; también se ejecuta durante el build. Documentamos la procedencia, la escala de espacio, las siete anchuras y la referencia pública de rendimiento 92 en [DISENO.md](docs/DISENO.md). Conservamos el diagnóstico previo por script en [RENDIMIENTO_REVISION_PREVIA.md](docs/RENDIMIENTO_REVISION_PREVIA.md).

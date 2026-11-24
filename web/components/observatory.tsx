@@ -1,3 +1,4 @@
+import ClockCrossing from "./data/clock-crossing";
 import Motion from "./motion";
 import Navigation from "./navigation";
 import Footer from "./footer";
@@ -20,6 +21,7 @@ export default function Observatory() {
       <main id="contenido">
         <Inicio />
         <Observatorio />
+        <ClockCrossing />
         <Clima />
         <Eventos />
         <Modelos />

@@ -1,7 +1,8 @@
+import TemporalPanel from "../temporal-panel";
 import SectionHeading from "../section-heading";
 export default function Equipo() {
   return (
-    <section id="equipo" className="atlas-section">
+    <TemporalPanel id="equipo">
       <SectionHeading
         index="08"
         label="Equipo"
@@ -23,6 +24,6 @@ export default function Equipo() {
           <li>Abisai Bellamy</li>
         </ul>
       </div>
-    </section>
+    </TemporalPanel>
   );
 }
